@@ -1,0 +1,23 @@
+
+<div class="col-md-12 search-listing {% if listing.ignored %}ignored{% endif %}">
+	{% if listing.ignored and listing.ignored_reason %}
+	<p class="ignore-reason">{{ listing.ignored_reason }}</p>
+	{% endif %}
+	<h3><a href="{{ listing.url }}" target="_blank">£{{ listing.price_per_month }}pcm {{ listing.title|truncatechars:80 }}</a></h3>
+	<div class="info row">
+		<div class="area col-md-4">{{ listing.area }}</div>
+		<div class="posted col-md-4">{{ listing.date_posted|timesince }} ago</div>
+		<div class="available col-md-4">Available: {{ listing.date_available|date:"SHORT_DATE_FORMAT" }}</div>
+	</div>
+
+	<div class="images row">
+		{% for img in listing.listingimage_set.all %}
+			<img src="{{ img.url }}">
+		{% endfor %}
+	</div>
+
+	<div class="description row">
+		<pre>{{ listing.long_description }}</pre>
+	</div>
+
+</div>

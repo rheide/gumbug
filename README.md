@@ -9,5 +9,6 @@ This project is supposed to be a rather specific Gumtree scraper that caters to 
 - Filter by multiple distances for specific tube lines ("less than 1.0 miles walk to a Metropolitan line station")
 - Filter by travel distance to a certain station ("from nearest tube station to Euston in under 40 minutes")
 - Filter by depravity index (http://opendatacommunities.org/deprivation/map)
+- "Do not show again" option for certain ads, to move them down for subsequent searches
 
 Obviously I will never have time to do all this, so I'm posting this project on Github as partially complete while I work on it.

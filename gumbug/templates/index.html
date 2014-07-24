@@ -1,0 +1,32 @@
+{% extends "_base.html" %}
+
+{% block body %}
+
+<h1>Gumbug</h1>
+
+<div class="col-md-9">
+	<form action="{% url 'create_search' %}" method="POST">
+	{% csrf_token %}
+	
+	<p>Paste your Gumtree rental apartment search listing URLs here. (<a href="http://www.gumtree.com/flats-and-houses-for-rent/harrow/studio?distance=1.0&photos_filter=Y&price=up_to_200&seller_type=private" target="_blank">Example: http://www.gumtree.com/flats-and-houses-for-rent/harrow/studio?distance=1.0&photos_filter=Y&price=up_to_200&seller_type=private</a> )</p>
+
+	{% for i in "1234567890" %}
+		<p>
+			<input type="text" name="url{{ forloop.counter1 }}" value="" class="input-large">
+		</p>
+	{% endfor %}
+
+	<select name="page_count">
+		<option value="1" selected>1</option>
+		<option value="2">2</option>
+		<option value="3">3</option>
+		<option value="4">4</option>
+		<option value="5">5</option>
+	</select>
+
+	<input type="submit" value="Create search">
+
+	</form>
+</div>
+
+{% endblock %}

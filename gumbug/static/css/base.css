@@ -1,0 +1,52 @@
+@media (min-width: 1200px)
+.container {
+	width: 1170px;
+}
+@media (min-width: 992px)
+.container {
+	width: 970px;
+}
+@media (min-width: 768px)
+.container {
+	width: 750px;
+}
+.container {
+	padding-right: 15px;
+	padding-left: 15px;
+	margin-right: auto;
+	margin-left: auto;
+}
+
+input.input-large {
+	width: 100%;
+}
+
+div.search-listing {
+	margin-bottom: 16px;
+	padding-bottom: 16px;
+	border-bottom: 1px solid #ddd;
+}
+
+div.search-listing pre {
+	background-color: inherit;
+	font-family: inherit;
+	border: none;
+}
+
+div.row.info {
+	font-weight: bold;
+}
+
+div.images {
+	padding: 8px;
+}
+
+div.search-listing.ignored {
+	background-color: #DDD;
+}
+
+.ignore-reason {
+	padding-top: 8px;
+	font-weight: bold;
+	color: red;
+}

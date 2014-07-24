@@ -1,0 +1,24 @@
+{% extends '_base.html' %}
+
+{% block body %}
+<h1>[{{ search.modified|date:"SHORT_DATETIME_FORMAT" }}] - Gumbug search</h1>
+
+Showing results from:
+<ul>
+{% for search_url in search.searchurl_set.all %}
+	<li><a href="{{ search_url.url }}" target="_blank">{{ search_url.url }}</a></li>
+{% endfor %}
+</ul>
+
+{% for listing in listings %}
+	{% include "_listing.html" %}
+{% endfor %}
+
+{% if ignored_listings %}
+<div class="row"><h4>Ignored listings</h4></div>
+{% for listing in ignored_listings %}
+	{% include "_listing.html" %}
+{% endfor %}
+{% endif %}
+
+{% endblock %}
