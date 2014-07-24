@@ -125,6 +125,23 @@ class Listing(BaseModel):
         else:
             return "N/A"
 
+    def load_details_from_gumtree(self, html):
+        self.long_description = html.find("div", {'id': "vip-description-text"}).text.strip()
+
+        # Load images
+        for i in range(20):
+            image_html = html.find("ul", {'class': "gallery-main"}).find("li", {'id': "gallery-item-mid-%s" % i})
+            if not image_html:
+                continue
+            image = ListingImage(listing=self)
+            image.url = image_html.find("img")['src']
+            thumbnail_html = html.find("ul", {'class': 'gallery-thumbs'}).find("a", {'href': "#gallery-item-mid-%s" % i})
+            image.thumbnail_url = thumbnail_html.find("img")['src']
+            image.position = i
+            image.save()
+
+        self.save()
+
     @classmethod
     def from_gumtree(cls, html):
         result = cls()

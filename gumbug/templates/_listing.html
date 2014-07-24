@@ -1,5 +1,5 @@
 
-<div class="col-md-12 search-listing {% if listing.ignored %}ignored{% endif %}">
+<div id="listing-{{ listing.id }}" class="col-md-12 search-listing {% if listing.ignored %}ignored{% endif %}">
 	{% if listing.ignored and listing.ignored_reason %}
 	<p class="ignore-reason">{{ listing.ignored_reason }}</p>
 	{% endif %}
@@ -17,11 +17,19 @@
 	</div>
 
 	<div class="description row">
-		{% if listing.long_description %}
-		<pre>{{ listing.long_description }}</pre>
-		{% else %}
-		<pre>{{ listing.short_description }}</pre>
-		{% endif %}
+		<div class="col-md-6">
+			<a class="btn btn-danger" title="Move this ad to the bottom and ignore it in future searches">Ignore</a>
+			{% if listing.long_description %}
+			<pre>{{ listing.long_description }}</pre>
+			{% else %}
+			<pre>{{ listing.short_description }}</pre>
+			{% endif %}
+		</div>
+		<div class="col-md-6">
+			<div style="background-color:#BBB; min-height:320px;">
+				Map will go here
+			</div>
+		</div>
 	</div>
 
 </div>
