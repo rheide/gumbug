@@ -3,4 +3,5 @@ dj-database-url==0.2.1
 -e git://github.com/django/django.git@b159b55997989b42dd9b82af578ca7ab01a2192d#egg=Django
 gunicorn==0.16.1
 psycopg2==2.4.5
+pytz==2012h
 requests==2.3.0
