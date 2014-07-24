@@ -28,6 +28,9 @@ INSTALLED_APPS = (
     'gumbug',
 )
 
+if ON_PRODUCTION_SERVER:
+    INSTALLED_APPS += ('gunicorn',)
+
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
