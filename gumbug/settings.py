@@ -11,7 +11,9 @@ DEBUG = not ON_PRODUCTION_SERVER  # False for live site
 TEMPLATE_DEBUG = DEBUG
 
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    ".floating-forest-4090.herokuapp.com"
+]
 
 
 # Application definition
