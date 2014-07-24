@@ -1,14 +1,15 @@
 import sys
 import os
+import dj_database_url
 
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 SECRET_KEY = '&#zrr92u6yn!l9^ycc)f-0kh(tigr94z=mx6phl0cyhk)9eps!'
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+ON_PRODUCTION_SERVER = 'ON_PRODUCTION_SERVER' in os.environ
+DEBUG = not ON_PRODUCTION_SERVER  # False for live site
+TEMPLATE_DEBUG = DEBUG
 
-TEMPLATE_DEBUG = True
 
 ALLOWED_HOSTS = []
 
@@ -43,12 +44,17 @@ WSGI_APPLICATION = 'gumbug.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/dev/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+if ON_PRODUCTION_SERVER:
+    DATABASES = {
+        'default': dj_database_url.config()
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        }
+    }
 
 # Internationalization
 # https://docs.djangoproject.com/en/dev/topics/i18n/
