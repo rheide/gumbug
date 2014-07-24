@@ -3,8 +3,10 @@
 
 import re
 import pytz
-from datetime import datetime
+from datetime import datetime, timedelta
 from django.db import models
+from django.utils.text import slugify
+from uuid import uuid4
 
 price_regex = re.compile(r'[^\d]*(\d+)(pw)?.*', re.UNICODE | re.IGNORECASE)
 date_listed_regex = re.compile("(\d+) (yesterday|seconds|days|hours|mins|month|months|year|years) ago", re.UNICODE | re.IGNORECASE)
@@ -30,8 +32,40 @@ class Search(BaseModel):
     name = models.CharField(max_length=80)
     slug = models.SlugField(max_length=80, unique=True)
 
+    cloned_from = models.ForeignKey("self", null=True, blank=True)
+
     def __unicode__(self):
         return self.name
+
+    def __init__(self, *args, **kwargs):
+        super(Search, self).__init__(*args, **kwargs)
+        if not self.id and not self.slug:
+            search_id = slugify(unicode(uuid4().bytes.encode('base64').rstrip('=\n')[:10]))
+            self.name = search_id
+            self.slug = search_id
+
+    @classmethod
+    def create(cls, urls=[]):
+        search_id = slugify(unicode(uuid4().bytes.encode('base64').rstrip('=\n')[:10]))
+        search = cls()
+        search.name = search_id
+        search.slug = search_id
+        search.save()
+
+        for url in urls:
+            SearchUrl.objects.create(search=search, url=url)
+
+        return search
+
+    def clone(self):
+        new_search = Search()
+        new_search.cloned_from = self
+        new_search.save()
+
+        for search_url in self.searchurl_set.all():
+            search_url.clone(new_search)
+
+        return new_search
 
 
 class SearchUrl(BaseModel):
@@ -41,6 +75,11 @@ class SearchUrl(BaseModel):
 
     def __unicode__(self):
         return "%s - %s" % (self.search, self.url)
+
+    def clone(self, search):
+        new_search_url = SearchUrl(search=search, url=self.url)
+        new_search_url.save()
+        return new_search_url
 
 
 class Listing(BaseModel):
@@ -95,36 +134,40 @@ class Listing(BaseModel):
         result.url = title["href"]
 
         price = html.find("span", {'class': 'price'}).text.strip()
-        result.price_per_week = int(price_regex.match(price).group(1))
-        result.price_per_month = int(float((result.price_per_week) * 52.0) / 12.0)
+
+        result.price = float(price_regex.match(price).group(1))
+        result.price_type = 'week'
+
         result.area = html.find("span", {'class': 'location'}).text.strip()
         date_available =  html.find("span", {'class': 'displayed-date'}).text.strip()
-        result.date_available = datetime.strptime(date_available, "%d/%m/%y")
+        result.date_available = pytz.utc.localize(datetime.strptime(date_available, "%d/%m/%y"))
 
         result.short_description = html.find("div", {'class': "ad-description"}).span.text.strip()
 
-        result.photo_count = int(html.find("span", {'class': "ad-description-info-photo"}).text.strip())
-
         result.featured = bool(html.find("span", {"class": "featured"}))
 
-        result.age = -1
+        age_days = -1
         date_listed = html.find("span", {'class': 'post-date'})
         if date_listed:
             date_listed = date_listed.text.strip()
-            print date_listed
             match = date_listed_regex.match(date_listed)
             if match:
                 if match.group(2) == 'days':
-                    result.age = int(match.group(1))
+                    age_days = int(match.group(1))
                 elif 'month' in match.group(2):
                     # rough indication, most likely not interested in old ads anyway
-                    result.age = 30 * int(match.group(1))
+                    age_days = 30 * int(match.group(1))
                 elif 'year' in match.group(2):
-                    result.age = 365 * int(match.group(1))
+                    age_days = 365 * int(match.group(1))
                 else:  # seconds, minutes, hours
-                    result.age = 0
+                    age_days = 0
             elif date_listed == 'yesterday':
-                result.age = 1
+                age_days = 1
+
+        if age_days >= 0:
+            result.date_posted = datetime.now(pytz.utc) - timedelta(days=age_days)
+        else:
+            result.date_posted = None
 
         return result
 

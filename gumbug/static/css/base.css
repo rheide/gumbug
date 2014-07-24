@@ -50,3 +50,13 @@ div.search-listing.ignored {
 	font-weight: bold;
 	color: red;
 }
+
+div.search-form div.row {
+	margin-top: 12px;
+	margin-bottom: 12px;
+}
+
+.text-error {
+	color: red;
+	font-weight: bold;
+}

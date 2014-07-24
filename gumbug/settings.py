@@ -1,22 +1,8 @@
-"""
-Django settings for gumbug project.
-
-For more information on this file, see
-https://docs.djangoproject.com/en/dev/topics/settings/
-
-For the full list of settings and their values, see
-https://docs.djangoproject.com/en/dev/ref/settings/
-"""
-
-# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+import sys
 import os
+
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
-
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/dev/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = '&#zrr92u6yn!l9^ycc)f-0kh(tigr94z=mx6phl0cyhk)9eps!'
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -82,3 +68,36 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/dev/howto/static-files/
 
 STATIC_URL = '/static/'
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': '%(levelname)s %(asctime)s %(module)s %(process)d %(thread)d %(message)s'
+        },
+        'simple': {
+            'format': '[%(asctime)s] %(levelname)s %(message)s'
+        },
+    },
+    'handlers': {
+        'default': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+            'formatter': 'simple',
+            'stream': sys.stdout,
+        },
+    },
+    'loggers': {
+        'django.request': {
+            'handlers': ['default'],
+            'level': 'ERROR',
+            'propagate': True,
+        },
+        '': {
+            'handlers': ['default'],
+            'level': 'INFO',
+            'propagate': True
+        },
+    }
+}

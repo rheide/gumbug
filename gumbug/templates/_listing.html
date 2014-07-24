@@ -6,7 +6,7 @@
 	<h3><a href="{{ listing.url }}" target="_blank">£{{ listing.price_per_month }}pcm {{ listing.title|truncatechars:80 }}</a></h3>
 	<div class="info row">
 		<div class="area col-md-4">{{ listing.area }}</div>
-		<div class="posted col-md-4">{{ listing.date_posted|timesince }} ago</div>
+		<div class="posted col-md-4">{% if listing.date_posted %}{{ listing.date_posted|timesince }} ago{% endif %}</div>
 		<div class="available col-md-4">Available: {{ listing.date_available|date:"SHORT_DATE_FORMAT" }}</div>
 	</div>
 
@@ -17,7 +17,11 @@
 	</div>
 
 	<div class="description row">
+		{% if listing.long_description %}
 		<pre>{{ listing.long_description }}</pre>
+		{% else %}
+		<pre>{{ listing.short_description }}</pre>
+		{% endif %}
 	</div>
 
 </div>

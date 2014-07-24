@@ -4,27 +4,103 @@
 
 <h1>Gumbug</h1>
 
-<div class="col-md-9">
-	<form action="{% url 'create_search' %}" method="POST">
+<div class="col-md-12 search-form">
+	<form action="{% url 'index' %}" method="POST">
+
 	{% csrf_token %}
 	
 	<p>Paste your Gumtree rental apartment search listing URLs here. (<a href="http://www.gumtree.com/flats-and-houses-for-rent/harrow/studio?distance=1.0&photos_filter=Y&price=up_to_200&seller_type=private" target="_blank">Example: http://www.gumtree.com/flats-and-houses-for-rent/harrow/studio?distance=1.0&photos_filter=Y&price=up_to_200&seller_type=private</a> )</p>
 
-	{% for i in "1234567890" %}
-		<p>
-			<input type="text" name="url{{ forloop.counter1 }}" value="" class="input-large">
-		</p>
+	{% for url in urls %}
+		<div class="row">
+		<input type="text" name="url{{ forloop.counter }}" value="{{ url }}" class="input-large">
+	</div>
 	{% endfor %}
 
-	<select name="page_count">
-		<option value="1" selected>1</option>
-		<option value="2">2</option>
-		<option value="3">3</option>
-		<option value="4">4</option>
-		<option value="5">5</option>
-	</select>
+	<div class="row">
+		<input type="submit" value="Create search">
+	</div>
 
-	<input type="submit" value="Create search">
+	<p><br><br>(the stuff below doesn't work yet)</p>
+
+	<div class="row">
+		Page count:&nbsp;
+		<select name="page_count">
+			{% for i in "12345" %}
+				<option value="{{ i }}" {% if page_count == i %} selected{% endif %}>{{ i }}</option>
+			{% endfor %}
+		</select>
+	</div>
+
+	<div class="row">
+		At least within&nbsp;
+		<select name="walking-distance">
+			<option value="0.1">0.1</option>
+			<option value="0.2">0.2</option>
+			<option value="0.3">0.3</option>
+			<option value="0.4">0.4</option>
+			<option value="0.5" selected>0.5</option>
+			<option value="0.6">0.6</option>
+			<option value="0.7">0.7</option>
+			<option value="0.8">0.8</option>
+			<option value="0.9">0.9</option>
+			<option value="1.0">1.0</option>
+		</select>&nbsp;miles walking distance from&nbsp;
+		<select name="walking-location">
+			<option value="nearest" select>the nearest tube station</option>
+			<option value="nearest">the Metropolitan line</option>
+			<option value="nearest">the Bakerloo line</option>
+			<option value="nearest">the Overground</option>
+			<option value="nearest">the Northern line</option>
+		</select>
+	</div>
+
+	<div class="row">
+		Include these keywords (comma-separated): <input type="text" name="keywords-include" value="" class="input-large">
+	</div>
+
+	<div class="row">
+		Only show listings less than&nbsp;
+		<select name="age">
+			<option value="1">1</option>
+			<option value="2">2</option>
+			<option value="3">3</option>
+			<option value="4">4</option>
+			<option value="5">5</option>
+			<option value="6">6</option>
+			<option value="7">7</option>
+			<option value="8">8</option>
+			<option value="9">9</option>
+			<option value="10">10</option>
+			<option value="15">15</option>
+			<option value="20">20</option>
+			<option value="25">25</option>
+			<option value="30" selected>30</option>
+			<option value="60">60</option>
+			<option value="365">365</option>
+		</select>
+		&nbsp;day(s) old.
+	</div>
+
+	<div class="row">
+		<a href="http://opendatacommunities.org/deprivation/map" target="_blank">IMD Minimum deprivation rank:</a>&nbsp;
+		<select name="deprivation">
+			<option value="1">No preference</option>
+			<option value="5000">At least 5000</option>
+			<option value="8000">At least 8000</option>
+			<option value="11000" selected>At least 11000</option>
+			<option value="14000">At least 14000</option>
+			<option value="17000">At least 17000</option>
+			<option value="20000">At least 20000</option>
+			<option value="23000">At least 23000</option>
+			<option value="26000">At least 26000</option>
+			<option value="29000">At least 29000</option>
+		</select>
+	</div>
+
+	<div class="row">
+		Exclude these keywords (comma-separated): <input type="text" name="keywords-exclude" value="" class="input-large">
+	</div>
 
 	</form>
 </div>

@@ -1,7 +1,13 @@
 {% extends '_base.html' %}
 
+{% block title %}{{ search.name }} | Gumbug Search{% endblock %}
+
 {% block body %}
-<h1>[{{ search.modified|date:"SHORT_DATETIME_FORMAT" }}] - Gumbug search</h1>
+
+<div class="row">
+	<span class="small">{{ search.slug }}</span>
+	<h1>[{{ search.modified|date:"SHORT_DATETIME_FORMAT" }}] - Gumbug search</h1>
+</div>
 
 Showing results from:
 <ul>
@@ -9,6 +15,15 @@ Showing results from:
 	<li><a href="{{ search_url.url }}" target="_blank">{{ search_url.url }}</a></li>
 {% endfor %}
 </ul>
+
+<a class="btn btn-primary" href="{% url 'index' %}">New search</a>
+<form action="{% url 'listings' search.slug %}" method="POST" style="display: inline;">
+{% csrf_token %}
+<input type="submit" class="btn btn-info" value="Redo search with same parameters"><br>
+</form>
+(Redoing the search will automatically continue to ignore the items that you added to your ignore list)
+
+<div class="row"><h4>{{ listings|length }} listings</h4></div>
 
 {% for listing in listings %}
 	{% include "_listing.html" %}
