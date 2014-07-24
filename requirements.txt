@@ -1,6 +1,6 @@
 beautifulsoup4==4.3.2
 dj-database-url==0.2.1
-Django==1.7c1
+Django==https://www.djangoproject.com/download/1.7c1/tarball/
 gunicorn==0.16.1
 psycopg2==2.4.5
 requests==2.3.0
