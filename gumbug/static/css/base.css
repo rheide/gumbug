@@ -22,6 +22,7 @@ input.input-large {
 }
 
 div.search-listing {
+	padding-top: 16px;
 	margin-bottom: 16px;
 	padding-bottom: 16px;
 	border-bottom: 1px solid #ddd;
@@ -44,6 +45,10 @@ div.images {
 
 div.search-listing.ignored {
 	background-color: #DDD;
+}
+
+div.search-listing.favorite {
+	background-color: #e3ffe2;
 }
 
 .ignore-reason {

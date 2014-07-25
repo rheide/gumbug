@@ -32,9 +32,27 @@ def ignore_listing(request, search_slug, listing_id):
 
     listing.ignored = request.POST.get("ignore", "True").lower() == 'true'
     if listing.ignored:
+        listing.favorite = False
         listing.ignored_reason = "Flagged by user"
     else:
         listing.ignored_reason = ""
+    listing.save()
+
+    return HttpResponse(json.dumps({'result': 'OK'}), content_type="application/json")
+
+
+def favorite_listing(request, search_slug, listing_id):
+    """ Toggle the favorite flag of a listing. """
+    if request.method != "POST":
+        return HttpResponseForbidden()
+
+    try:
+        search = Search.objects.get(slug=search_slug)
+        listing = Listing.objects.get(search=search, id=listing_id)
+    except Search.DoesNotExist, Listing.DoesNotExist:
+        raise Http404
+
+    listing.favorite = request.POST.get("favorite", "True").lower() == 'true'
     listing.save()
 
     return HttpResponse(json.dumps({'result': 'OK'}), content_type="application/json")
@@ -57,7 +75,9 @@ def listings(request, search_slug, page_number=1):
             logging.exception(e)
             context['error'] = u"Search failed: %s" % unicode(e)
 
-    listings = Listing.objects.filter(search=search).order_by("ignored", "-date_posted")
+    listings = Listing.objects.filter(search=search).order_by("-favorite",
+                                                              "ignored",
+                                                              "-date_posted")
 
     ignored_count = Listing.objects.filter(search=search, ignored=True).count()
 

@@ -66,6 +66,34 @@
 			
 		});
 
+		$(".btn-favorite").click(function(e) {
+			e.preventDefault();
+			var dataId = $(this).attr("data-id");
+			var div = $(this).closest("div.search-listing");
+			console.log("Div: " + div);
+			div.addClass("favorite");
+			$(this).hide();
+
+			$.post("/s/{{ search.slug }}/favorite/" + dataId, {favorite: "true"}, function(data) {
+				console.log("Ad " + dataId+ " favorited.");
+			});
+			
+		});
+
+		$(".btn-unfavorite").click(function(e) {
+			e.preventDefault();
+			var dataId = $(this).attr("data-id");
+			var div = $(this).closest("div.search-listing");
+			console.log("Div: " + div);
+			div.removeClass("favorite");
+			$(this).hide();
+
+			$.post("/s/{{ search.slug }}/favorite/" + dataId, {favorite: "false"}, function(data) {
+				console.log("Ad " + dataId+ " unfavorited.");
+			});
+			
+		});
+
 		var map_canvas, mapOptions, map, loc;
 
 {% for listing in listings %}

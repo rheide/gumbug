@@ -121,6 +121,8 @@ class Listing(BaseModel):
 
     featured = models.BooleanField(default=False)
 
+    # TODO move these to M2M relation
+    favorite = models.BooleanField(default=False, db_index=True)
     ignored = models.BooleanField(default=False, db_index=True)
     ignored_reason = models.CharField(max_length=255, null=True, blank=True)
 
