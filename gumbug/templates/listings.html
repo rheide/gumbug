@@ -21,8 +21,9 @@
 	        }
 	    }
 	    return cookieValue;
-	}
+	};
 	var csrftoken = getCookie('csrftoken');
+	var maps = {};
 
 	function initialize() {
 		
@@ -91,7 +92,19 @@
 			$.post("/s/{{ search.slug }}/favorite/" + dataId, {favorite: "false"}, function(data) {
 				console.log("Ad " + dataId+ " unfavorited.");
 			});
-			
+		});
+
+		$(".btn-maptoggle").click(function(e) {
+			e.preventDefault();
+			var dataId = $(this).attr("data-id");
+			var map = maps[dataId];
+			if (map.getMapTypeId() == google.maps.MapTypeId.ROADMAP) {
+				map.setMapTypeId(google.maps.MapTypeId.HYBRID);
+			} else if (map.getMapTypeId() == google.maps.MapTypeId.HYBRID) {
+				map.setMapTypeId(google.maps.MapTypeId.SATELLITE);
+			} else {
+				map.setMapTypeId(google.maps.MapTypeId.ROADMAP);
+			}
 		});
 
 		var map_canvas, mapOptions, map, loc;
@@ -108,6 +121,7 @@
 		};
 		map = new google.maps.Map(map_canvas, mapOptions);
 		new google.maps.Marker({position: loc, map: map,});
+		maps[{{ listing.id}}] = map;
 
 	{% endif %}
 {% endfor %}

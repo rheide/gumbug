@@ -45,6 +45,9 @@
 		<div class="col-md-6">
 			<div class="map_canvas" id="map_canvas_{{ listing.id }}" style="height:400px;">
 			</div>
+			{% if listing.lat and listing.lon %}
+			<div class="pull-right" style="margin-top:4px;"><button class="btn btn-info btn-maptoggle" data-id="{{ listing.id }}">Toggle map type</button></div>
+			{% endif %}
 		</div>
 	</div>
 
