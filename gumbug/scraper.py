@@ -35,7 +35,7 @@ def search(search):
                 results[result.url] = (result, search_url)
 
     # Limit for now
-    result_list = results.values()[:3]
+    result_list = results.values()
     for result, search_url in result_list:
         result.save()  # Must be saved before saving related objects
         do_with_retry(_load_result, search, search_url, result, retry_count=1)

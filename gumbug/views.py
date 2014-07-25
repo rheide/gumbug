@@ -11,6 +11,7 @@ from django.utils.text import slugify
 
 from gumbug import scraper
 from gumbug.models import Search, Listing, SearchUrl
+from django.core.paginator import Paginator
 
 validate_url= URLValidator()
 
@@ -36,7 +37,7 @@ def ignore_listing(request, search_slug, listing_id):
     return HttpResponse(json.dumps({'result': 'OK'}), content_type="application/json")
 
 
-def listings(request, search_slug):
+def listings(request, search_slug, page_number=1):
     context = {}
 
     try:
@@ -53,12 +54,19 @@ def listings(request, search_slug):
             logging.exception(e)
             context['error'] = u"Search failed: %s" % unicode(e)
 
-    listings = Listing.objects.filter(search=search, ignored=False).order_by("-date_posted")
-    ignored_listings = Listing.objects.filter(search=search, ignored=True).order_by("-date_posted")
+    listings = Listing.objects.filter(search=search).order_by("ignored", "-date_posted")
+
+    ignored_count = Listing.objects.filter(search=search, ignored=True).count()
+
+    p = Paginator(listings, 10)
+    page = p.page(page_number)
 
     context['search'] = search
-    context['listings'] = listings
-    context['ignored_listings'] = ignored_listings
+    context['valid_count'] = p.count - ignored_count
+    context['ignored_count'] = ignored_count
+    context['listings'] = page.object_list
+    context['page'] = page
+    context['paginator'] = p
 
     return render(request, 'listings.html', context)
 

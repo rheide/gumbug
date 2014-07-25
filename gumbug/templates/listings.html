@@ -43,7 +43,6 @@
 			var dataId = $(this).attr("data-id");
 			var div = $(this).closest("div.search-listing");
 			console.log("Div: " + div);
-			div.detach().appendTo(".ignored-listings");
 			div.addClass("ignored");
 			$(this).hide();
 
@@ -58,7 +57,6 @@
 			var dataId = $(this).attr("data-id");
 			var div = $(this).closest("div.search-listing");
 			console.log("Div: " + div);
-			div.detach().appendTo(".listings");
 			div.removeClass("ignored");
 			$(this).hide();
 
@@ -112,7 +110,9 @@ Showing results from:
 </form>
 (Redoing the search will automatically continue to ignore the items that you added to your ignore list)
 
-<div class="row"><h4>{{ listings|length }} listings</h4></div>
+<div class="row"><h4>{{ valid_count }} valid listings, {{ ignored_count }} ignored</h4></div>
+
+{% include "_pagination.html" %}
 
 <div class="listings">
 	{% for listing in listings %}
@@ -120,12 +120,6 @@ Showing results from:
 	{% endfor %}
 </div>
 
-<div class="row"><h4>Ignored listings</h4></div>
-
-<div class="ignored-listings">
-	{% for listing in ignored_listings %}
-		{% include "_listing.html" %}
-	{% endfor %}
-</div>
+{% include "_pagination.html" %}
 
 {% endblock %}
