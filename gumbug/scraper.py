@@ -43,6 +43,24 @@ def search(search):
     if not result_list:
         raise Exception("No results found.")
 
+    process_ignored_listings(search, result_list)
+
+
+def process_ignored_listings(search, result_list):
+    """ Mark listings that were previously marked as ignored, ignored. """
+    # We'll want to find the first (least deep) entry for each result's url.
+    # If an entry exists, copy that entry's ignored state and reason.
+    search_query = search.get_ancestors(ascending=True)
+    for result, _ in result_list:
+        logging.info("Searching ancestor listings for %s", result.url)
+        previous_results = Listing.objects.filter(search__in=search_query,
+                                                  url=result.url).order_by("-search__level")[:1]
+
+        if previous_results:
+            result.ignored = previous_results[0].ignored
+            result.ignored_reason = previous_results[0].ignored_reason
+            result.save()
+
 
 def _load_result(search, search_url, result):
     log(search, "Fetching %s" % result.url)
