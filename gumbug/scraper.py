@@ -30,13 +30,20 @@ def search(search, refetch_listings=False):
         r = requests.get(search_url.url, headers=headers)
         soup = BeautifulSoup(r.text)
 
-        for ad in soup.find_all('li', {'class': 'hlisting'}):
-            result = Listing.from_gumtree(ad)
-            if result.url in results:
-                log(search, "Duplicate results for url %s. Skipping" % result.url)
-            else:
-                result.search = search
-                results[result.url] = (result, search_url)
+        listings = soup.find_all("ul", {"class": 'ad-listings'})
+        for listing_section in listings:
+            # Check if section was before or after the 'nearby' section, which is utterly useless.
+            if listing_section.find_previous_sibling("div", {"class": "ad-group-nearby"}):
+                log(search, "Skipping additional ads section")
+                continue
+
+            for ad in listing_section.find_all('li', {'class': 'hlisting'}):
+                result = Listing.from_gumtree(ad)
+                if result.url in results:
+                    log(search, "Duplicate results for url %s. Skipping" % result.url)
+                else:
+                    result.search = search
+                    results[result.url] = (result, search_url)
 
     result_list = results.values()
     for result, search_url in result_list:
@@ -54,9 +61,6 @@ def search(search, refetch_listings=False):
 
         if refetch_details:
             do_with_retry(_load_result, search, search_url, result, retry_count=3)
-
-    if not result_list:
-        raise Exception("No results found.")
 
     process_ignored_listings(search, result_list)
     process_ignore_keywords(search, result_list)
