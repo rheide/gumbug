@@ -26,6 +26,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'gumbug',
+    'mptt',
 )
 
 if ON_PRODUCTION_SERVER:

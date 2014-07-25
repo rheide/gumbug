@@ -18,7 +18,13 @@
 
 	<div class="description row">
 		<div class="col-md-6">
-			<a class="btn btn-danger" title="Move this ad to the bottom and ignore it in future searches">Ignore</a>
+		{% if not listing.ignored %}
+			<a class="btn btn-danger btn-ignore" href="#" data-id="{{ listing.id }}" title="Move this ad to the bottom and ignore it in future searches">Ignore</a>
+		{% endif %}
+		{% if listing.ignored %}
+			<a class="btn btn-success btn-unignore" href="#" data-id="{{ listing.id }}" title="Move this ad back and stop ignoring it in future searches">Unignore</a>
+		{% endif %}
+
 			{% if listing.long_description %}
 			<pre>{{ listing.long_description }}</pre>
 			{% else %}

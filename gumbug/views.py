@@ -1,14 +1,39 @@
-from gumbug.models import Search, Listing, SearchUrl
-from django.http.response import Http404
+import logging
+import json
+from uuid import uuid4
+
+from django.http.response import Http404, HttpResponse, HttpResponseNotAllowed,\
+    HttpResponseForbidden
 from django.shortcuts import render, redirect
 from django.core.validators import URLValidator
 from django.core.exceptions import ValidationError
-from uuid import uuid4
-from gumbug import scraper
-import logging
 from django.utils.text import slugify
 
+from gumbug import scraper
+from gumbug.models import Search, Listing, SearchUrl
+
 validate_url= URLValidator()
+
+
+def ignore_listing(request, search_slug, listing_id):
+    """ Toggle the ignored flag of a listing. """
+    if request.method != "POST":
+        return HttpResponseForbidden()
+
+    try:
+        search = Search.objects.get(slug=search_slug)
+        listing = Listing.objects.get(search=search, id=listing_id)
+    except Search.DoesNotExist, Listing.DoesNotExist:
+        raise Http404
+
+    listing.ignored = request.POST.get("ignore", "True").lower() == 'true'
+    if listing.ignored:
+        listing.ignored_reason = "Flagged by user"
+    else:
+        listing.ignored_reason = ""
+    listing.save()
+
+    return HttpResponse(json.dumps({'result': 'OK'}), content_type="application/json")
 
 
 def listings(request, search_slug):

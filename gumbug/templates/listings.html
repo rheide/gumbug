@@ -4,8 +4,70 @@
 
 {% block headerjs %}
 
+{% csrf_token %}
+
 <script>
+	function getCookie(name) {
+	    var cookieValue = null;
+	    if (document.cookie && document.cookie != '') {
+	        var cookies = document.cookie.split(';');
+	        for (var i = 0; i < cookies.length; i++) {
+	            var cookie = jQuery.trim(cookies[i]);
+	            // Does this cookie string begin with the name we want?
+	            if (cookie.substring(0, name.length + 1) == (name + '=')) {
+	                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+	                break;
+	            }
+	        }
+	    }
+	    return cookieValue;
+	}
+	var csrftoken = getCookie('csrftoken');
+
 	function initialize() {
+		
+		function csrfSafeMethod(method) {
+		    // these HTTP methods do not require CSRF protection
+		    return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+		}
+		$.ajaxSetup({
+		    beforeSend: function(xhr, settings) {
+		        if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+		            xhr.setRequestHeader("X-CSRFToken", csrftoken);
+		        }
+		    }
+		});
+		
+		$(".btn-ignore").click(function(e) {
+			e.preventDefault();
+			var dataId = $(this).attr("data-id");
+			var div = $(this).closest("div.search-listing");
+			console.log("Div: " + div);
+			div.detach().appendTo(".ignored-listings");
+			div.addClass("ignored");
+			$(this).hide();
+
+			$.post("/s/{{ search.slug }}/ignore/" + dataId, {ignore: "true"}, function(data) {
+				console.log("Ad " + dataId+ " ignored.");
+			});
+			
+		});
+
+		$(".btn-unignore").click(function(e) {
+			e.preventDefault();
+			var dataId = $(this).attr("data-id");
+			var div = $(this).closest("div.search-listing");
+			console.log("Div: " + div);
+			div.detach().appendTo(".listings");
+			div.removeClass("ignored");
+			$(this).hide();
+
+			$.post("/s/{{ search.slug }}/ignore/" + dataId, {ignore: "false"}, function(data) {
+				console.log("Ad " + dataId+ " unignored.");
+			});
+			
+		});
+
 		var map_canvas, mapOptions, map, loc;
 
 {% for listing in listings %}
@@ -52,15 +114,18 @@ Showing results from:
 
 <div class="row"><h4>{{ listings|length }} listings</h4></div>
 
-{% for listing in listings %}
-	{% include "_listing.html" %}
-{% endfor %}
+<div class="listings">
+	{% for listing in listings %}
+		{% include "_listing.html" %}
+	{% endfor %}
+</div>
 
-{% if ignored_listings %}
 <div class="row"><h4>Ignored listings</h4></div>
-{% for listing in ignored_listings %}
-	{% include "_listing.html" %}
-{% endfor %}
-{% endif %}
+
+<div class="ignored-listings">
+	{% for listing in ignored_listings %}
+		{% include "_listing.html" %}
+	{% endfor %}
+</div>
 
 {% endblock %}

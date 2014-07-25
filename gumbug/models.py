@@ -9,6 +9,7 @@ from django.db import models
 from django.utils.text import slugify
 from uuid import uuid4
 from bs4 import BeautifulSoup
+from mptt.models import MPTTModel
 
 price_regex = re.compile(r'[^\d]*(\d+)(pw)?.*', re.UNICODE | re.IGNORECASE)
 date_listed_regex = re.compile(r"(\d+) (yesterday|seconds|days|hours|mins|month|months|year|years) ago", re.UNICODE | re.IGNORECASE)
@@ -29,12 +30,12 @@ class BaseModel(models.Model):
         super(BaseModel, self).save(*args, **kwargs)
 
 
-class Search(BaseModel):
+class Search(MPTTModel, BaseModel):
 
     name = models.CharField(max_length=80)
     slug = models.SlugField(max_length=80, unique=True)
 
-    cloned_from = models.ForeignKey("self", null=True, blank=True)
+    parent = models.ForeignKey("self", null=True, blank=True, related_name="children")
 
     def __unicode__(self):
         return self.name
@@ -61,7 +62,7 @@ class Search(BaseModel):
 
     def clone(self):
         new_search = Search()
-        new_search.cloned_from = self
+        new_search.parent = self
         new_search.save()
 
         for search_url in self.searchurl_set.all():
