@@ -87,7 +87,7 @@ class Search(MPTTModel, BaseModel):
 class SearchUrl(BaseModel):
 
     search = models.ForeignKey(Search)
-    url = models.URLField()
+    url = models.URLField(max_length=511)
 
     def __unicode__(self):
         return "%s - %s" % (self.search, self.url)
@@ -105,7 +105,7 @@ class Listing(BaseModel):
 
     search = models.ForeignKey(Search)
 
-    url = models.URLField(db_index=True)
+    url = models.URLField(max_length=511, db_index=True)
 
     title = models.CharField(max_length=255, null=True, blank=True)
     price = models.DecimalField(decimal_places=2, max_digits=12, blank=True, null=True)

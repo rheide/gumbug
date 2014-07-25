@@ -15,6 +15,8 @@ from django.core.paginator import Paginator
 
 validate_url= URLValidator()
 
+url_count = 10
+
 
 def ignore_listing(request, search_slug, listing_id):
     """ Toggle the ignored flag of a listing. """
@@ -86,7 +88,7 @@ def index(request):
     previous_searches = request.session.get('previous_searches', [])
 
     if request.method == "POST":
-        for i in range(10):
+        for i in range(url_count):
             url = request.POST.get("url%s" % i, "").strip()
             if url:
                 try:
@@ -113,7 +115,7 @@ def index(request):
     else:
         urls.append("http://www.gumtree.com/flats-and-houses-for-rent/harrow/studio?distance=1.0&photos_filter=Y&price=up_to_200&seller_type=private")
 
-    while len(urls) < 5:
+    while len(urls) < url_count:
         urls.append("")
 
     context['previous_searches'] = previous_searches
