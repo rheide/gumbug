@@ -69,4 +69,9 @@ div.search-form div.row {
 
 .map_canvas {
 	border: 1px solid #aaa;
+	height:440px;
+}
+
+.map_canvas.map-large {
+	height:640px;
 }

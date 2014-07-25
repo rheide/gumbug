@@ -43,10 +43,18 @@
 			{% endif %}
 		</div>
 		<div class="col-md-6">
-			<div class="map_canvas" id="map_canvas_{{ listing.id }}" style="height:400px;">
+			<div class="map_canvas" id="map_canvas_{{ listing.id }}">
 			</div>
 			{% if listing.lat and listing.lon %}
-			<div class="pull-right" style="margin-top:4px;"><button class="btn btn-info btn-maptoggle" data-id="{{ listing.id }}">Toggle map type</button></div>
+			<div style="clear: both; margin-top:4px;">
+				<button class="btn btn-primary btn-map-size" data-id="{{ listing.id }}">Bigger</button>
+				<div class="pull-right">
+					<button class="btn btn-warning btn-map-deprivation" data-id="{{ listing.id }}">Deprivation</button>
+					<button class="btn btn-info btn-map-road" data-id="{{ listing.id }}">Roads</button>
+					<button class="btn btn-info btn-map-hybrid" data-id="{{ listing.id }}">Hybrid</button>
+					<button class="btn btn-info btn-map-satellite" data-id="{{ listing.id }}">Satellite</button>
+				</div>
+			</div>
 			{% endif %}
 		</div>
 	</div>

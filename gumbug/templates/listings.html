@@ -24,7 +24,8 @@
 	};
 	var csrftoken = getCookie('csrftoken');
 	var maps = {};
-
+	var deprivationLayers = {};
+	
 	function initialize() {
 		
 		function csrfSafeMethod(method) {
@@ -94,17 +95,50 @@
 			});
 		});
 
-		$(".btn-maptoggle").click(function(e) {
+		function toggleMap(button, e, mapTypeId) {
+			e.preventDefault();
+			maps[button.attr("data-id")].setMapTypeId(mapTypeId);
+		};
+		$(".btn-map-road").click(function(e) { toggleMap($(this), e, google.maps.MapTypeId.ROADMAP); });
+		$(".btn-map-hybrid").click(function(e) { toggleMap($(this), e, google.maps.MapTypeId.HYBRID); });
+		$(".btn-map-satellite").click(function(e) { toggleMap($(this), e, google.maps.MapTypeId.SATELLITE); });
+		$(".btn-map-deprivation").click(function(e) {
 			e.preventDefault();
 			var dataId = $(this).attr("data-id");
 			var map = maps[dataId];
-			if (map.getMapTypeId() == google.maps.MapTypeId.ROADMAP) {
-				map.setMapTypeId(google.maps.MapTypeId.HYBRID);
-			} else if (map.getMapTypeId() == google.maps.MapTypeId.HYBRID) {
-				map.setMapTypeId(google.maps.MapTypeId.SATELLITE);
-			} else {
-				map.setMapTypeId(google.maps.MapTypeId.ROADMAP);
+			if (deprivationLayers[dataId]) {
+				deprivationLayers[dataId].setMap(null);
+				delete deprivationLayers[dataId];
 			}
+			else {
+				layer = new google.maps.FusionTablesLayer({
+					query: {
+						select: '\'Geocodable address\'',
+						from: '1FPj4sqRsXXNhIuxsNr8l0uEVCUSb071_XIcYqw'
+					},
+					options: {suppressInfoWindows: true},
+				});
+				layer.setMap(map);
+				deprivationLayers[dataId] = layer;
+			}
+		});
+		$(".btn-map-size").click(function(e) {
+			e.preventDefault();
+			var dataId = $(this).attr("data-id");
+			var map = maps[dataId];
+			$canvas = $("#map_canvas_" + dataId);
+			if ($canvas.hasClass("map-large")) {
+				$canvas.parent().addClass("col-md-6");
+				$canvas.parent().removeClass("col-md-12");
+				$canvas.removeClass("map-large");
+				$(this).text("Bigger");
+			} else{
+				$canvas.parent().removeClass("col-md-6");
+				$canvas.parent().addClass("col-md-12");
+				$canvas.addClass("map-large");
+				$(this).text("Smaller");
+			}
+			google.maps.event.trigger(map, "resize");
 		});
 
 		var map_canvas, mapOptions, map, loc;
