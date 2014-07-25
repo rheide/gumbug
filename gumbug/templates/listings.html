@@ -2,6 +2,33 @@
 
 {% block title %}{{ search.name }} | Gumbug Search{% endblock %}
 
+{% block headerjs %}
+
+<script>
+	function initialize() {
+		var map_canvas, mapOptions, map, loc;
+
+{% for listing in listings %}
+	{% if listing.lat and listing.lon %}
+
+		loc = new google.maps.LatLng({{ listing.lat }}, {{ listing.lon }});
+		map_canvas = document.getElementById('map_canvas_{{ listing.id }}');
+		mapOptions = {
+			center: loc,
+			zoom: 15,
+			mapTypeId: google.maps.MapTypeId.ROADMAP
+		};
+		map = new google.maps.Map(map_canvas, mapOptions);
+		new google.maps.Marker({position: loc, map: map,});
+
+	{% endif %}
+{% endfor %}
+	}
+	google.maps.event.addDomListener(window, 'load', initialize);
+</script>
+
+{% endblock %}
+
 {% block body %}
 
 <div class="row">

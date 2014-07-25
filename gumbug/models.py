@@ -1,16 +1,18 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
+import logging
 import re
 import pytz
 from datetime import datetime, timedelta
 from django.db import models
 from django.utils.text import slugify
 from uuid import uuid4
+from bs4 import BeautifulSoup
 
 price_regex = re.compile(r'[^\d]*(\d+)(pw)?.*', re.UNICODE | re.IGNORECASE)
-date_listed_regex = re.compile("(\d+) (yesterday|seconds|days|hours|mins|month|months|year|years) ago", re.UNICODE | re.IGNORECASE)
-
+date_listed_regex = re.compile(r"(\d+) (yesterday|seconds|days|hours|mins|month|months|year|years) ago", re.UNICODE | re.IGNORECASE)
+latlon_regex = re.compile(r".*center=([-\d\.]+)%2C([-\d\.]+).*")
 
 class BaseModel(models.Model):
 
@@ -107,6 +109,9 @@ class Listing(BaseModel):
     ignored = models.BooleanField(default=False, db_index=True)
     ignored_reason = models.CharField(max_length=255, null=True, blank=True)
 
+    lat = models.FloatField(null=True, blank=True)
+    lon = models.FloatField(null=True, blank=True)
+
     @property
     def price_per_month(self):
         if self.price_type == "month":
@@ -125,8 +130,16 @@ class Listing(BaseModel):
         else:
             return "N/A"
 
-    def load_details_from_gumtree(self, html):
+    def load_details_from_gumtree(self, raw_html):
+        html = BeautifulSoup(raw_html)
         self.long_description = html.find("div", {'id': "vip-description-text"}).text.strip()
+
+        latlon_html = html.find("a", {'class': 'open_map'})
+        if latlon_html:
+            latlon_match = latlon_regex.match(latlon_html['data-target'])
+            self.lat = float(latlon_match.group(1))
+            self.lon = float(latlon_match.group(2))
+            logging.info("Loc: %s %s", self.lat, self.lon)
 
         # Load images
         for i in range(20):

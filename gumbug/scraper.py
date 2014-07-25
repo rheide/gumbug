@@ -32,23 +32,24 @@ def search(search):
                 log(search, "Duplicate results for url %s. Skipping" % result.url)
             else:
                 result.search = search
-                results[result.url] = result
+                results[result.url] = (result, search_url)
 
     # Limit for now
-    result_list = results.values()[:10]
-    for result in result_list:
+    result_list = results.values()[:3]
+    for result, search_url in result_list:
         result.save()  # Must be saved before saving related objects
-        do_with_retry(_load_result, search, result, retry_count=3)
+        do_with_retry(_load_result, search, search_url, result, retry_count=1)
 
     if not result_list:
         raise Exception("No results found.")
 
 
-def _load_result(search, result):
+def _load_result(search, search_url, result):
     log(search, "Fetching %s" % result.url)
-    r = requests.get(result.url, headers=headers)
+    detail_headers = {'referer': search_url.url}
+    detail_headers.update(headers)
+    r = requests.get(result.url, headers=detail_headers)
     log(search, "Status: %s" % r.status_code)
     if r.status_code != 200:
         raise Exception("Invalid status code: %s" % r.status_code)
-    soup = BeautifulSoup(r.text)
-    result.load_details_from_gumtree(soup)
+    result.load_details_from_gumtree(r.text)
