@@ -10,6 +10,7 @@ from django.utils.text import slugify
 from uuid import uuid4
 from bs4 import BeautifulSoup
 from mptt.models import MPTTModel
+import traceback
 
 price_regex = re.compile(r'[^\d]*(\d+)(pw)?.*', re.UNICODE | re.IGNORECASE)
 date_listed_regex = re.compile(r"(\d+) (yesterday|seconds|days|hours|mins|month|months|year|years) ago", re.UNICODE | re.IGNORECASE)
@@ -173,13 +174,25 @@ class Listing(BaseModel):
 
         # Load images
         for i in range(20):
-            image_html = html.find("ul", {'class': "gallery-main"}).find("li", {'id': "gallery-item-mid-%s" % i})
+            image_html = html.find("ul", {'class': "gallery-main"})
             if not image_html:
                 continue
+            image_html = image_html.find("li", {'id': "gallery-item-mid-%s" % i})
+            if not image_html:
+                continue
+            image_html = image_html.find("img")
+            if not image_html:
+                continue
+
             image = ListingImage(listing=self)
-            image.url = image_html.find("img")['src']
-            thumbnail_html = html.find("ul", {'class': 'gallery-thumbs'}).find("a", {'href': "#gallery-item-mid-%s" % i})
-            image.thumbnail_url = thumbnail_html.find("img")['src']
+            image.url = image_html['src']
+
+            thumbnail_html = html.find("ul", {'class': 'gallery-thumbs'})
+            if thumbnail_html:
+                thumbnail_html = thumbnail_html.find("a", {'href': "#gallery-item-mid-%s" % i})
+                if thumbnail_html:
+                    image.thumbnail_url = thumbnail_html.find("img")['src']
+
             image.position = i
             image.save()
 
@@ -195,8 +208,10 @@ class Listing(BaseModel):
 
         price = html.find("span", {'class': 'price'}).text.strip()
 
-        result.price = float(price_regex.match(price).group(1))
-        result.price_type = 'week'
+        price_match = price_regex.match(price)
+        if price_match:
+            result.price = float(price_match.group(1))
+            result.price_type = 'week'
 
         result.area = html.find("span", {'class': 'location'}).text.strip()
         date_available =  html.find("span", {'class': 'displayed-date'}).text.strip()

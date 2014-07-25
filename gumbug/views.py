@@ -12,6 +12,7 @@ from django.utils.text import slugify
 from gumbug import scraper
 from gumbug.models import Search, Listing, SearchUrl
 from django.core.paginator import Paginator
+import traceback
 
 validate_url= URLValidator()
 
@@ -107,10 +108,11 @@ def index(request):
                 search.ignore_keywords = request.POST.get('ignore-keywords', "")
                 search.require_keywords = request.POST.get('require-keywords', "")
                 search.save()
-                scraper.search(search, refetch_listings=bool(request.POST.get('refetch', '')))
+                scraper.search(search, refetch_listings=bool(request.POST and request.POST.get('refetch', '')))
                 return redirect('listings', search.slug)
             except Exception as e:
                 logging.exception(e)
+                traceback.print_exc()
                 context['error'] = u"Search failed: %s" % unicode(e)
     else:
         urls.append("http://www.gumtree.com/flats-and-houses-for-rent/harrow/studio?distance=1.0&photos_filter=Y&price=up_to_200&seller_type=private")

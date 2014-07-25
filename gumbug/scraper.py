@@ -53,7 +53,7 @@ def search(search, refetch_listings=False):
                 refetch_details = False
 
         if refetch_details:
-            do_with_retry(_load_result, search, search_url, result, retry_count=1)
+            do_with_retry(_load_result, search, search_url, result, retry_count=3)
 
     if not result_list:
         raise Exception("No results found.")
@@ -70,7 +70,9 @@ def process_ignore_keywords(search, result_list):
     for result, _ in result_list:
         if result.ignored:
             continue  # Skip already ignored results
-        if any(word in result.description for word in ignore_keywords):
+        title_and_desc = u"%s %s" % (result.title, result.description)
+        title_and_desc = title_and_desc.lower()
+        if any(word in title_and_desc for word in ignore_keywords):
             result.ignored = True
             result.ignored_reason = "Contains ignored keywords"
             result.save()
@@ -83,7 +85,9 @@ def process_require_keywords(search, result_list):
     for result, _ in result_list:
         if result.ignored:
             continue  # Skip already ignored results
-        if not any(word in result.description for word in require_keywords):
+        title_and_desc = u"%s %s" % (result.title, result.description)
+        title_and_desc = title_and_desc.lower()
+        if not any(word in title_and_desc for word in require_keywords):
             result.ignored = True
             result.ignored_reason = "Did not contain a required keyword"
             result.save()
