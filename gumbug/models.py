@@ -37,6 +37,9 @@ class Search(MPTTModel, BaseModel):
 
     parent = models.ForeignKey("self", null=True, blank=True, related_name="children")
 
+    ignore_keywords = models.TextField(null=True, blank=True)
+    require_keywords = models.TextField(null=True, blank=True)
+
     def __unicode__(self):
         return self.name
 
@@ -63,6 +66,8 @@ class Search(MPTTModel, BaseModel):
     def clone(self):
         new_search = Search()
         new_search.parent = self
+        new_search.ignore_keywords = self.ignore_keywords
+        new_search.require_keywords = self.require_keywords
         new_search.save()
 
         for search_url in self.searchurl_set.all():
@@ -112,6 +117,11 @@ class Listing(BaseModel):
 
     lat = models.FloatField(null=True, blank=True)
     lon = models.FloatField(null=True, blank=True)
+
+    @property
+    def description(self):
+        """ Will default to the long description unless only the short one is available. """
+        return self.long_description or self.short_description
 
     @property
     def price_per_month(self):

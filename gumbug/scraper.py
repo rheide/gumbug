@@ -44,6 +44,30 @@ def search(search):
         raise Exception("No results found.")
 
     process_ignored_listings(search, result_list)
+    process_ignore_keywords(search, result_list)
+    process_require_keywords(search, result_list)
+
+
+def process_ignore_keywords(search, result_list):
+    ignore_keywords = map(lambda s: s.strip(), search.ignore_keywords.split(","))
+    for result, _ in result_list:
+        if result.ignored:
+            continue  # Skip already ignored results
+        if any(word in result.description for word in ignore_keywords):
+            result.ignored = True
+            result.ignored_reason = "Contains ignored keywords"
+            result.save()
+
+
+def process_require_keywords(search, result_list):
+    require_keywords = map(lambda s: s.strip(), search.require_keywords.split(","))
+    for result, _ in result_list:
+        if result.ignored:
+            continue  # Skip already ignored results
+        if not any(word in result.description for word in require_keywords):
+            result.ignored = True
+            result.ignored_reason = "Did not contain a required keyword"
+            result.save()
 
 
 def process_ignored_listings(search, result_list):
@@ -56,7 +80,7 @@ def process_ignored_listings(search, result_list):
         previous_results = Listing.objects.filter(search__in=search_query,
                                                   url=result.url).order_by("-search__level")[:1]
 
-        if previous_results:
+        if previous_results and previous_results[0].ignored != result.ignored:
             result.ignored = previous_results[0].ignored
             result.ignored_reason = previous_results[0].ignored_reason
             result.save()

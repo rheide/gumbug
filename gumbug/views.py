@@ -92,6 +92,9 @@ def index(request):
             # Construct a search object, perform search and redirect to the listings page if successful
             try:
                 search = Search.create(urls)
+                search.ignore_keywords = request.POST.get('ignore-keywords', "")
+                search.require_keywords = request.POST.get('require-keywords', "")
+                search.save()
                 scraper.search(search)
                 return redirect('listings', search.slug)
             except Exception as e:
@@ -103,6 +106,8 @@ def index(request):
     while len(urls) < 5:
         urls.append("")
 
+    context['ignore_keywords'] = request.POST.get('ignore-keywords', "")
+    context['require_keywords'] = request.POST.get('require-keywords', "")
     context['page_count'] = request.POST.get('page_count', 1)
     context['urls'] = urls
     return render(request, 'index.html', context)

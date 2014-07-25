@@ -4,6 +4,10 @@
 
 <h1>Gumbug</h1>
 
+<p>This service allows you to automatically group the results of several Gumtree searches together in a single page
+for easy viewing, and allows you to do additional filtering so you don't keep seeing the ads that you don't want to see
+for repeated searches.</p>
+
 <div class="col-md-12 search-form">
 	<form action="{% url 'index' %}" method="POST">
 
@@ -16,6 +20,16 @@
 		<input type="text" name="url{{ forloop.counter }}" value="{{ url }}" class="input-large">
 	</div>
 	{% endfor %}
+
+	<div class="row">
+		Mark ads with any of these keywords as ignored(comma-separated):<br>
+		<textarea name="ignore-keywords" rows="3" cols="80" class="input-large">{{ ignore_keywords }}</textarea>
+	</div>
+
+	<div class="row">
+		Mark ads that don't have at least one of these keywords as ignored(comma-separated):<br>
+		<textarea name="require-keywords" rows="3" cols="80" class="input-large">{{ require_keywords }}</textarea>
+	</div>
 
 	<div class="row">
 		<input type="submit" value="Create search">
@@ -54,10 +68,6 @@
 			<option value="nearest">the Overground</option>
 			<option value="nearest">the Northern line</option>
 		</select>
-	</div>
-
-	<div class="row">
-		Include these keywords (comma-separated): <input type="text" name="keywords-include" value="" class="input-large">
 	</div>
 
 	<div class="row">

@@ -103,6 +103,10 @@ Showing results from:
 {% endfor %}
 </ul>
 
+<p>Ignoring keywords: <strong>{{ search.ignore_keywords }}</strong></p>
+
+<p>Requiring keywords: <strong>{{ search.require_keywords }}</strong></p>
+
 <a class="btn btn-primary" href="{% url 'index' %}">New search</a>
 <form action="{% url 'listings' search.slug %}" method="POST" style="display: inline;">
 {% csrf_token %}
