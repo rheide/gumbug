@@ -2,6 +2,8 @@
 
 {% block body %}
 
+{% include "_previous_searches.html" %}
+
 <h1>Gumbug</h1>
 
 <p>This service allows you to automatically group the results of several Gumtree searches together in a single page
@@ -32,8 +34,12 @@ for repeated searches.</p>
 	</div>
 
 	<div class="row">
-		<input type="submit" value="Create search">
+		<input type="submit" class="btn btn-primary" value="Create search">
 		<p>(This may take a while! Please be patient and don't press it twice.)</p>
+	</div>
+
+	<div class="row">
+		<input id="refetch" type="checkbox" name="refetch"><label for="refetch">&nbsp;Re-fetch listings</label>
 	</div>
 
 	<p><br><br>(the stuff below doesn't work yet)</p>

@@ -1,0 +1,7 @@
+
+<div class="previous-searches" style="margin-top: 8px;">
+<a href="{% url 'index' %}">New search</a>
+{% for slug in previous_searches %}
+	&nbsp;|&nbsp;<a href="{% url 'listings' slug %}">{% if slug == search.slug %}<strong>{{ slug }}</strong>{% else %}{{ slug }}{% endif %}</a>
+{% endfor %}
+</div>

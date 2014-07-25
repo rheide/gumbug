@@ -61,12 +61,20 @@ def listings(request, search_slug, page_number=1):
     p = Paginator(listings, 10)
     page = p.page(page_number)
 
+    previous_searches = request.session.get('previous_searches', [])
+    if not search.slug in previous_searches:
+        previous_searches.insert(0, search.slug)
+        if len(previous_searches) > 8:
+            previous_searches.pop()
+        request.session['previous_searches'] = previous_searches
+
     context['search'] = search
     context['valid_count'] = p.count - ignored_count
     context['ignored_count'] = ignored_count
     context['listings'] = page.object_list
     context['page'] = page
     context['paginator'] = p
+    context['previous_searches'] = previous_searches
 
     return render(request, 'listings.html', context)
 
@@ -74,6 +82,8 @@ def listings(request, search_slug, page_number=1):
 def index(request):
     context = {}
     urls = []
+
+    previous_searches = request.session.get('previous_searches', [])
 
     if request.method == "POST":
         for i in range(10):
@@ -95,7 +105,7 @@ def index(request):
                 search.ignore_keywords = request.POST.get('ignore-keywords', "")
                 search.require_keywords = request.POST.get('require-keywords', "")
                 search.save()
-                scraper.search(search)
+                scraper.search(search, refetch_listings=bool(request.POST.get('refetch', '')))
                 return redirect('listings', search.slug)
             except Exception as e:
                 logging.exception(e)
@@ -106,6 +116,7 @@ def index(request):
     while len(urls) < 5:
         urls.append("")
 
+    context['previous_searches'] = previous_searches
     context['ignore_keywords'] = request.POST.get('ignore-keywords', "")
     context['require_keywords'] = request.POST.get('require-keywords', "")
     context['page_count'] = request.POST.get('page_count', 1)

@@ -43,6 +43,14 @@ class Search(MPTTModel, BaseModel):
     def __unicode__(self):
         return self.name
 
+    @property
+    def ignore_keywords_list(self):
+        return [s for s in map(lambda s: s.strip(), self.ignore_keywords.split(",")) if s]
+
+    @property
+    def require_keywords_list(self):
+        return [s for s in map(lambda s: s.strip(), self.require_keywords.split(",")) if s]
+
     def __init__(self, *args, **kwargs):
         super(Search, self).__init__(*args, **kwargs)
         if not self.id and not self.slug:
@@ -140,6 +148,17 @@ class Listing(BaseModel):
             return int(self.price)
         else:
             return "N/A"
+
+    def load_details_from_listing(self, listing):
+        self.lat = listing.lat
+        self.lon = listing.lon
+        self.long_description = listing.long_description
+        for img in listing.listingimage_set.all():
+            ListingImage.objects.create(listing=self,
+                                        url=img.url,
+                                        thumbnail_url=img.thumbnail_url,
+                                        position=img.position)
+        self.save()
 
     def load_details_from_gumtree(self, raw_html):
         html = BeautifulSoup(raw_html)

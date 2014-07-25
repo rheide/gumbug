@@ -15,7 +15,11 @@ logger = logging.getLogger(__name__)
 def log(search, msg):
     logger.info(u"[%s] %s", search.slug, msg)
 
-def search(search):
+def search(search, refetch_listings=False):
+    """ Searches urls for listings and loads their information.
+        If refetch_listings is false then the most recent version of the
+        listing (based on url) will be used rather than fetching the listing again.
+    """
 
     results = {}
 
@@ -34,11 +38,22 @@ def search(search):
                 result.search = search
                 results[result.url] = (result, search_url)
 
-    # Limit for now
     result_list = results.values()
     for result, search_url in result_list:
         result.save()  # Must be saved before saving related objects
-        do_with_retry(_load_result, search, search_url, result, retry_count=1)
+
+        refetch_details = True
+        if not refetch_listings:
+            # See if we have a previous record for this url
+            previous_versions = Listing.objects.filter(url=result.url,
+                                                       long_description__isnull=False).order_by('-created')[:1]
+            if previous_versions:
+                log(search, "Loading listing %s from previous version %s" % (result.id, previous_versions[0].id))
+                result.load_details_from_listing(previous_versions[0])
+                refetch_details = False
+
+        if refetch_details:
+            do_with_retry(_load_result, search, search_url, result, retry_count=1)
 
     if not result_list:
         raise Exception("No results found.")
@@ -49,7 +64,9 @@ def search(search):
 
 
 def process_ignore_keywords(search, result_list):
-    ignore_keywords = map(lambda s: s.strip(), search.ignore_keywords.split(","))
+    ignore_keywords = search.ignore_keywords_list
+    if not ignore_keywords:
+        return
     for result, _ in result_list:
         if result.ignored:
             continue  # Skip already ignored results
@@ -60,7 +77,9 @@ def process_ignore_keywords(search, result_list):
 
 
 def process_require_keywords(search, result_list):
-    require_keywords = map(lambda s: s.strip(), search.require_keywords.split(","))
+    require_keywords = search.require_keywords_list
+    if not require_keywords:
+        return
     for result, _ in result_list:
         if result.ignored:
             continue  # Skip already ignored results
