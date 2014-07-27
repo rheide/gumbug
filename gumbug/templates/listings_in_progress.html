@@ -1,0 +1,32 @@
+{% extends '_base.html' %}
+
+{% block title %}{{ search.title }} | Gumbug Search{% endblock %}
+
+
+{% block body %}
+
+{% include "_previous_searches.html" %}
+
+<div class="row">
+	<h1>{{ search.title }} ({{ search.status }})- Gumbug search</h1>
+</div>
+
+{% include "_search_config.html" %}
+
+{% if search.status == 'error' %}
+	<p class="error">Search failed. {{ search.search_result }}</p>
+{% else %}
+	<p>Search is currently in progress. Please wait for it to finish. This page will automatically refresh.<p>
+	
+	<p>Last updated: {{ last_updated }}</p>
+	<p><strong>{{ result_count }} listings found</strong></p>
+	<p><strong>{{ ignored_count }} listings ignored</strong></p>
+	
+	<script type="text/javascript">
+		setTimeout(function(){
+			location = '';
+		}, 1000);
+	</script>
+{% endif %}
+
+{% endblock %}

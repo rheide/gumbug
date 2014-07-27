@@ -27,6 +27,8 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'gumbug',
     'mptt',
+    'kombu.transport.django',
+    'djcelery',
 )
 
 if ON_PRODUCTION_SERVER:
@@ -114,3 +116,10 @@ LOGGING = {
         },
     }
 }
+
+USE_CELERY = True
+
+# Celery
+BROKER_URL = 'django://'
+
+

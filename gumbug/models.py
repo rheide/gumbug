@@ -21,8 +21,8 @@ class BaseModel(models.Model):
     class Meta:
         abstract = True
 
-    created = models.DateTimeField(editable=False)
-    modified = models.DateTimeField(editable=False)
+    created = models.DateTimeField(editable=False, db_index=True)
+    modified = models.DateTimeField(editable=False, db_index=True)
 
     def save(self, *args, **kwargs):
         if not self.id or not self.created:
@@ -33,6 +33,10 @@ class BaseModel(models.Model):
 
 class Search(MPTTModel, BaseModel):
 
+    STATUS_NEW = 'new'
+    STATUS_DONE = 'done'
+    STATUS_ERROR = 'error'
+
     name = models.CharField(max_length=80)
     slug = models.SlugField(max_length=80, unique=True)
 
@@ -41,8 +45,20 @@ class Search(MPTTModel, BaseModel):
     ignore_keywords = models.TextField(null=True, blank=True)
     require_keywords = models.TextField(null=True, blank=True)
 
+    status = models.CharField(max_length=50, default='new', choices=[
+        (STATUS_NEW, 'New'),
+        (STATUS_DONE, 'Done'),
+        (STATUS_ERROR, 'Error'),
+    ])
+    search_result = models.TextField(null=True, blank=True)
+
     def __unicode__(self):
         return self.name
+
+    @property
+    def title(self):
+        stamp = datetime.strftime(self.modified, "%d %b %H:%M")
+        return u"%s %s" % (stamp, self.slug)
 
     @property
     def ignore_keywords_list(self):

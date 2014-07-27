@@ -1,6 +1,6 @@
 {% extends '_base.html' %}
 
-{% block title %}{{ search.name }} | Gumbug Search{% endblock %}
+{% block title %}{{ search.title }} | Gumbug Search{% endblock %}
 
 {% block headerjs %}
 
@@ -170,19 +170,10 @@
 {% include "_previous_searches.html" %}
 
 <div class="row">
-	<h1>[{{ search.modified|date:"SHORT_DATETIME_FORMAT" }}] - Gumbug search</h1>
+	<h1>{{ search.title }} - Gumbug search</h1>
 </div>
 
-Showing results from:
-<ul>
-{% for search_url in search.searchurl_set.all %}
-	<li><a href="{{ search_url.url }}" target="_blank">{{ search_url.url }}</a></li>
-{% endfor %}
-</ul>
-
-<p>Ignoring keywords: <strong>{{ search.ignore_keywords }}</strong></p>
-
-<p>Requiring keywords: <strong>{{ search.require_keywords }}</strong></p>
+{% include "_search_config.html" %}
 
 <form action="{% url 'listings' search.slug %}" method="POST" style="display: inline;">
 {% csrf_token %}

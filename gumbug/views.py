@@ -9,7 +9,7 @@ from django.core.validators import URLValidator
 from django.core.exceptions import ValidationError
 from django.utils.text import slugify
 
-from gumbug import scraper
+from gumbug import scraper, tasks
 from gumbug.models import Search, Listing, SearchUrl
 from django.core.paginator import Paginator
 import traceback
@@ -66,10 +66,27 @@ def listings(request, search_slug, page_number=1):
     except Search.DoesNotExist:
         raise Http404
 
+    previous_searches = request.session.get('previous_searches', [])
+    context['search'] = search
+    ignored_count = Listing.objects.filter(search=search, ignored=True).count()
+    context['ignored_count'] = ignored_count
+    context['previous_searches'] = previous_searches
+
+    logging.info("Search status: %s" % search.status)
+    if search.status != Search.STATUS_DONE:
+        listings = Listing.objects.filter(search=search).order_by("-modified")
+        context['result_count'] = listings.count()
+        context['ignored_count'] = ignored_count
+        if context['result_count']:
+            context['last_updated'] = listings[:1][0].modified
+        else:
+            context['last_updated'] = search.modified
+        return render(request, 'listings_in_progress.html', context)
+
     if request.method == "POST":
         try:
             new_search = search.clone()
-            scraper.search(new_search)
+            tasks.search.delay(new_search.id, refetch_listings=False)
             return redirect('listings', new_search.slug)
         except Exception as e:
             logging.exception(e)
@@ -79,25 +96,19 @@ def listings(request, search_slug, page_number=1):
                                                               "ignored",
                                                               "-date_posted")
 
-    ignored_count = Listing.objects.filter(search=search, ignored=True).count()
-
     p = Paginator(listings, 10)
     page = p.page(page_number)
 
-    previous_searches = request.session.get('previous_searches', [])
     if not search.slug in previous_searches:
         previous_searches.insert(0, search.slug)
         if len(previous_searches) > 8:
             previous_searches.pop()
         request.session['previous_searches'] = previous_searches
 
-    context['search'] = search
     context['valid_count'] = p.count - ignored_count
-    context['ignored_count'] = ignored_count
     context['listings'] = page.object_list
     context['page'] = page
     context['paginator'] = p
-    context['previous_searches'] = previous_searches
 
     return render(request, 'listings.html', context)
 
@@ -127,8 +138,13 @@ def index(request):
                 search = Search.create(urls)
                 search.ignore_keywords = request.POST.get('ignore-keywords', "")
                 search.require_keywords = request.POST.get('require-keywords', "")
+                search.status = Search.STATUS_NEW
                 search.save()
-                scraper.search(search, refetch_listings=bool(request.POST and request.POST.get('refetch', '')))
+                refetch_listings=bool(request.POST and request.POST.get('refetch', ''))
+                if settings.USE_CELERY:
+                    tasks.search.delay(search.id, refetch_listings)
+                else:
+                    scraper.search(search, refetch_listings)
                 return redirect('listings', search.slug)
             except Exception as e:
                 logging.exception(e)
