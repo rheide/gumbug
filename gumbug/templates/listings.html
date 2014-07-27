@@ -114,7 +114,7 @@
 				layer = new google.maps.FusionTablesLayer({
 					query: {
 						select: '\'Geocodable address\'',
-						from: '1FPj4sqRsXXNhIuxsNr8l0uEVCUSb071_XIcYqw'
+						from: '1GVraQ6WaXMD1ORTUVKoNsLbMSQ7jaXkV0mSdBO2u'
 					},
 					options: {suppressInfoWindows: true},
 				});
@@ -132,11 +132,17 @@
 				$canvas.parent().removeClass("col-md-12");
 				$canvas.removeClass("map-large");
 				$(this).text("Bigger");
+				if (deprivationLayers[dataId]) {
+					deprivationLayers[dataId].setOptions({suppressInfoWindows: true});
+				}
 			} else{
 				$canvas.parent().removeClass("col-md-6");
 				$canvas.parent().addClass("col-md-12");
 				$canvas.addClass("map-large");
 				$(this).text("Smaller");
+				if (deprivationLayers[dataId]) {
+					deprivationLayers[dataId].setOptions({suppressInfoWindows: false});
+				}
 			}
 			google.maps.event.trigger(map, "resize");
 		});
