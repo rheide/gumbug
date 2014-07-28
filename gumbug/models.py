@@ -1,20 +1,13 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-import logging
-import re
 import pytz
-from datetime import datetime, timedelta
+from datetime import datetime
 from django.db import models
 from django.utils.text import slugify
 from uuid import uuid4
-from bs4 import BeautifulSoup
 from mptt.models import MPTTModel
-import traceback
 
-price_regex = re.compile(r'[^\d]*(\d+)(pw)?.*', re.UNICODE | re.IGNORECASE)
-date_listed_regex = re.compile(r"(\d+) (yesterday|seconds|days|hours|mins|month|months|year|years) ago", re.UNICODE | re.IGNORECASE)
-latlon_regex = re.compile(r".*center=([-\d\.]+)%2C([-\d\.]+).*")
 
 class BaseModel(models.Model):
 
@@ -120,8 +113,6 @@ class Listing(BaseModel):
     source = models.CharField(max_length=50, db_index=True, choices=[('gumtree', 'gumtree')],
                               default='gumtree')
 
-    search = models.ForeignKey(Search)
-
     url = models.URLField(max_length=511, db_index=True)
 
     title = models.CharField(max_length=255, null=True, blank=True)
@@ -136,11 +127,6 @@ class Listing(BaseModel):
     area = models.CharField(max_length=255, blank=True, null=True, db_index=True)
 
     featured = models.BooleanField(default=False)
-
-    # TODO move these to M2M relation
-    favorite = models.BooleanField(default=False, db_index=True)
-    ignored = models.BooleanField(default=False, db_index=True)
-    ignored_reason = models.CharField(max_length=255, null=True, blank=True)
 
     lat = models.FloatField(null=True, blank=True)
     lon = models.FloatField(null=True, blank=True)
@@ -179,91 +165,6 @@ class Listing(BaseModel):
                                         position=img.position)
         self.save()
 
-    def load_details_from_gumtree(self, raw_html):
-        html = BeautifulSoup(raw_html)
-        self.long_description = html.find("div", {'id': "vip-description-text"}).text.strip()
-
-        latlon_html = html.find("a", {'class': 'open_map'})
-        if latlon_html:
-            latlon_match = latlon_regex.match(latlon_html['data-target'])
-            self.lat = float(latlon_match.group(1))
-            self.lon = float(latlon_match.group(2))
-            logging.info("Loc: %s %s", self.lat, self.lon)
-
-        # Load images
-        for i in range(20):
-            image_html = html.find("ul", {'class': "gallery-main"})
-            if not image_html:
-                continue
-            image_html = image_html.find("li", {'id': "gallery-item-mid-%s" % i})
-            if not image_html:
-                continue
-            image_html = image_html.find("img")
-            if not image_html:
-                continue
-
-            image = ListingImage(listing=self)
-            image.url = image_html['src']
-
-            thumbnail_html = html.find("ul", {'class': 'gallery-thumbs'})
-            if thumbnail_html:
-                thumbnail_html = thumbnail_html.find("a", {'href': "#gallery-item-mid-%s" % i})
-                if thumbnail_html:
-                    image.thumbnail_url = thumbnail_html.find("img")['src']
-
-            image.position = i
-            image.save()
-
-        self.save()
-
-    @classmethod
-    def from_gumtree(cls, html):
-        result = cls()
-
-        title = html.find("a", {'class': 'description'})
-        result.title = title.text.strip()
-        result.url = title["href"]
-
-        price = html.find("span", {'class': 'price'}).text.strip()
-
-        price_match = price_regex.match(price)
-        if price_match:
-            result.price = float(price_match.group(1))
-            result.price_type = 'week'
-
-        result.area = html.find("span", {'class': 'location'}).text.strip()
-        date_available =  html.find("span", {'class': 'displayed-date'}).text.strip()
-        result.date_available = pytz.utc.localize(datetime.strptime(date_available, "%d/%m/%y"))
-
-        result.short_description = html.find("div", {'class': "ad-description"}).span.text.strip()
-
-        result.featured = bool(html.find("span", {"class": "featured"}))
-
-        age_days = -1
-        date_listed = html.find("span", {'class': 'post-date'})
-        if date_listed:
-            date_listed = date_listed.text.strip()
-            match = date_listed_regex.match(date_listed)
-            if match:
-                if match.group(2) == 'days':
-                    age_days = int(match.group(1))
-                elif 'month' in match.group(2):
-                    # rough indication, most likely not interested in old ads anyway
-                    age_days = 30 * int(match.group(1))
-                elif 'year' in match.group(2):
-                    age_days = 365 * int(match.group(1))
-                else:  # seconds, minutes, hours
-                    age_days = 0
-            elif date_listed == 'yesterday':
-                age_days = 1
-
-        if age_days >= 0:
-            result.date_posted = datetime.now(pytz.utc) - timedelta(days=age_days)
-        else:
-            result.date_posted = None
-
-        return result
-
     def __str__(self):
         return self.__unicode__().encode("ascii", "ignore")
 
@@ -273,6 +174,16 @@ class Listing(BaseModel):
             "%s PCM" % self.price_per_month,
             self.area,
         ]))
+
+
+class SearchListing(BaseModel):
+
+    search = models.ForeignKey(Search)
+    listing = models.ForeignKey(Listing)
+
+    favorite = models.BooleanField(default=False, db_index=True)
+    ignored = models.BooleanField(default=False, db_index=True)
+    ignored_reason = models.CharField(max_length=255, null=True, blank=True)
 
 
 class ListingImage(BaseModel):

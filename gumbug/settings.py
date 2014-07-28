@@ -122,4 +122,7 @@ USE_CELERY = True
 # Celery
 BROKER_URL = 'django://'
 
-
+try:
+    from local_settings import *
+except ImportError:
+    pass

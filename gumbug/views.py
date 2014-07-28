@@ -1,18 +1,15 @@
 import logging
 import json
-from uuid import uuid4
+import traceback
 
-from django.http.response import Http404, HttpResponse, HttpResponseNotAllowed,\
-    HttpResponseForbidden
+from django.http.response import Http404, HttpResponse, HttpResponseForbidden
 from django.shortcuts import render, redirect
 from django.core.validators import URLValidator
 from django.core.exceptions import ValidationError
-from django.utils.text import slugify
-
-from gumbug import scraper, tasks
-from gumbug.models import Search, Listing, SearchUrl
 from django.core.paginator import Paginator
-import traceback
+
+from gumbug import tasks
+from gumbug.models import Search, Listing
 
 validate_url= URLValidator()
 
@@ -86,7 +83,7 @@ def listings(request, search_slug, page_number=1):
     if request.method == "POST":
         try:
             new_search = search.clone()
-            tasks.search.delay(new_search.id, refetch_listings=False)
+            tasks.start_search(new_search.id, refetch_listings=False)
             return redirect('listings', new_search.slug)
         except Exception as e:
             logging.exception(e)
@@ -141,10 +138,7 @@ def index(request):
                 search.status = Search.STATUS_NEW
                 search.save()
                 refetch_listings=bool(request.POST and request.POST.get('refetch', ''))
-                if settings.USE_CELERY:
-                    tasks.search.delay(search.id, refetch_listings)
-                else:
-                    scraper.search(search, refetch_listings)
+                tasks.start_search(search.id, refetch_listings)
                 return redirect('listings', search.slug)
             except Exception as e:
                 logging.exception(e)
