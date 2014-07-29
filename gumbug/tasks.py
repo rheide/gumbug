@@ -71,7 +71,9 @@ def do_search(search, refetch_listings):
         if not listing.id or refetch_listings:
             do_with_retry(load_result_details, search_url, listing, retry_count=3)
 
-        search_listings.append(SearchListing(search=search, listing=listing))
+        search_listing = SearchListing(search=search, listing=listing)
+        search_listing.save()
+        search_listings.append(search_listing)
 
     process_past_search_listings(search, search_listings)
     process_ignore_keywords(search, search_listings)
@@ -86,32 +88,34 @@ def load_result_details(search_url, listing):
     scraper.fetch_details(search_url, listing)
 
 
-def process_ignore_keywords(search, search_results):
+def process_ignore_keywords(search, search_listings):
     ignore_keywords = search.ignore_keywords_list
     if not ignore_keywords:
         return
-    for result in search_results:
-        if result.ignored:
+    for search_listing in search_listings:
+        if search_listing.ignored:
             continue  # Skip already ignored results
-        title_and_desc = u"%s %s" % (result.title, result.description)
+        title_and_desc = u"%s %s" % (search_listing.listing.title, search_listing.listing.description)
         title_and_desc = title_and_desc.lower()
         if any(word in title_and_desc for word in ignore_keywords):
-            result.ignored = True
-            result.ignored_reason = "Contains ignored keywords"
+            search_listing.ignored = True
+            search_listing.ignored_reason = "Contains ignored keywords"
+            search_listing.save()
 
 
-def process_require_keywords(search, result_list):
+def process_require_keywords(search, search_listings):
     require_keywords = search.require_keywords_list
     if not require_keywords:
         return
-    for result in result_list:
-        if result.ignored:
+    for search_listing in search_listings:
+        if search_listing.ignored:
             continue  # Skip already ignored results
-        title_and_desc = u"%s %s" % (result.title, result.description)
+        title_and_desc = u"%s %s" % (search_listing.listing.title, search_listing.listing.description)
         title_and_desc = title_and_desc.lower()
         if not any(word in title_and_desc for word in require_keywords):
-            result.ignored = True
-            result.ignored_reason = "Did not contain a required keyword"
+            search_listing.ignored = True
+            search_listing.ignored_reason = "Did not contain a required keyword"
+            search_listing.save()
 
 
 def process_past_search_listings(search, result_list):

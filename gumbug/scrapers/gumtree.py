@@ -59,19 +59,19 @@ class GumtreeScraper(Scraper):
         log(search, "Status: %s" % r.status_code)
         if r.status_code != 200:
             raise Exception("Invalid status code: %s" % r.status_code)
-    
+
         html = BeautifulSoup(r.text)
         listing.long_description = html.find("div", {'id': "vip-description-text"}).text.strip()
-    
+
         latlon_html = html.find("a", {'class': 'open_map'})
         if latlon_html:
             latlon_match = latlon_regex.match(latlon_html['data-target'])
             listing.lat = float(latlon_match.group(1))
             listing.lon = float(latlon_match.group(2))
             logging.info("Loc: %s %s", listing.lat, listing.lon)
-    
+
         listing.save()
-    
+
         # Load images
         for i in range(20):
             image_html = html.find("ul", {'class': "gallery-main"})
@@ -83,16 +83,16 @@ class GumtreeScraper(Scraper):
             image_html = image_html.find("img")
             if not image_html:
                 continue
-    
+
             image = ListingImage(listing=listing)
             image.url = image_html['src']
-    
+
             thumbnail_html = html.find("ul", {'class': 'gallery-thumbs'})
             if thumbnail_html:
                 thumbnail_html = thumbnail_html.find("a", {'href': "#gallery-item-mid-%s" % i})
                 if thumbnail_html:
                     image.thumbnail_url = thumbnail_html.find("img")['src']
-    
+
             image.position = i
             image.save()
 
