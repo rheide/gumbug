@@ -35,6 +35,9 @@ class Search(MPTTModel, BaseModel):
 
     parent = models.ForeignKey("self", null=True, blank=True, related_name="children")
 
+    preserve_ignored = models.BooleanField(default=True)
+    preserve_favorites = models.BooleanField(default=True)
+
     ignore_keywords = models.TextField(null=True, blank=True)
     require_keywords = models.TextField(null=True, blank=True)
 
@@ -153,17 +156,6 @@ class Listing(BaseModel):
             return int(self.price)
         else:
             return "N/A"
-
-    def load_details_from_listing(self, listing):
-        self.lat = listing.lat
-        self.lon = listing.lon
-        self.long_description = listing.long_description
-        for img in listing.listingimage_set.all():
-            ListingImage.objects.create(listing=self,
-                                        url=img.url,
-                                        thumbnail_url=img.thumbnail_url,
-                                        position=img.position)
-        self.save()
 
     def __str__(self):
         return self.__unicode__().encode("ascii", "ignore")

@@ -149,7 +149,8 @@
 
 		var map_canvas, mapOptions, map, loc;
 
-{% for listing in listings %}
+{% for search_listing in listings %}
+	{% with search_listing.listing as listing %}
 	{% if listing.lat and listing.lon %}
 
 		loc = new google.maps.LatLng({{ listing.lat }}, {{ listing.lon }});
@@ -164,6 +165,7 @@
 		maps[{{ listing.id}}] = map;
 
 	{% endif %}
+	{% endwith %}
 {% endfor %}
 	}
 	google.maps.event.addDomListener(window, 'load', initialize);
@@ -192,8 +194,10 @@
 {% include "_pagination.html" %}
 
 <div class="listings">
-	{% for listing in listings %}
-		{% include "_listing.html" %}
+	{% for search_listing in listings %}
+		{% with search_listing.listing as listing %}
+			{% include "_listing.html" %}
+		{% endwith %}
 	{% endfor %}
 </div>
 

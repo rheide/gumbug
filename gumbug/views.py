@@ -9,7 +9,7 @@ from django.core.exceptions import ValidationError
 from django.core.paginator import Paginator
 
 from gumbug import tasks
-from gumbug.models import Search, Listing
+from gumbug.models import Search, Listing, SearchListing
 
 validate_url= URLValidator()
 
@@ -23,7 +23,7 @@ def ignore_listing(request, search_slug, listing_id):
 
     try:
         search = Search.objects.get(slug=search_slug)
-        listing = Listing.objects.get(search=search, id=listing_id)
+        listing = SearchListing.objects.get(search=search, id=listing_id)
     except Search.DoesNotExist, Listing.DoesNotExist:
         raise Http404
 
@@ -45,7 +45,7 @@ def favorite_listing(request, search_slug, listing_id):
 
     try:
         search = Search.objects.get(slug=search_slug)
-        listing = Listing.objects.get(search=search, id=listing_id)
+        listing = SearchListing.objects.get(search=search, id=listing_id)
     except Search.DoesNotExist, Listing.DoesNotExist:
         raise Http404
 
@@ -65,13 +65,13 @@ def listings(request, search_slug, page_number=1):
 
     previous_searches = request.session.get('previous_searches', [])
     context['search'] = search
-    ignored_count = Listing.objects.filter(search=search, ignored=True).count()
+    ignored_count = SearchListing.objects.filter(search=search, ignored=True).count()
     context['ignored_count'] = ignored_count
     context['previous_searches'] = previous_searches
 
     logging.info("Search status: %s" % search.status)
     if search.status != Search.STATUS_DONE:
-        listings = Listing.objects.filter(search=search).order_by("-modified")
+        listings = SearchListing.objects.filter(search=search).order_by("-modified")
         context['result_count'] = listings.count()
         context['ignored_count'] = ignored_count
         if context['result_count']:
@@ -89,9 +89,9 @@ def listings(request, search_slug, page_number=1):
             logging.exception(e)
             context['error'] = u"Search failed: %s" % unicode(e)
 
-    listings = Listing.objects.filter(search=search).order_by("-favorite",
-                                                              "ignored",
-                                                              "-date_posted")
+    listings = SearchListing.objects.filter(search=search).order_by("-favorite",
+                                                                    "ignored",
+                                                                    "-listing__date_posted")
 
     p = Paginator(listings, 10)
     page = p.page(page_number)

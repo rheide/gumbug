@@ -8,7 +8,7 @@ import requests
 import logging
 from datetime import datetime, timedelta
 
-from gumbug.models import Listing, ListingImage
+from gumbug.models import Listing, ListingImage, SearchListing
 from gumbug.utils import do_with_retry
 
 headers = {
@@ -52,36 +52,36 @@ def search(search, refetch_listings=False):
                 if result.url in results:
                     log(search, "Duplicate results for url %s. Skipping" % result.url)
                 else:
-                    result.search = search
                     results[result.url] = (result, search_url)
 
-    result_list = results.values()
-    for result, search_url in result_list:
-        result.save()  # Must be saved before saving related objects
+    search_results = []
+    for result, search_url in results.values():
+        previous_versions = Listing.objects.filter(url=result.url,
+                                                   long_description__isnull=False).order_by('-created')[:1]
+        if previous_versions:
+            result = previous_versions[0]
 
-        refetch_details = True
-        if not refetch_listings:
-            # See if we have a previous record for this url
-            previous_versions = Listing.objects.filter(url=result.url,
-                                                       long_description__isnull=False).order_by('-created')[:1]
-            if previous_versions:
-                log(search, "Loading listing %s from previous version %s" % (result.id, previous_versions[0].id))
-                result.load_details_from_listing(previous_versions[0])
-                refetch_details = False
-
-        if refetch_details:
+        if not result.id or refetch_listings:
             do_with_retry(load_result_details, search, search_url, result, retry_count=3)
 
-    process_ignored_listings(search, result_list)
-    process_ignore_keywords(search, result_list)
-    process_require_keywords(search, result_list)
+        logging.info("Listing ID: %s" % result.id)
+
+        search_listing = SearchListing(search=search, listing=result)
+        search_results.append(search_listing)
+
+    process_past_search_listings(search, search_results)
+    process_ignore_keywords(search, search_results)
+    process_require_keywords(search, search_results)
+
+    for res in search_results:
+        res.save()
 
 
-def process_ignore_keywords(search, result_list):
+def process_ignore_keywords(search, search_results):
     ignore_keywords = search.ignore_keywords_list
     if not ignore_keywords:
         return
-    for result, _ in result_list:
+    for result in search_results:
         if result.ignored:
             continue  # Skip already ignored results
         title_and_desc = u"%s %s" % (result.title, result.description)
@@ -89,14 +89,13 @@ def process_ignore_keywords(search, result_list):
         if any(word in title_and_desc for word in ignore_keywords):
             result.ignored = True
             result.ignored_reason = "Contains ignored keywords"
-            result.save()
 
 
 def process_require_keywords(search, result_list):
     require_keywords = search.require_keywords_list
     if not require_keywords:
         return
-    for result, _ in result_list:
+    for result in result_list:
         if result.ignored:
             continue  # Skip already ignored results
         title_and_desc = u"%s %s" % (result.title, result.description)
@@ -104,34 +103,73 @@ def process_require_keywords(search, result_list):
         if not any(word in title_and_desc for word in require_keywords):
             result.ignored = True
             result.ignored_reason = "Did not contain a required keyword"
-            result.save()
 
 
-def process_ignored_listings(search, result_list):
-    """ Mark listings that were previously marked as ignored, ignored. """
+def process_past_search_listings(search, result_list):
+    """ Mark listings that were previously marked as ignored or favorited. """
     # We'll want to find the first (least deep) entry for each result's url.
     # If an entry exists, copy that entry's ignored state and reason.
     search_query = search.get_ancestors(ascending=True)
-    for result, _ in result_list:
-        logging.info("Searching ancestor listings for %s", result.url)
-        previous_results = Listing.objects.filter(search__in=search_query,
-                                                  url=result.url).order_by("-search__level")[:1]
+    for result in result_list:
+        logging.info("Searching ancestor listings for %s", result.listing.url)
+        previous_results = SearchListing.objects.filter(search__in=search_query,
+                                                        listing__url=result.listing.url).order_by("-search__level")[:1]
 
-        if previous_results and previous_results[0].ignored != result.ignored:
+        if not previous_results:
+            continue
+
+        if previous_results[0].ignored != result.ignored:
             result.ignored = previous_results[0].ignored
             result.ignored_reason = previous_results[0].ignored_reason
-            result.save()
+
+        if previous_results[0].favorite != result.favorite:
+            result.favorite = previous_results[0].favorite
 
 
-def load_result_details(search, search_url, result):
-    log(search, "Fetching %s" % result.url)
+def load_result_details(search, search_url, listing):
+    log(search, "Fetching %s" % listing.url)
     detail_headers = {'referer': search_url.url}
     detail_headers.update(headers)
-    r = requests.get(result.url, headers=detail_headers)
+    r = requests.get(listing.url, headers=detail_headers)
     log(search, "Status: %s" % r.status_code)
     if r.status_code != 200:
         raise Exception("Invalid status code: %s" % r.status_code)
-    result.load_details_from_gumtree(r.text)
+
+    html = BeautifulSoup(r.text)
+    listing.long_description = html.find("div", {'id': "vip-description-text"}).text.strip()
+
+    latlon_html = html.find("a", {'class': 'open_map'})
+    if latlon_html:
+        latlon_match = latlon_regex.match(latlon_html['data-target'])
+        listing.lat = float(latlon_match.group(1))
+        listing.lon = float(latlon_match.group(2))
+        logging.info("Loc: %s %s", listing.lat, listing.lon)
+
+    listing.save()
+
+    # Load images
+    for i in range(20):
+        image_html = html.find("ul", {'class': "gallery-main"})
+        if not image_html:
+            continue
+        image_html = image_html.find("li", {'id': "gallery-item-mid-%s" % i})
+        if not image_html:
+            continue
+        image_html = image_html.find("img")
+        if not image_html:
+            continue
+
+        image = ListingImage(listing=listing)
+        image.url = image_html['src']
+
+        thumbnail_html = html.find("ul", {'class': 'gallery-thumbs'})
+        if thumbnail_html:
+            thumbnail_html = thumbnail_html.find("a", {'href': "#gallery-item-mid-%s" % i})
+            if thumbnail_html:
+                image.thumbnail_url = thumbnail_html.find("img")['src']
+
+        image.position = i
+        image.save()
 
 
 def listing_from_gumtree(html):
@@ -180,41 +218,3 @@ def listing_from_gumtree(html):
         result.date_posted = None
 
     return result
-
-
-def load_listing_details_from_gumtree(listing, raw_html):
-    html = BeautifulSoup(raw_html)
-    listing.long_description = html.find("div", {'id': "vip-description-text"}).text.strip()
-
-    latlon_html = html.find("a", {'class': 'open_map'})
-    if latlon_html:
-        latlon_match = latlon_regex.match(latlon_html['data-target'])
-        listing.lat = float(latlon_match.group(1))
-        listing.lon = float(latlon_match.group(2))
-        logging.info("Loc: %s %s", listing.lat, listing.lon)
-
-    # Load images
-    for i in range(20):
-        image_html = html.find("ul", {'class': "gallery-main"})
-        if not image_html:
-            continue
-        image_html = image_html.find("li", {'id': "gallery-item-mid-%s" % i})
-        if not image_html:
-            continue
-        image_html = image_html.find("img")
-        if not image_html:
-            continue
-
-        image = ListingImage(listing=listing)
-        image.url = image_html['src']
-
-        thumbnail_html = html.find("ul", {'class': 'gallery-thumbs'})
-        if thumbnail_html:
-            thumbnail_html = thumbnail_html.find("a", {'href': "#gallery-item-mid-%s" % i})
-            if thumbnail_html:
-                image.thumbnail_url = thumbnail_html.find("img")['src']
-
-        image.position = i
-        image.save()
-
-    listing.save()

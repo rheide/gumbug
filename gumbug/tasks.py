@@ -7,11 +7,11 @@ from gumbug.models import Search
 from gumbug.scrapers import gumtree
 
 
-def start_search(search_id, refresh_listings=False):
+def start_search(search_id, refetch_listings=False):
     if settings.USE_CELERY:
-        search.delay(search_id, refetch_listings=refresh_listings)
+        search.delay(search_id, refetch_listings=refetch_listings)
     else:
-        search(search_id, refetch_listings=refresh_listings)
+        search(search_id, refetch_listings=refetch_listings)
 
 @shared_task
 def search(search_id, refetch_listings=False):

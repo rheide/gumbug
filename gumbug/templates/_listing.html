@@ -1,11 +1,14 @@
 
-<div id="listing-{{ listing.id }}" class="col-md-12 search-listing {% if listing.ignored %}ignored{% endif %} {% if listing.favorite %}favorite{% endif %}">
-	{% if listing.ignored and listing.ignored_reason %}
-	<p class="ignore-reason">{{ listing.ignored_reason }}</p>
+<div id="listing-{{ listing.id }}" class="col-md-12 search-listing {% if search_listing.ignored %}ignored{% endif %} {% if search_listing.favorite %}favorite{% endif %}">
+
+	{% if search_listing.ignored and search_listing.ignored_reason %}
+		<p class="ignore-reason">{{ search_listing.ignored_reason }}</p>
 	{% endif %}
-	{% if listing.favorite %}
-	<p class"favorite">Favorite</p>
+
+	{% if search_listing.favorite %}
+		<p class"favorite">Favorite</p>
 	{% endif %}
+
 	<h3><a href="{{ listing.url }}" target="_blank">£{{ listing.price_per_month }}pcm {{ listing.title|truncatechars:80 }}</a></h3>
 	<div class="info row">
 		<div class="area col-md-4">{{ listing.area }}</div>
@@ -22,25 +25,27 @@
 	<div class="description row">
 		<div class="col-md-6">
 
-		{% if not listing.favorite and not listing.ignored %}
-			<a class="btn btn-success btn-favorite" href="#" data-id="{{ listing.id }}" title="Move this ad to the top and keep it on top in future searches">Favorite</a>
-		{% endif %}
-		{% if listing.favorite %}
-			<a class="btn btn-info btn-unfavorite" href="#" data-id="{{ listing.id }}" title="Move this ad back to normal">Unfavorite</a>
+		{% if not search_listing.favorite and not search_listing.ignored %}
+			<a class="btn btn-success btn-favorite" href="#" data-id="{{ search_listing.id }}" title="Move this ad to the top and keep it on top in future searches">Favorite</a>
 		{% endif %}
 
-		{% if not listing.ignored %}
-			<a class="btn btn-danger btn-ignore" href="#" data-id="{{ listing.id }}" title="Move this ad to the bottom and ignore it in future searches">Ignore</a>
-		{% endif %}
-		{% if listing.ignored %}
-			<a class="btn btn-success btn-unignore" href="#" data-id="{{ listing.id }}" title="Move this ad back and stop ignoring it in future searches">Unignore</a>
+		{% if search_listing.favorite %}
+			<a class="btn btn-info btn-unfavorite" href="#" data-id="{{ search_listing.id }}" title="Move this ad back to normal">Unfavorite</a>
 		{% endif %}
 
-			{% if listing.long_description %}
+		{% if not search_listing.ignored %}
+			<a class="btn btn-danger btn-ignore" href="#" data-id="{{ search_listing.id }}" title="Move this ad to the bottom and ignore it in future searches">Ignore</a>
+		{% endif %}
+
+		{% if search_listing.ignored %}
+			<a class="btn btn-success btn-unignore" href="#" data-id="{{ search_listing.id }}" title="Move this ad back and stop ignoring it in future searches">Unignore</a>
+		{% endif %}
+
+		{% if listing.long_description %}
 			<pre>{{ listing.long_description }}</pre>
-			{% else %}
+		{% else %}
 			<pre>{{ listing.short_description }}</pre>
-			{% endif %}
+		{% endif %}
 		</div>
 		<div class="col-md-6">
 			<div class="map_canvas" id="map_canvas_{{ listing.id }}">
