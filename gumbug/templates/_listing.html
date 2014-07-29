@@ -41,11 +41,8 @@
 			<a class="btn btn-success btn-unignore" href="#" data-id="{{ search_listing.id }}" title="Move this ad back and stop ignoring it in future searches">Unignore</a>
 		{% endif %}
 
-		{% if listing.long_description %}
-			<pre>{{ listing.long_description }}</pre>
-		{% else %}
-			<pre>{{ listing.short_description }}</pre>
-		{% endif %}
+		<pre>{{ listing.description|safe }}</pre>
+
 		</div>
 		<div class="col-md-6">
 			<div class="map_canvas" id="map_canvas_{{ listing.id }}">

@@ -34,7 +34,7 @@ def log(search, msg):
 
 price_regex = re.compile(r'.*[^\d]+([\d,]+) pcm.*', re.UNICODE | re.IGNORECASE | re.MULTILINE)
 date_listed_regex = re.compile(r"Listed on (\d\d/\d\d/\d\d\d\d)", re.UNICODE | re.IGNORECASE)
-latlon_regex = re.compile(r".*center=([-\d\.]+)%2C([-\d\.]+).*")
+latlon_regex = re.compile(r".*center=([-\d\.]+),([-\d\.]+).*")
 
 
 class RightmoveScraper(Scraper):
@@ -82,4 +82,52 @@ class RightmoveScraper(Scraper):
         return listing
 
     def fetch_details(self, search_url, listing):
+        search = search_url.search
+        log(search, "Fetching %s" % listing.url)
+        detail_headers = {'referer': search_url.url}
+        detail_headers.update(headers)
+        r = requests.get(listing.url, headers=detail_headers)
+        log(search, "Status: %s" % r.status_code)
+        if r.status_code != 200:
+            raise Exception("Invalid status code: %s" % r.status_code)
+
+        html = BeautifulSoup(r.text)
+
+        # TODO date available
+        long_desc = u""
+        desc_div = html.find("div", {'class': "agent-content"})
+        features = desc_div.find("div", {'class': "key-features"})
+        if features:
+            for li in features.findAll("li"):
+                long_desc += u"* %s\n" % li.text
+
+        description_header = None
+        for h3 in desc_div.findAll("h3"):
+            if h3.text.lower() == "full description":
+                description_header = h3
+                break
+
+        long_desc += "\n" + unicode(description_header.parent)
+
+        long_desc = long_desc.replace("<br>", "")
+        long_desc = long_desc.replace("<br/>", "")
+
+        listing.long_description = long_desc
+
+        latlon_html = html.find("a", {'class': 'js-ga-minimap'})
+        if latlon_html:
+            latlon_match = latlon_regex.match(latlon_html.img['src'])
+            listing.lat = float(latlon_match.group(1))
+            listing.lon = float(latlon_match.group(2))
+            logging.info("Loc: %s %s", listing.lat, listing.lon)
+
         listing.save()
+
+        # Load images
+        matches = re.findall(r'thumbnailUrl":"([^"]*)","masterUrl":"([^"]*)"', r.text, re.IGNORECASE | re.UNICODE | re.MULTILINE)
+        for i, (thumbnail_url, image_url) in enumerate(matches):
+            image = ListingImage(listing=listing)
+            image.url = image_url
+            image.thumbnail_url = thumbnail_url
+            image.position = i
+            image.save()

@@ -43,6 +43,11 @@ div.images {
 	padding: 8px;
 }
 
+div.images img {
+	max-width: 48%;
+	margin: 4px;
+}
+
 div.search-listing.ignored {
 	background-color: #DDD;
 }
