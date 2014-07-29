@@ -12,3 +12,7 @@ This project is supposed to be a rather specific Gumtree scraper that caters to 
 - "Do not show again" option for certain ads, to move them down for subsequent searches
 
 Obviously I will never have time to do all this, so I'm posting this project on Github as partially complete while I work on it.
+
+## info:
+
+- celery -A gumbug worker -l info

@@ -8,6 +8,7 @@
 *.db
 *.sql
 local_settings.py
+settings_*.py
 venv
 _generated
 .settings
