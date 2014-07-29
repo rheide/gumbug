@@ -57,7 +57,11 @@ class RightmoveScraper(Scraper):
         title = title.find("a")
         title = title.find("span")
         listing.title = title.text.strip()
-        listing.url = url_prefix + html.find("h2", {'class': 'bedrooms'}).find("a")['href']
+
+        relative_url = html.find("h2", {'class': 'bedrooms'}).find("a")['href']
+        relative_url = relative_url.split(".html")[0] + u".html"
+        listing.url = url_prefix + relative_url
+        logging.info("URL: %s" % listing.url)
 
         price = html.find("p", {'class': 'price-new'}).text.strip().replace('\n', '').replace('\r', '')
         price_match = price_regex.match(price)
