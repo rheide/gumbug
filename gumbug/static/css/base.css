@@ -17,8 +17,8 @@
 	margin-left: auto;
 }
 
-input.input-large {
-	width: 100%;
+form.search-form div.search-urls input[type="url"] {
+	width: 90%;
 }
 
 div.search-listing {

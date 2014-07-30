@@ -9,7 +9,9 @@ from django.core.exceptions import ValidationError
 from django.core.paginator import Paginator
 
 from gumbug import tasks
-from gumbug.models import Search, Listing, SearchListing
+from gumbug.models import Search, Listing, SearchListing, SearchUrl
+from gumbug.forms import SearchForm, SearchUrlFormSet
+from django.forms.models import model_to_dict
 
 validate_url= URLValidator()
 
@@ -81,13 +83,23 @@ def listings(request, search_slug, page_number=1):
         return render(request, 'listings_in_progress.html', context)
 
     if request.method == "POST":
-        try:
-            new_search = search.clone()
-            tasks.start_search(new_search.id, refetch_listings=False)
-            return redirect('listings', new_search.slug)
-        except Exception as e:
-            logging.exception(e)
-            context['error'] = u"Search failed: %s" % unicode(e)
+        form = SearchForm(request.POST)
+        url_formset = SearchUrlFormSet(request.POST, queryset=SearchUrl.objects.none())
+        if form.is_valid() and url_formset.is_valid():
+            search = form.save()
+            urls = url_formset.save(commit=False)
+            for search_url in urls:
+                search_url.search = search
+                search_url.save()
+            refetch_listings = form.cleaned_data['refetch_listings']
+            tasks.start_search(search.id, refetch_listings)
+            return redirect('listings', search.slug)
+    else:
+        initial_data = model_to_dict(search)
+        initial_data['parent'] = search
+        form = SearchForm(initial=initial_data)
+        initial_urls = [{'url': s.url} for s in SearchUrl.objects.filter(search=search)]
+        url_formset = SearchUrlFormSet(queryset=SearchUrl.objects.none(), initial=initial_urls)
 
     listings = SearchListing.objects.filter(search=search).order_by("-favorite",
                                                                     "ignored",
@@ -106,53 +118,35 @@ def listings(request, search_slug, page_number=1):
     context['listings'] = page.object_list
     context['page'] = page
     context['paginator'] = p
+    context['form'] = form
+    context['url_formset'] = url_formset
 
     return render(request, 'listings.html', context)
 
 
 def index(request):
     context = {}
-    urls = []
-
-    previous_searches = request.session.get('previous_searches', [])
 
     if request.method == "POST":
-        for i in range(url_count):
-            url = request.POST.get("url%s" % i, "").strip()
-            if url:
-                try:
-                    validate_url(url)
-                except ValidationError:
-                    context['error'] = u"Invalid url: %s" % url
-                urls.append(url)
-
-        if not urls:
-            context['error'] = "Please specify at least one url"
-
-        if not 'error' in context:
-            # Construct a search object, perform search and redirect to the listings page if successful
-            try:
-                search = Search.create(urls)
-                search.ignore_keywords = request.POST.get('ignore-keywords', "")
-                search.require_keywords = request.POST.get('require-keywords', "")
-                search.status = Search.STATUS_NEW
-                search.save()
-                refetch_listings=bool(request.POST and request.POST.get('refetch', ''))
-                tasks.start_search(search.id, refetch_listings)
-                return redirect('listings', search.slug)
-            except Exception as e:
-                logging.exception(e)
-                traceback.print_exc()
-                context['error'] = u"Search failed: %s" % unicode(e)
+        form = SearchForm(request.POST)
+        url_formset = SearchUrlFormSet(request.POST, queryset=SearchUrl.objects.none())
+        if form.is_valid() and url_formset.is_valid():
+            search = form.save()
+            urls = url_formset.save(commit=False)
+            for search_url in urls:
+                search_url.search = search
+                search_url.save()
+            refetch_listings = form.cleaned_data['refetch_listings']
+            tasks.start_search(search.id, refetch_listings)
+            return redirect('listings', search.slug)
     else:
-        urls.append("http://www.gumtree.com/flats-and-houses-for-rent/harrow/studio?distance=1.0&photos_filter=Y&price=up_to_200&seller_type=private")
+        form = SearchForm()
+        url_formset = SearchUrlFormSet(queryset=SearchUrl.objects.none())
 
-    while len(urls) < url_count:
-        urls.append("")
-
-    context['previous_searches'] = previous_searches
+    context['previous_searches'] = request.session.get('previous_searches', [])
     context['ignore_keywords'] = request.POST.get('ignore-keywords', "")
     context['require_keywords'] = request.POST.get('require-keywords', "")
     context['page_count'] = request.POST.get('page_count', 1)
-    context['urls'] = urls
+    context['form'] = form
+    context['url_formset'] = url_formset
     return render(request, 'index.html', context)

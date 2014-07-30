@@ -35,11 +35,15 @@ class Search(MPTTModel, BaseModel):
 
     parent = models.ForeignKey("self", null=True, blank=True, related_name="children")
 
-    preserve_ignored = models.BooleanField(default=True)
-    preserve_favorites = models.BooleanField(default=True)
+    preserve_ignored = models.BooleanField(default=True,
+                                           help_text="Ignore already ignored items in future searches.")
+    preserve_favorites = models.BooleanField(default=True,
+                                             help_text="Favorite already favorited items in future searches.")
 
-    ignore_keywords = models.TextField(null=True, blank=True)
-    require_keywords = models.TextField(null=True, blank=True)
+    ignore_keywords = models.TextField(null=True, blank=True,
+                                       help_text="Ads with any of these keywords will be automatically ignored.")
+    require_keywords = models.TextField(null=True, blank=True,
+                                        help_text="Ads that don't contain at least one of these keywords will be automatically ignored.")
 
     status = models.CharField(max_length=50, default='new', choices=[
         (STATUS_NEW, 'New'),

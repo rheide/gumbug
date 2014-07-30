@@ -11,8 +11,6 @@
 	<h1>{{ search.title }} ({{ search.status }})- Gumbug search</h1>
 </div>
 
-{% include "_search_config.html" %}
-
 {% if search.status == 'error' %}
 	<p class="error">Search failed. {{ search.search_result }}</p>
 {% else %}
