@@ -95,9 +95,8 @@ def process_ignore_keywords(search, search_listings):
     for search_listing in search_listings:
         if search_listing.ignored:
             continue  # Skip already ignored results
-        title_and_desc = u"%s %s" % (search_listing.listing.title, search_listing.listing.description)
-        title_and_desc = title_and_desc.lower()
-        if any(word in title_and_desc for word in ignore_keywords):
+        text = search_listing.listing.filter_text
+        if any(word in text for word in ignore_keywords):
             search_listing.ignored = True
             search_listing.ignored_reason = "Contains ignored keywords"
             search_listing.save()
@@ -110,9 +109,8 @@ def process_require_keywords(search, search_listings):
     for search_listing in search_listings:
         if search_listing.ignored:
             continue  # Skip already ignored results
-        title_and_desc = u"%s %s" % (search_listing.listing.title, search_listing.listing.description)
-        title_and_desc = title_and_desc.lower()
-        if not any(word in title_and_desc for word in require_keywords):
+        text = search_listing.listing.filter_text
+        if not any(word in text for word in require_keywords):
             search_listing.ignored = True
             search_listing.ignored_reason = "Did not contain a required keyword"
             search_listing.save()

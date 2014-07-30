@@ -140,6 +140,10 @@ class Listing(BaseModel):
         return self.long_description or self.short_description
 
     @property
+    def filter_text(self):
+        return u" ".join([self.title, self.area, self.description]).lower()
+
+    @property
     def price_per_month(self):
         if self.price_type == "month":
             return int(self.price)

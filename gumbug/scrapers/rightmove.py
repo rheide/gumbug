@@ -45,7 +45,9 @@ class RightmoveScraper(Scraper):
 
         listings = []
         for item in soup.findAll("li", {'class': 'summary-list-item'}):
-            listings.append(self.load_listing(item))
+            listing = self.load_listing(item)
+            if listing:
+                listings.append(listing)
 
         return listings
 
@@ -54,11 +56,17 @@ class RightmoveScraper(Scraper):
 
         url_prefix = "http://www.rightmove.co.uk"
         title = html.find("h2", {'class': 'bedrooms'})
-        title = title.find("a")
-        title = title.find("span")
-        listing.title = title.text.strip()
+        title = title.find("a") if title else None
+        title = title.find("span") if title else None
+        listing.title = title.text.strip() if title and title.text else "-"
 
-        relative_url = html.find("h2", {'class': 'bedrooms'}).find("a")['href']
+        relative_url = html.find("h2", {'class': 'bedrooms'})
+        if not relative_url:
+            return None  # rather fatal
+        relative_url = relative_url.find("a")
+        if not relative_url:
+            return None  # still rather fatal
+        relative_url = relative_url['href']
         relative_url = relative_url.split(".html")[0] + u".html"
         listing.url = url_prefix + relative_url
         logging.info("URL: %s" % listing.url)
