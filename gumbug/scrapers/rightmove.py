@@ -70,7 +70,7 @@ class RightmoveScraper(Scraper):
         price = html.find("div", {'class': 'price-new'})
         price = price.find("a")
         price = price.text.strip()
-        price = price.replace('£', '')
+        price = price.replace(u'£', '')
         price = price.replace(',', '')
         price = price.replace('\n', '').replace('\r', '')
         listing.price = int(price)
