@@ -8,19 +8,15 @@ import requests
 import logging
 from datetime import datetime, timedelta
 
-from gumbug.models import Listing, ListingImage, SearchListing
+from gumbug.models import Listing, ListingImage, SearchListing, Station,\
+    StationDistance
 from gumbug.utils import do_with_retry
 from gumbug.scrapers import Scraper
 
+"""
+http://www.rightmove.co.uk/property-for-sale/Watford.html?maxPrice=290000&minBedrooms=2&retirement=false
+"""
 
-"""
-http://www.rightmove.co.uk/property-to-rent/find.html
-?searchType=RENT&locationIdentifier=POSTCODE%5E936383&insId=1&radius=1.0
-&displayPropertyType=&minBedrooms=&maxBedrooms=&minPrice=700&maxPrice=1000
-&maxDaysSinceAdded=&retirement=&sortByPriceDescending=&_includeLetAgreed=on
-&primaryDisplayPropertyType=&secondaryDisplayPropertyType=&oldDisplayPropertyType=
-&oldPrimaryDisplayPropertyType=&letType=&letFurnishType=&houseFlatShare=false
-"""
 
 headers = {
     'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/36.0.1985.125 Safari/537.36',
@@ -33,9 +29,9 @@ def log(search, msg):
 
 
 price_regex = re.compile(r'.*[^\d]+([\d,]+) pcm.*', re.UNICODE | re.IGNORECASE | re.MULTILINE)
-date_listed_regex = re.compile(r"Listed on (\d\d/\d\d/\d\d\d\d)", re.UNICODE | re.IGNORECASE)
+date_listed_regex = re.compile(r"added on (\d\d/\d\d/\d\d\d\d)", re.UNICODE | re.IGNORECASE)
 latlon_regex = re.compile(r".*center=([-\d\.]+),([-\d\.]+).*")
-
+distance_regex = re.compile(r'.*([\d\.]+) mi.*', re.UNICODE | re.IGNORECASE | re.MULTILINE)
 
 class RightmoveScraper(Scraper):
 
@@ -48,6 +44,7 @@ class RightmoveScraper(Scraper):
             listing = self.load_listing(item)
             if listing:
                 listings.append(listing)
+                break  # DEBUG
 
         return listings
 
@@ -71,20 +68,22 @@ class RightmoveScraper(Scraper):
         listing.url = url_prefix + relative_url
         logging.info("URL: %s" % listing.url)
 
-        price = html.find("p", {'class': 'price-new'}).text.strip().replace('\n', '').replace('\r', '')
-        price_match = price_regex.match(price)
-        if price_match:
-            listing.price = int(price_match.group(1).replace(',', ''))
-            listing.price_type = 'month'
+        price = html.find("div", {'class': 'price-new'})
+        price = price.find("a")
+        price = price.text.strip()
+        price = price.replace('£', '')
+        price = price.replace(',', '')
+        price = price.replace('\n', '').replace('\r', '')
+        listing.price = int(price)
 
         listing.area = html.find("span", {'class': 'displayaddress'}).text.strip()
 
         listing.short_description = html.find("p", {'class': "description"}).span.text.strip()
 
-        date_listed = html.find("p", {'class': 'branchblurb'}).text.strip()
-        if 'Listed today' in date_listed:
+        date_listed = html.find("p", {'class': 'branchblurb'}).text.strip().lower()
+        if 'added today' in date_listed:
             listing.date_posted = datetime.now(pytz.utc)
-        if 'Listed yesterday' in date_listed:
+        if 'added yesterday' in date_listed:
             listing.date_posted = datetime.now(pytz.utc) - timedelta(days=1)
         else:
             match = date_listed_regex.match(date_listed)
@@ -105,7 +104,6 @@ class RightmoveScraper(Scraper):
 
         html = BeautifulSoup(r.text)
 
-        # TODO date available
         long_desc = u""
         desc_div = html.find("div", {'class': "agent-content"})
         features = desc_div.find("div", {'class': "key-features"})
@@ -143,3 +141,16 @@ class RightmoveScraper(Scraper):
             image.thumbnail_url = thumbnail_url
             image.position = i
             image.save()
+
+        # Load distance from stations
+        stations_list = html.find("ul", {'class': 'stations-list'})
+        if stations_list:
+            for li in stations_list.findAll("li"):
+                station_name = li.find("span").text.strip()
+                distance_text = li.find("small").text
+                distance = float(distance_regex.match(distance_text).group(1))
+
+                station, _ = Station.objects.get_or_create(name=station_name)
+                StationDistance.objects.create(station=station,
+                                               listing=listing,
+                                               distance=distance)

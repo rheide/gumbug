@@ -1,4 +1,4 @@
-
+{% load humanize %}
 <div id="listing-{{ listing.id }}" class="col-md-12 search-listing {% if search_listing.ignored %}ignored{% endif %} {% if search_listing.favorite %}favorite{% endif %}">
 
 	{% if search_listing.ignored and search_listing.ignored_reason %}
@@ -9,11 +9,10 @@
 		<p class"favorite">Favorite</p>
 	{% endif %}
 
-	<h3><a href="{{ listing.url }}" target="_blank">£{{ listing.price_per_month }}pcm {{ listing.title|truncatechars:80 }}</a></h3>
+	<h3><a href="{{ listing.url }}" target="_blank">£{{ listing.price|intcomma }} {{ listing.title|truncatechars:80 }}</a></h3>
 	<div class="info row">
-		<div class="area col-md-4">{{ listing.area }}</div>
+		<div class="area col-md-8">{{ listing.area }}</div>
 		<div class="posted col-md-4">{% if listing.date_posted %}{{ listing.date_posted|timesince }} ago{% endif %}</div>
-		<div class="available col-md-4">Available: {{ listing.date_available|date:"SHORT_DATE_FORMAT" }}</div>
 	</div>
 
 	<div class="images row">

@@ -24,6 +24,17 @@ class BaseModel(models.Model):
         super(BaseModel, self).save(*args, **kwargs)
 
 
+class Station(BaseModel):
+
+    name = models.CharField(max_length=200)
+    lat = models.FloatField(null=True, blank=True)
+    lon = models.FloatField(null=True, blank=True)
+    zone = models.CharField(max_length=50, null=True, blank=True)
+
+    def __unicode__(self):
+        return "%s %s %s" % (self.name, self.lat, self.lon)
+
+
 class Search(MPTTModel, BaseModel):
 
     STATUS_NEW = 'new'
@@ -45,12 +56,16 @@ class Search(MPTTModel, BaseModel):
     require_keywords = models.TextField(null=True, blank=True,
                                         help_text="Ads that don't contain at least one of these keywords will be automatically ignored.")
 
+    start_date = models.DateField(null=True, blank=True)
+
     status = models.CharField(max_length=50, default='new', choices=[
         (STATUS_NEW, 'New'),
         (STATUS_DONE, 'Done'),
         (STATUS_ERROR, 'Error'),
     ])
     search_result = models.TextField(null=True, blank=True)
+
+    stations = models.ManyToManyField(Station, through='StationFilter', null=True, blank=True)
 
     def __unicode__(self):
         return self.name
@@ -101,6 +116,17 @@ class Search(MPTTModel, BaseModel):
         return new_search
 
 
+class StationFilter(BaseModel):
+
+    search = models.ForeignKey(Search)
+    station = models.ForeignKey(Station)
+    min_dist = models.FloatField(default=0.0)
+    max_dist = models.FloatField(default=0.0)
+
+    def __unicode__(self):
+        return "%s %s - %s" % (self.station.name, self.min_dist, self.max_dist)
+
+
 class SearchUrl(BaseModel):
 
     search = models.ForeignKey(Search)
@@ -117,26 +143,32 @@ class SearchUrl(BaseModel):
 
 class Listing(BaseModel):
 
-    source = models.CharField(max_length=50, db_index=True, choices=[('gumtree', 'gumtree')],
-                              default='gumtree')
+    source = models.CharField(max_length=50, db_index=True, choices=[('rightmove', 'rightmove')],
+                              default='rightmove')
 
     url = models.URLField(max_length=511, db_index=True)
 
     title = models.CharField(max_length=255, null=True, blank=True)
     price = models.DecimalField(decimal_places=2, max_digits=12, blank=True, null=True)
-    price_type = models.CharField(max_length=50, choices=[("week", "week"), ("month", "month")], default="week")
+
     short_description = models.TextField(blank=True, null=True)
     long_description = models.TextField(blank=True, null=True)
 
-    date_available = models.DateTimeField(blank=True, null=True)
     date_posted = models.DateTimeField(blank=True, null=True, db_index=True)
 
     area = models.CharField(max_length=255, blank=True, null=True, db_index=True)
 
     featured = models.BooleanField(default=False)
 
+    lease_duration = models.PositiveIntegerField(blank=True, null=True)  # years
+    property_type = models.CharField(max_length=50, db_index=True, choices=[('apartment', 'house')]),
+    service_charges = models.DecimalField(decimal_places=2, max_digits=12, blank=True, null=True)
+    ground_rental= models.DecimalField(decimal_places=2, max_digits=12, blank=True, null=True)
+
     lat = models.FloatField(null=True, blank=True)
     lon = models.FloatField(null=True, blank=True)
+
+    stations = models.ManyToManyField(Station, through='StationDistance', null=True, blank=True)
 
     @property
     def description(self):
@@ -147,31 +179,13 @@ class Listing(BaseModel):
     def filter_text(self):
         return u" ".join([self.title, self.area, self.description]).lower()
 
-    @property
-    def price_per_month(self):
-        if self.price_type == "month":
-            return int(self.price)
-        elif self.price_type == "week":
-            return int((float(self.price) * 52.0) / 12.0)
-        else:
-            return "N/A"
-
-    @property
-    def price_per_week(self):
-        if self.price_type == "month":
-            return int((float(self.price) * 12.0) / 52.0)
-        elif self.price_type == "week":
-            return int(self.price)
-        else:
-            return "N/A"
-
     def __str__(self):
         return self.__unicode__().encode("ascii", "ignore")
 
     def __unicode__(self):
         return "\t".join(map(unicode, [
-            datetime.strftime(self.date_available, "%Y-%m-%d"),
-            "%s PCM" % self.price_per_month,
+            datetime.strftime(self.date_posted, "%Y-%m-%d") if self.date_posted else '',
+            "%s" % self.price,
             self.area,
         ]))
 
@@ -192,3 +206,13 @@ class ListingImage(BaseModel):
     url = models.URLField()
     thumbnail_url = models.URLField(blank=True, null=True)
     position = models.PositiveSmallIntegerField(default=0)
+
+
+class StationDistance(BaseModel):
+
+    listing = models.ForeignKey(Listing)
+    station = models.ForeignKey(Station)
+    distance = models.FloatField(default=0.0)
+
+    def __unicode__(self):
+        return "%s %s" % (self.station, self.distance)
