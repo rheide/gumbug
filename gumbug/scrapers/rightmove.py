@@ -31,7 +31,7 @@ def log(search, msg):
 price_regex = re.compile(r'.*[^\d]+([\d,]+) pcm.*', re.UNICODE | re.IGNORECASE | re.MULTILINE)
 date_listed_regex = re.compile(r"added on (\d\d/\d\d/\d\d\d\d)", re.UNICODE | re.IGNORECASE)
 latlon_regex = re.compile(r".*center=([-\d\.]+),([-\d\.]+).*")
-distance_regex = re.compile(r'.*([\d\.]+) mi.*', re.UNICODE | re.IGNORECASE | re.MULTILINE)
+distance_regex = re.compile(r'.*\(([\d\.]+) mi\).*', re.UNICODE | re.IGNORECASE | re.MULTILINE)
 
 class RightmoveScraper(Scraper):
 
@@ -44,7 +44,6 @@ class RightmoveScraper(Scraper):
             listing = self.load_listing(item)
             if listing:
                 listings.append(listing)
-                break  # DEBUG
 
         return listings
 

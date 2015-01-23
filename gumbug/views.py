@@ -9,8 +9,10 @@ from django.core.exceptions import ValidationError
 from django.core.paginator import Paginator
 
 from gumbug import tasks
-from gumbug.models import Search, Listing, SearchListing, SearchUrl
-from gumbug.forms import SearchForm, SearchUrlFormSet
+from gumbug.models import Search, Listing, SearchListing, SearchUrl,\
+    StationFilter
+from gumbug.forms import SearchForm, SearchUrlFormSet, StationForm,\
+    StationFormSet
 from django.forms.models import model_to_dict
 
 validate_url= URLValidator()
@@ -85,12 +87,18 @@ def listings(request, search_slug, page_number=1):
     if request.method == "POST":
         form = SearchForm(request.POST)
         url_formset = SearchUrlFormSet(request.POST, queryset=SearchUrl.objects.none())
-        if form.is_valid() and url_formset.is_valid():
+        station_formset = StationFormSet(request.POST, queryset=StationFilter.objects.none())
+
+        if form.is_valid() and url_formset.is_valid() and station_formset.is_valid():
             search = form.save()
             urls = url_formset.save(commit=False)
             for search_url in urls:
                 search_url.search = search
                 search_url.save()
+            station_filters = station_formset.save(commit=False)
+            for sf in station_filters:
+                sf.search = search
+                sf.save()
             refetch_listings = form.cleaned_data['refetch_listings']
             tasks.start_search(search.id, refetch_listings)
             return redirect('listings', search.slug)
@@ -100,6 +108,11 @@ def listings(request, search_slug, page_number=1):
         form = SearchForm(initial=initial_data)
         initial_urls = [{'url': s.url} for s in SearchUrl.objects.filter(search=search)]
         url_formset = SearchUrlFormSet(queryset=SearchUrl.objects.none(), initial=initial_urls)
+
+        initial_stations = [{'station': s.station.id,
+                             'min_dist': s.min_dist,
+                             'max_dist': s.max_dist} for s in StationFilter.objects.filter(search=search)]
+        station_formset = StationFormSet(queryset=StationFilter.objects.none(), initial=initial_stations)
 
     listings = SearchListing.objects.filter(search=search).order_by("-favorite",
                                                                     "ignored",
@@ -120,6 +133,7 @@ def listings(request, search_slug, page_number=1):
     context['paginator'] = p
     context['form'] = form
     context['url_formset'] = url_formset
+    context['station_formset'] = station_formset
 
     return render(request, 'listings.html', context)
 
@@ -130,18 +144,24 @@ def index(request):
     if request.method == "POST":
         form = SearchForm(request.POST)
         url_formset = SearchUrlFormSet(request.POST, queryset=SearchUrl.objects.none())
-        if form.is_valid() and url_formset.is_valid():
+        station_formset = StationFormSet(request.POST, queryset=StationFilter.objects.none())
+        if form.is_valid() and url_formset.is_valid() and station_formset.is_valid():
             search = form.save()
             urls = url_formset.save(commit=False)
             for search_url in urls:
                 search_url.search = search
                 search_url.save()
+            station_filters = station_formset.save(commit=False)
+            for sf in station_filters:
+                sf.search = search
+                sf.save()
             refetch_listings = form.cleaned_data['refetch_listings']
             tasks.start_search(search.id, refetch_listings)
             return redirect('listings', search.slug)
     else:
         form = SearchForm()
         url_formset = SearchUrlFormSet(queryset=SearchUrl.objects.none())
+        station_formset = StationFormSet(queryset=StationFilter.objects.none())
 
     context['previous_searches'] = request.session.get('previous_searches', [])
     context['ignore_keywords'] = request.POST.get('ignore-keywords', "")
@@ -149,4 +169,6 @@ def index(request):
     context['page_count'] = request.POST.get('page_count', 1)
     context['form'] = form
     context['url_formset'] = url_formset
+    context['station_formset'] = station_formset
+
     return render(request, 'index.html', context)

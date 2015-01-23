@@ -18,6 +18,8 @@
 
 	<!-- Grab Google CDN's jQuery, with a protocol relative URL; fall back to local if offline -->
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+	<script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+	{% include 'autocomplete_light/static.html' %}
 
 	{% if settings.ANALYTICS_ID %}
 	<script>

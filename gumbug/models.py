@@ -71,6 +71,10 @@ class Search(MPTTModel, BaseModel):
         return self.name
 
     @property
+    def station_filters(self):
+        return StationFilter.objects.filter(search=self).order_by('station__name')
+
+    @property
     def title(self):
         stamp = datetime.strftime(self.modified, "%d %b %H:%M")
         return u"%s %s" % (stamp, self.slug)
@@ -126,6 +130,18 @@ class StationFilter(BaseModel):
     def __unicode__(self):
         return "%s %s - %s" % (self.station.name, self.min_dist, self.max_dist)
 
+    def matches(self, listing):
+        """ Returns true if the listing is within the range of this filter. """
+        for dist in listing.station_distances:
+            if dist.station.name != self.station.name:
+                continue  # station name doesn't match, so this can't be a match 
+            if self.min_dist and dist.distance < self.min_dist:
+                continue  # distance less than min dist required for this filter to match
+            if self.max_dist and dist.distance > self.max_dist:
+                continue  # distance more than max dist required for this filter to match
+            return True  # yay
+        return False
+
 
 class SearchUrl(BaseModel):
 
@@ -169,6 +185,10 @@ class Listing(BaseModel):
     lon = models.FloatField(null=True, blank=True)
 
     stations = models.ManyToManyField(Station, through='StationDistance', null=True, blank=True)
+
+    @property
+    def station_distances(self):
+        return StationDistance.objects.filter(listing=self).order_by('distance')
 
     @property
     def description(self):

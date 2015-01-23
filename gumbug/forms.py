@@ -3,7 +3,8 @@ from django.forms.widgets import HiddenInput
 from django import forms
 from django.forms.models import modelformset_factory, BaseModelFormSet
 
-from gumbug.models import Search, SearchUrl
+from gumbug.models import Search, SearchUrl, StationFilter, Station
+import autocomplete_light
 
 
 class SearchForm(forms.ModelForm):
@@ -40,3 +41,26 @@ SearchUrlFormSet = modelformset_factory(SearchUrl,
                                         validate_min=True,
                                         extra=8,
                                         exclude=['search'])
+
+
+class StationForm(forms.ModelForm):
+
+    class Meta:
+        model = StationFilter
+        fields = ['station', 'min_dist', 'max_dist']
+
+    station = autocomplete_light.ChoiceField('StationAutocomplete')
+    min_dist = forms.FloatField(label="Minimum distance (miles)",
+                                required=False,
+                                widget=forms.NumberInput(attrs={"step": "0.1"}))
+    max_dist = forms.FloatField(label="Maximum distance (miles)",
+                                required=False,
+                                widget=forms.NumberInput(attrs={"step": "0.1"}))
+
+    def clean_station(self):
+        return Station.objects.get(pk=self.cleaned_data['station'])
+
+StationFormSet = modelformset_factory(StationFilter,
+                                      form=StationForm,
+                                      extra=8,
+                                      exclude=['search'])

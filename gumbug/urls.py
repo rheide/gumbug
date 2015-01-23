@@ -11,4 +11,6 @@ urlpatterns = patterns('',
     url(r'^s/(?P<search_slug>[-\d\w_]+)/favorite/(?P<listing_id>\d+)$', 'gumbug.views.favorite_listing', name='favorite_listing'),
 
     url(r'^admin/', include(admin.site.urls)),
+
+    url(r'^ac/', include('autocomplete_light.urls')),
 )

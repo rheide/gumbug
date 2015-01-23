@@ -26,6 +26,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.humanize',
+    'autocomplete_light',
     'gumbug',
     'mptt',
     'kombu.transport.django',

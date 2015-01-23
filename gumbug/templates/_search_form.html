@@ -1,25 +1,49 @@
 {% load form_tags %}
-<div class="col-md-6 search-urls">
-	<h3>Sources</h3>
-	{{ url_formset.as_p }}
-	<div class="row">
-		<input type="submit" class="btn btn-primary" value="Search">
-	</div>
-</div>
 
-<div class="col-md-6">
-	<h3>Settings</h3>
-	{% for field in form %}
-		{% if field|field_name != 'HiddenInput' %}
-		<div class="row">
-			{{ field.label_tag }} {% if field|field_name != 'CheckboxInput' %}<br>{% endif %}
-			{{ field }}
-			{% if field.help_text %}
-				<br>{{ field.help_text }}
-			{% endif %}
+<div class="tabbable">
+	<ul id="search-tabs" class="nav nav-tabs">
+		<li class="active"><a href="#sources" data-toggle="tab">Sources</a></li>
+		<li><a href="#settings" data-toggle="tab">Settings</a></li>
+		<li><a href="#transport" data-toggle="tab">Public Transport</a></li>
+	</ul>
+	<div class="tab-content">
+		<div id="sources" class="tab-pane active search-urls">
+			<h3>Sources</h3>
+			{{ url_formset.as_p }}
+			<div class="row">
+				<input type="submit" class="btn btn-primary" value="Search">
+			</div>
 		</div>
-		{% else %}
-			{{ field }}
-		{% endif %}
-	{% endfor %}
+		<div id="settings" class="tab-pane">
+			<h3>Settings</h3>
+			{% for field in form %}
+				{% if field|field_name != 'HiddenInput' %}
+				<div class="row">
+					{{ field.label_tag }} {% if field|field_name != 'CheckboxInput' %}<br>{% endif %}
+					{{ field }}
+					{% if field.help_text %}
+						<br>{{ field.help_text }}
+					{% endif %}
+				</div>
+				{% else %}
+					{{ field }}
+				{% endif %}
+			{% endfor %}
+			<div class="row">
+				<input type="submit" class="btn btn-primary" value="Search">
+			</div>
+		</div>
+		<div id="transport" class="tab-pane">
+			<h3>Distance from public transport</h3>
+			<p>Here you can filter out listings that are too close or too far away from a particular
+			station. If you add more than one, a listing will be selected if any of the filters match.<br>
+			</p>
+			<div class="fields">
+				{{ station_formset.as_p }}
+			</div>
+			<div class="row">
+				<input type="submit" class="btn btn-primary" value="Search">
+			</div>
+		</div>
+	</div>
 </div>

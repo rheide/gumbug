@@ -24,10 +24,13 @@
 	};
 	var csrftoken = getCookie('csrftoken');
 	var maps = {};
+	var directions = {};
 	var deprivationLayers = {};
-	
+	var directionsService = new google.maps.DirectionsService();
+	var distances = {};
+
 	function initialize() {
-		
+
 		function csrfSafeMethod(method) {
 		    // these HTTP methods do not require CSRF protection
 		    return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
@@ -39,7 +42,41 @@
 		        }
 		    }
 		});
-		
+
+		$(".btn-directions").click(function(e) {
+			e.preventDefault();
+			var dataId = $(this).attr("data-id");
+			var div = $(this).closest("div.search-listing");
+			var map = maps[dataId];
+
+			var distId = $(this).attr("dist-id");
+
+			if (distances[distId]) {
+				var from = distances[distId]['from'];
+				var to = distances[distId]['to'];
+
+				var directionsDisplay = directions[dataId];
+
+				var request = {
+					origin: from,
+					destination: to,
+					travelMode: google.maps.TravelMode.WALKING
+				};
+				directionsService.route(request, function(result, status) {
+					console.log("RESUTL THING");
+					console.log("Result: " + result);
+					if (status == google.maps.DirectionsStatus.OK) {
+						console.log("setting directions");
+						directionsDisplay.setDirections(result);
+					}
+				});
+				console.log("DSAF");
+			}
+			else {
+				console.log("No distance..");
+			}
+		});
+
 		$(".btn-ignore").click(function(e) {
 			e.preventDefault();
 			var dataId = $(this).attr("data-id");
@@ -164,6 +201,21 @@
 		new google.maps.Marker({position: loc, map: map,});
 		maps[{{ listing.id}}] = map;
 
+		var directionsDisplay = new google.maps.DirectionsRenderer();
+		directionsDisplay.setMap(map);
+		directions[{{ listing.id }}] = directionsDisplay;
+
+		{% for sd in listing.station_distances %}
+			distances[{{ sd.id }}] = {
+				from: new google.maps.LatLng({{ listing.lat }}, {{ listing.lon }}),
+				{% if sd.station.lat and sd.station.lon %}
+				to: new google.maps.LatLng({{ sd.station.lat }}, {{ sd.station.lon }}),
+				{% else %}
+				to: "{{ sd.station.name }}",
+				{% endif %}
+			};
+		{% endfor %}
+
 	{% endif %}
 	{% endwith %}
 {% endfor %}
@@ -192,6 +244,7 @@
 		{% csrf_token %}
 		{% include '_search_form.html' %}
 	</form>
+	<hr>
 </div>
 
 <div class="row">

@@ -78,6 +78,7 @@ def do_search(search, refetch_listings):
     process_past_search_listings(search, search_listings)
     process_ignore_keywords(search, search_listings)
     process_require_keywords(search, search_listings)
+    process_station_filters(search, search_listings)
 
     for res in search_listings:
         res.save()
@@ -99,7 +100,19 @@ def process_ignore_keywords(search, search_listings):
         if any(word in text for word in ignore_keywords):
             search_listing.ignored = True
             search_listing.ignored_reason = "Contains ignored keywords"
-            search_listing.save()
+
+
+def process_station_filters(search, search_listings):
+    station_filters = search.station_filters
+    if not station_filters:
+        return
+    for search_listing in search_listings:
+        if search_listing.ignored:
+            continue  # Skip already ignored results
+
+        if not any([sf.matches(search_listing.listing) for sf in station_filters]):
+            search_listing.ignored = True
+            search_listing.ignored_reason = "Does not match transport filters"
 
 
 def process_require_keywords(search, search_listings):
@@ -113,7 +126,6 @@ def process_require_keywords(search, search_listings):
         if not any(word in text for word in require_keywords):
             search_listing.ignored = True
             search_listing.ignored_reason = "Did not contain a required keyword"
-            search_listing.save()
 
 
 def process_past_search_listings(search, result_list):

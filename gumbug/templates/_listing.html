@@ -55,6 +55,13 @@
 					<button class="btn btn-info btn-map-hybrid" data-id="{{ listing.id }}">Hybrid</button>
 					<button class="btn btn-info btn-map-satellite" data-id="{{ listing.id }}">Satellite</button>
 				</div>
+				<div style="clear: both;" class="pull-right distances">
+					<ul>
+					{% for dist in listing.station_distances %}
+						<li><a href="#" class="btn-directions" data-id="{{ listing.id }}" dist-id="{{ dist.id }}">{{ dist.station.name }} - {{ dist.distance }} mi</a></li>
+					{% endfor %}
+					</ul>
+				</div>
 			</div>
 			{% endif %}
 		</div>
