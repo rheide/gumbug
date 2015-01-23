@@ -1,0 +1,2846 @@
+A list of operational [[railway stations]] on the [[London]] underground and Docklands light railway.
+
+=== Status ===
+We have completed the London Underground and Docklands Light Railway networks.
+
+=== Tube Stations List ===
+
+{| class=wikitable width=100%
+|+'''Public Domain Tube Stations List, located using a GPS'''
+!Name !! Latitude !! Longitude !! Platform / Entrance !! Collected By !! Collected On !! Line !! Step free
+|-
+| Acton Town
+| 51.502500
+| -0.278126
+| Platform
+| [[User:Gagravarr]]
+| 24/11/06
+| District, Piccadilly
+|-
+| Acton Central
+| 51.50883531
+| -0.263033174
+| Entrance
+| [[User:Firefishy]]
+| 08/05/2007
+| London Overground
+|-
+| Acton Central
+| 51.50856013
+| -0.262879534
+| Platform
+| [[User:Firefishy]]
+| 08/05/2007
+| London Overground
+|-
+| Aldgate
+| 51.51394
+| -0.07537
+| Aldgate High Street entrance
+| [[User:Morwen]]
+| 28/4/2007
+| Metropolitan
+| No
+|-
+| Aldgate East
+| 51.51514
+| -0.07178
+| Entrance
+| [[User:Parsingphase]]
+| (2006)
+| District, Hammersmith & City
+|-
+| Alperton
+| 51.54097
+| -0.30061
+| Platform
+| [[User:Mattwestcott]]
+| 28/01/2007
+| Piccadilly
+|-
+| Amersham
+| 51.67435
+| -0.60732
+| Entrance
+| [[User:Kake]]
+| 2007-03-06
+| Metropolitan
+| No (although plans are underway to change this)
+|-
+| Angel
+| 51.53253
+| -0.10579
+| Entrance
+| [[User:Kake]]
+| 2007-04-14
+| Northern 
+| No (Escalators)
+|-
+| Archway
+| 51.56536
+| -0.13474
+| Junction Road entrance
+| [[User:Kake]]
+| 2007-04-24
+| Northern 
+|-
+| Arnos Grove
+| 51.61625
+| -0.13355
+| Entrance
+| [[User:Kake]]
+| 2007-04-24
+| Piccadilly
+|-
+| Arsenal
+| 51.55847
+| -0.10561
+| outside Gillespie Road exit; the platforms are a long walk west in tunnel
+| [[User:Morwen]]
+| 5/5/2007
+| Piccadilly
+|-
+| Baker Street
+| 51.52265 
+| -0.15704
+| Circle/Hammersmith & City Entrance (probably)
+| [[User:Steve]]
+| 11/2/06
+| Circle, Hammersmith & City
+| No
+|-
+| Baker Street
+| 51.522236
+| -0.157080
+| Bakerloo/Jubilee Entrance
+| [[User:Gagravarr]]
+| 24/11/06
+| Bakerloo, Jubilee 
+| No
+|-
+| Balham
+| 51.44344113
+| -0.152945844
+| Entrance
+| [[User:Firefishy]]
+| 07/05/2007
+| Northern 
+| No
+|-
+| Bank
+| 51.5134047
+| -0.08905843
+| Entrance
+| [[User:Gagravarr]]
+| 10/10/06
+| Central, Waterloo & City
+|-
+| Barbican
+| 51.520865
+| -0.097758
+| Entrance
+| [[User:Gagravarr]]
+| 06/04/2007
+| Circle, Hammersmith & City, Metropolitan
+| No
+|-
+| Barking
+| 51.54079
+| +0.08018
+| platforms
+| [[User:Morwen]]
+| 21/4/07
+| District, Hammersmith & City
+|-
+| Barkingside
+| 51.58543
+| +0.08854
+| platforms
+| [[User:Morwen]]
+| 21/4/07
+| Central
+|-
+| Barons Court
+| 51.490281
+| -0.214340
+| Platform
+| [[User:Gagravarr]]
+| 24/11/06
+| Piccadilly, District
+|-
+| Bayswater
+| 51.51224
+| -0.187569
+| Entrance
+| [[User:Gagravarr]]
+| 14/05/2007
+| Circle, District
+|-
+| Becontree
+| 51.54029
+| +0.12620
+| platforms
+| [[User:Morwen]]
+| 21/4/07
+| District
+|-
+| Belsize Park
+| 51.55036
+| -0.16465
+| Entrance
+| [[User:Mattwestcott]]
+| 06/05/2007
+| Northern 
+|-
+| Bermondsey
+| 51.49813
+| -0.06350
+| Entrance
+| [[User:Kake]]
+| 2007-03-02
+| Jubilee 
+|-
+| Bethnal Green
+| 51.52718
+| -0.05504
+| tube station entrance
+| [[User:Morwen]]
+| 2007-05-12
+| Central
+| No
+|-
+| Blackfriars
+| 51.5114403
+| -0.10419050
+| Entrance
+| [[User:Gagravarr]]
+| 30/10/06
+| Circle, District
+|-
+| Blackhorse Road
+| 51.58698
+| -0.04104
+| Entrance Hall
+| [[User:Firefishy]]
+| 15/08/2007
+| Victoria 
+|-
+| Bond Street
+| 51.51461
+| -0.14897
+| Entrance
+| [[User:Mattwestcott]]
+| 16/02/2007
+| Central, Jubilee
+| No
+|-
+| Borough
+| 51.50095
+| -0.09446
+| Entrance
+| [[User:Mattwestcott]]
+| 31/07/2007
+| Northern
+|-
+| Boston Manor
+| 51.495371
+| -0.325573
+| Platform
+| [[User:Gagravarr]]
+| 24/11/06
+| Piccadilly
+|-
+| Bounds Green
+| 51.60700
+| -0.12418
+| Entrance
+| [[User:Kake]]
+| 2007-04-24
+| Piccadilly 
+|-
+| Bow Road
+| 51.52709
+| -0.02482
+| Entrance
+| [[User:Morwen]]
+| 2007-05-13
+| District, Hammersmith & City
+|-
+| Brent Cross
+| 51.57693
+| -0.21414
+| Platform
+| [[User:Mattwestcott]]
+| 06/05/2007
+| Northern 
+|-
+| Brixton
+| 51.46239
+| -0.115421
+| Entrance
+| [[User:Parsingphase]]
+| (2006)
+| Victoria 
+|-
+| Bromley-by-Bow
+| 51.52466
+| -0.01282
+| platforms
+| [[User:Morwen]]
+| 21/4/07
+| District, Hammersmith & City
+|-
+| Brondesbury
+| 51.54505
+| -0.20297
+| London Overground platforms
+| [[User:Morwen]]
+| 5/5/2007
+| London Overground
+|-
+| Brondesbury Park
+| 51.54060
+| -0.21093
+| London Overground platforms
+| [[User:Morwen]]
+| 5/5/2007
+| London Overground
+|-
+| Buckhurst Hill
+| 51.62611
+| +0.04705
+| platforms
+| [[User:Morwen]]
+| 21/4/07
+| Central 
+|-
+| Burnt Oak
+| 51.60300
+| -0.26427
+| Platform
+| [[User:Mattwestcott]]
+| 06/05/2007
+| Northern
+|-
+| Caledonian Road
+| 51.54850
+| -0.11802
+| outside Caledonian Road exit
+| [[User:Morwen]]
+| 5/5/2007
+| Piccadilly
+|-
+| Caledonian Road & Barnesbury
+| 51.54326
+| -0.11544
+| London Overground platforms
+| [[User:Morwen]]
+| 5/5/2007
+| London Overground
+|-
+| Camden Road
+| 51.54192
+| -0.13981
+| London Overground platforms
+| [[User:Morwen]]
+| 5/5/2007
+| London Overground
+|-
+| Camden Town
+| 51.53930
+| -0.14316
+| Entrance
+| [[User:Mattwestcott]]
+| 06/05/2007
+| Northern 
+| No
+|-
+| Canada Water
+| 51.49787 +/- 0.000011 (from 3 readings)
+| -0.04967 +/- 0.000008 (from 3 readings)
+| 90º anticlockwise around dome from entrance
+| [[User:Ksbrown]]
+| 13/4/07
+| East London
+|-
+| Canary Wharf
+| 51.50362
+| -0.01987
+| LU Entrance
+| [[User:Kake]]
+| 2007-03-02
+| Jubilee 
+| Unsure (JLE as a whole was built with step free?)
+|-
+| Cannon Street
+| 51.51141
+| -0.09047
+| LU entrance
+| [[User:Mattwestcott]]
+| 04/11/2006
+| Circle, District
+|-
+| Canonbury
+| 51.54822
+| -0.09632
+| mainline platforms
+| [[User:Morwen|Morwen]]
+| 07/03/07
+| London Overground
+|-
+| Canons Park
+| 51.60810
+| -0.29487
+| Platform
+| [[User:Mattwestcott]]
+| 06/05/2007
+| Jubilee 
+|-
+| Chalfont & Latimer
+| 51.66822
+| -0.56053
+| Entrance (car park side; don't know if there's an entrance on the other side)
+| [[User:Kake]]
+| 2007-03-06
+| Metropolitan
+| No
+|-
+| Chalk Farm
+| 51.54390
+| -0.15384
+| Entrance
+| [[User:Mattwestcott]]
+| 06/05/2007
+| Northern 
+|-
+| Chancery Lane
+| 51.51836
+| -0.11115
+| Entrance/exit 3
+| [[User:Mattwestcott]]
+| 27/01/2007
+| Central
+|-
+| Charing Cross
+| 51.507108
+| -0.122963
+| Mainline Platforms
+| [[User:Gagravarr]]
+| 18/11/2006
+| Bakerloo, Northern
+|-
+| Chesham
+| 51.70522733
+| -0.610986426
+| Platform
+| [[User:Firefishy]]
+| 05/05/2007
+| Metropolitan 
+| Yes (Single platform accessed on flat)
+|-
+| Chigwell
+| 51.61795
+| +0.07511
+| platforms
+| [[User:Morwen]]
+| 21/4/07
+| Central 
+|-
+| Chiswick Park
+| 51.49466
+| -0.26866
+| Platform
+| [[User:Mattwestcott]]
+| 28/01/2007
+| District
+|-
+| Chorleywood
+| 51.65429872
+| -0.518373353
+| Platform
+| [[User:Firefishy]]
+| 05/05/2007
+| Metropolitan 
+| No (Subway between N/B & S/B) 
+|-
+| City Thameslink
+| 51.51416
+| -0.10335
+| Ludgate Hill exit
+| [[User:Morwen]]
+| 5/5/2007
+| Thameslink
+|-
+| Clapham Common
+| 51.46156
+| -0.13802
+| Entrance
+| [[User:Parsingphase]]
+| (2006)
+| Northern 
+|-
+| Clapham North
+| 51.46522
+| -0.12950
+| Entrance
+| [[User:Parsingphase]]
+| (2006)
+| Northern 
+|-
+| Clapham South
+| 51.45292257
+| -0.147562148
+| Entrance
+| [[User:Firefishy]]
+| 07/05/2007
+| Northern 
+|-
+| Cockfosters
+| 51.65117
+| -0.14811
+| platforms
+| [[User:Morwen]]
+| 2/5/2007
+| Piccadilly 
+|-
+| Colindale
+| 51.59556
+| -0.24996
+| Platform
+| [[User:Mattwestcott]]
+| 06/05/2007
+| Northern 
+|-
+| Colliers Wood
+| 51.41823649
+| -0.17800983
+| Entrance
+| [[User:Firefishy]]
+| 07/05/2007
+| Northern 
+|-
+| Covent Garden
+| 51.51308
+| -0.12427
+| Long Acre entrance
+| [[User:Morwen]]
+| 28/4/2007
+| Piccadilly 
+| Unsure ( has Lifts )
+|-
+| Croxley
+| 51.64733268
+| -0.441479115
+| Platform
+| [[User:Firefishy]]
+| 05/05/2007
+| Metropolitan 
+| No ( Stairs from Platform level to booking hall)
+|-
+| Dagenham East
+| 51.54396
+| +0.16439
+| platforms
+| [[User:Morwen]]
+| 21/4/07
+| District 
+|-
+| Dagenham Heathway
+| 51.54173
+| +0.14543
+| platforms
+| [[User:Morwen]]
+| 21/4/07
+| District 
+|-
+| Dalston Kingsland
+| 51.54832
+| -0.07879
+| mainline platforms
+| [[User:Morwen|Morwen]]
+| 07/03/07
+| London Overground
+|-
+| Debden
+| 51.64535
+| +0.08364
+| platforms
+| [[User:Morwen]]
+| 21/4/07
+| Central 
+|-
+| Dollis Hill
+| 51.55250
+| -0.23884
+| Entrance
+| [[User:AcousticNewt]]
+| 25/11/2006
+| Jubilee 
+|-
+| Ealing Broadway
+| 51.51482
+| -0.30118
+| Platform
+| [[User:Mattwestcott]]
+| 27/01/2007
+| Central, District
+|-
+| Ealing Common
+| 51.50997
+| -0.28825
+| Platform
+| [[User:Mattwestcott]]
+| 28/01/2007
+| District, Piccadilly 
+|-
+| Earl's Court
+| 51.491521
+| -0.193906
+| Platform
+| [[User:Gagravarr]]
+| 24/11/06
+| District, Piccadilly 
+|-
+| East Acton
+| 51.51753
+| -0.24827
+| Platform
+| [[User:Mattwestcott]]
+| 27/01/2007
+| Central
+|-
+| East Finchley
+| 51.5872974705487
+| -0.16495632312818
+| southbound platform
+| [[User:Welshie]]
+| 27/09/2006
+| Northern 
+|-
+| East Ham
+| 51.53931
+| +0.05260
+| platforms
+| [[User:Morwen]]
+| 21/4/07
+| District, Hammersmith & City
+|-
+| East Putney
+| 51.459015
+| -0.211138
+| Entrance
+| [[User:Randomjunk]]
+| 30/11/2006
+| District
+|-
+| Eastcote
+| 51.57676
+| -0.39629
+| Platform
+| [[User:Mattwestcott]]
+| 28/01/2007
+| Metropolitan, Piccadilly
+|-
+| Edgware
+| 51.61385
+| -0.27515
+| Platform
+| [[User:Mattwestcott]]
+| 06/05/2007
+| Northern 
+| No (Stairs from Booking Hall to platforms)
+|-
+| Edgware Road (Bakerloo Line)
+| 51.519560
+| -0.169068
+| Entrance
+| [[User:Gagravarr]]
+| 24/11/06
+| Bakerloo
+| No (Escalator to platforms)
+|-
+| Edgware Road (Circle Line)
+| 51.520195
+| -0.166986
+| Platform
+| [[User:Gagravarr]]
+| 24/11/06
+| Circle, District, Hammersmith & City
+| No (Stairs between platform and Booking hall)
+|-
+| Elephant & Castle
+| 51.49467
+| -0.10047
+| Entrance
+| [[User:Parsingphase]]
+| (2006)
+| Bakerloo, Northern 
+|-
+| Elm Park
+| 51.54969
+| +0.19779
+| platforms
+| [[User:Morwen]]
+| 21/4/07
+| District 
+|-
+| Embankment
+| 51.50717
+| -0.12195
+| outside Thames Embankment exit
+| [[User:Morwen]]
+| 8/5/07
+| Bakerloo, Circle, District, Northern
+|-
+| Epping
+| 51.69365
+| +0.11495
+| platforms
+| [[User:Morwen]]
+| 21/4/07
+| Central
+|-
+| Euston
+| 51.52774 
+| -0.13303
+| ??
+| [[User:Steve]]
+| 11/2/06
+| Northern 
+| Unsure (Escalators to mainline station)
+|-
+| Euston Square
+| 51.52584 
+| -0.13570
+| ??
+| [[User:Steve]]
+| 11/2/06
+| Circle, Hammersmith & City, Metropolitan 
+| No (Stairs from platform level)
+|-
+| Fairlop
+| 51.59634
+| +0.09125
+| platforms
+| [[User:Morwen]]
+| 21/4/07
+| Central 
+|-
+| Farringdon
+| 51.520362948
+| -0.105126482
+| C/H+C/M Platform
+| [[User:Gagravarr]]
+| 05/08/06
+| Circle, Hammersmith & City, Metropolitan 
+| No (Stairs from platform level)
+|-
+| Farringdon
+| 51.520086
+| -0.104789
+| Entrance
+| [[User:Firefishy]]
+| 18/10/06
+| Circle, Hammersmith & City, Metropolitan
+| No (Stairs to/from platform level)
+|-
+| Finchley Central
+| 51.60102
+| -0.19240
+| ??
+| [[User:Steve]]
+| 10/2/06
+| Northern 
+|-
+| Finchley Road
+| 51.546701
+| -0.179867
+| Platform
+| [[User:Gagravarr]]
+| 10/10/2006
+| Jubilee, Metropolitan
+| No (Steps to/from platform level)
+|-
+| Finchley Road and Frognal
+| 51.54994
+| -0.18412
+| London Overground platforms
+| [[User:Morwen]]
+| 5/5/2007
+| London Overground
+|-
+| Finsbury Park
+| 51.56498
+| -0.10543
+| in bus station, near mainline entrance end
+| [[User:Morwen]]
+| 5/5/2007
+| Piccadilly, Victoria
+| No (Steps at subsurface level)
+|-
+| Fulham Broadway
+| 51.48033
+| -0.19488
+| Platform
+| [[User:Mattwestcott]]
+| 18/05/2007
+| District 
+| Unsure
+|-
+| Gants Hill
+| 51.57649
+| 0.06637
+| Entrance Hall
+| [[User:Firefishy]]
+| 15/08/2007
+| Central
+|-
+| Gloucester Road 
+| 51.49408266
+| -0.17295341
+| C/D platform
+| [[User:Gagravarr]]
+| 8/09/06
+| Circle, District, Piccadilly
+|-
+| Golders Green
+| 51.57249
+| -0.19410
+| Platform
+| [[User:Mattwestcott]]
+| 06/05/2007
+| Northern 
+|-
+| Goldhawk Road
+| 51.501248
+| -0.226776
+| Platform
+| [[User:Gagravarr]]
+| 07/04/2007
+| Hammersmith & City
+|-
+| Goodge Street
+| 51.52060
+| -0.13441
+| ??
+| [[User:Steve]]
+| 10/2/06
+| Northern 
+| Unsure ( Certainly has lifts)
+|-
+| Gospel Oak
+| 51.55597
+| -0.15228
+| London Overground platforms
+| [[User:Morwen]]
+| 5/5/2007
+| London Overground
+|-
+| Grange Hill
+| 51.61326
+| +0.09258
+| platforms
+| [[User:Morwen]]
+| 21/4/07
+| Central 
+|-
+| Great Portland Street
+| 51.52391
+| -0.14397
+| ??
+| [[User:Steve]]
+| 11/2/06
+| Circle, Hammersmith & City, Metropolitan
+| No (Steps to/from platform level)
+|-
+| Greenford
+| 51.542346
+| -0.345903
+| Platform
+| [[User:Firefishy]]
+| 18/02/2007
+| Central
+|-
+| Gunnersbury
+| 51.49126844
+| -0.275554312
+| Platform
+| [[User:Firefishy]]
+| 08/05/2007
+| District 
+|-
+| Green Park
+| 51.50674
+| -0.14276
+| Entrance (south side of Piccadilly)
+| [[User:Kake]]
+| 2007-04-12
+| Jubilee, Piccadilly, Victoria
+| Unsure ( Certainly escalators at subsurface)
+|-
+| Hackney Central
+| 51.54689
+| -0.05784
+| mainline platforms
+| [[User:Morwen|Morwen]]
+| 07/03/07
+| London Overground
+|-
+| Hackney Wick
+| 51.54348
+| -0.02474
+| mainline platforms
+| [[User:Morwen|Morwen]]
+| 07/03/07
+| London Overground
+|-
+| Hainault
+| 51.60288
+| +0.09332
+| platforms
+| [[User:Morwen]]
+| 21/4/07
+| Central
+|-
+| Hammersmith (Dist&Picc Line)
+| 51.492328
+| -0.222825
+| Platform
+| [[User:Gagravarr]]
+| 24/11/06
+| District, Piccadilly
+|- 
+| Hammersmith (H&C Line)
+| 51.494190748
+| -0.225964953
+| H+C Platform
+| [[User:Gagravarr]]
+| 02/04/06
+| Hammersmith & City
+|-
+| Hampstead
+| 51.55645
+| -0.17851
+| Entrance
+| [[User:Mattwestcott]]
+| 06/05/2007
+| Northern 
+| Unsure (Has lifts)
+|-
+| Hampstead Heath
+| 51.55533
+| -0.16656
+| London Overground platforms
+| [[User:Morwen]]
+| 5/5/2007
+| London Overground
+|-
+| Hanger Lane
+| 51.5300
+| -0.2929
+| Entrance
+| [[User:Kake]]
+| 2007-03-03
+| Central
+|-
+| Harlesden
+| 51.53628278
+| -0.257622488
+| Platform
+| [[User:Firefishy]]
+| 05/05/2007
+| Bakerloo 
+|-
+| Harrow & Wealdstone
+| 51.59205973
+| -0.334725352
+| Platform
+| [[User:Firefishy]]
+| 05/05/2007
+| Bakerloo
+|- 
+| Harrow-on-the-Hill
+| 51.579335
+| -0.337052
+| Entrance Hall
+| [[User:Firefishy]]
+| 18/10/2006
+| Metropolitan
+| Steps (from street) and (to/from Platforms)
+|-
+| Hatton Cross
+| 51.466988
+| -0.423035
+| Entrance
+| [[User:Gagravarr]]
+| 24/11/06
+| Piccadilly 
+|-
+| Heathrow Terminals 1-2-3
+| 51.4712899
+| -0.4527438
+| Central Bus Station Entrance
+| [[User:Gagravarr]]
+| 28/02/07
+| Piccadilly
+|-
+| Heathrow Terminal 4
+| 51.4594777
+| -0.44689658
+| Terminal Entrance
+| [[User:Gagravarr]]
+| 28/02/07
+| Piccadilly
+|-
+| Hendon Central
+| 51.58346
+| -0.22653
+| Platform
+| [[User:Mattwestcott]]
+| 06/05/2007
+| Northern 
+|-
+| High Barnet
+| 51.6506519031751
+| -0.194138165994553
+| Platform 2
+| [[User:Simon]]
+| 27/9/06
+| Northern 
+|-
+| High Street Kensington
+| 51.5003459144
+| -0.1923516640
+| Entrance
+| [[User:Gagravarr]]
+| 30/07/06
+| Circle, District
+| No ( Steps to/from platform)
+|-
+| Highbury & Islington
+| 51.54502
+| -0.10752
+| mainline platforms
+| [[User:Morwen|Morwen]]
+| 07/03/07
+| London Overground, Victoria, Northern City
+|-
+| Highgate
+| 51.57722
+| -0.14553
+| ??
+| [[User:Steve]]
+| 10/2/06
+| Northern 
+| No (Escaltors to platform level)
+|-
+| Hillingdon
+| 51.55364
+| -0.45062
+| Platform
+| [[User:Mattwestcott]]
+| 28/01/2007
+| Metropolitan, Piccadilly
+|-
+| Holborn
+| 51.51711
+| -0.12055
+| Entrance
+| [[User:Mattwestcott]]
+| 27/01/2007
+| Central, Piccadilly 
+| Unsure 
+|-
+| Holland Park
+| 51.50722
+| -0.20553
+| Entrance
+| [[User:Mattwestcott]]
+| 27/01/2007
+| Central
+|-
+| Holloway Road
+| 51.55290
+| -0.11278
+| Entrance
+| [[User:Morwen]]
+| 2007-05-13
+| Piccadilly 
+|-
+| Homerton
+| 51.54710
+| -0.04323
+| mainline platforms
+| [[User:Morwen|Morwen]]
+| 07/03/07
+| 
+|-
+| Hornchurch
+| 51.55387
+| +0.21797
+| platforms
+| [[User:Morwen]]
+| 21/4/07
+| District 
+|-
+| Hounslow Central
+| 51.471290
+| -0.365853
+| Platform
+| [[User:Gagravarr]]
+| 24/11/06
+| Piccadilly 
+|-
+| Hounslow East
+| 51.473540
+| -0.356000
+| Platform
+| [[User:Gagravarr]]
+| 24/11/06
+| Piccadilly 
+|-
+| Hounslow West
+| 51.473689
+| -0.386471
+| Platform (North End)
+| [[User:Gagravarr]]
+| 24/11/06
+| Piccadilly 
+|-
+| Hyde Park Corner
+| 51.50313
+| -0.15278
+| at main entrance (on northern side of roundabout)
+| [[User:Morwen]]
+| 1/05/07
+| Piccadilly 
+|-
+| Ickenham
+| 51.56147
+| -0.44257
+| Platform
+| [[User:Mattwestcott]]
+| 28/01/2007
+| Metropolitan, Piccadilly
+|-
+| Kennington
+| 51.48823
+| -0.10587
+| Entrance
+| [[User:Parsingphase]]
+| (2006)
+| Northern 
+|-
+| Kensal Green
+| 51.53060655
+| -0.224253545
+| Platform
+| [[User:Firefishy]]
+| 05/05/2007
+| Bakerloo 
+|-
+| Kensal Rise
+| 51.53387
+| -0.22145
+| London Overground platforms
+| [[User:Morwen]]
+| 5/5/2007
+| London Overground
+|-
+| Kensington (Olympia)
+| 51.49675
+| -0.20931
+| platforms
+| [[User:Morwen]]
+| 9/5/2007
+| District 
+| Yes ( Seem to recall it's a flat access from one side of the concourse)
+
+|-
+| Kentish Town
+| 51.55046
+| -0.14067
+| entrance
+| [[User:Morwen]]
+| 8/6/2007
+| Northern
+| No ( Escalators to platform level)
+|-
+| Kentish Town West
+| 51.54776
+| -0.14708
+| London Overground platforms
+| [[User:Morwen]]
+| 5/5/2007
+| London Overground
+|-
+| Kenton
+| 51.58173809
+| -0.316870809
+| Platform
+| [[User:Firefishy]]
+| 05/05/2007
+| Bakerloo 
+|-
+| Kew Gardens
+| 51.47725641
+| -0.284980014
+| Platform
+| [[User:Firefishy]]
+| 08/05/2007
+| District 
+|-
+| Kilburn
+| 51.5471715
+| -0.2050020
+| Platform
+| [[User:Gagravarr]]
+| 10/10/06
+| Jubilee 
+|-
+| Kilburn Park
+| 51.53495818
+| -0.193963023
+| Entrance
+| [[User:Firefishy]]
+| 05/05/2007
+| Bakerloo
+| No (Escalators to platform level)
+|-
+| King's Cross St.Pancras
+| 51.53057
+| -0.12399
+| between King's Cross exit and main tube entrance
+| [[User:Morwen]]
+| 5/5/2007
+| Piccadilly, Circle, Victoria, Northern, Metropolitan, Hammersmith & City
+| Unsure (Escaltors to deep level platforms)
+|-
+| King's Cross Thameslink
+| 51.53080
+| -0.12044
+| Pentonville Road exit
+| [[User:Morwen]]
+| 5/5/2007
+| Thameslink
+| Unsure (Complex as a whole had steps)
+|-
+| Kingsbury
+| 51.58422
+| -0.27880
+| Platform
+| [[User:Mattwestcott]]
+| 06/05/2007
+| Jubilee 
+|-
+| Knightsbridge
+| 51.50169
+| -0.16030
+| Between Sloane Street and Knightsbridge entrances
+| [[User:Morwen]]
+| 1/05/07
+| Piccadilly
+|-
+| Ladbroke Grove
+| 51.517300
+| -0.211140
+| Platform
+| [[User:Gagravarr]]
+| 07/04/2007
+| Hammersmith & City
+| No (Steps to platform level)
+|-
+| Lambeth North
+| 51.49894
+| -0.11216
+| Entrance
+| [[User:Mattwestcott]]
+| 31/07/2007
+| Bakerloo
+|-
+| Lancaster Gate
+| 51.512083
+| -0.175067
+| Entrance
+| [[User:Gagravarr]]
+| 14/05/2007
+| Central
+|-
+| Latimer Road
+| 51.513125
+| -0.218428
+| Platform
+| [[User:Gagravarr]]
+| 07/04/2007
+| Hammersmith & City
+|-
+| Leicester Square
+| 51.51148
+| -0.12849
+| ??
+| [[User:Steve]]
+| 10/2/06
+| Northern, Piccadilly
+|-
+| Leyton
+| 51.556483
+| -0.005669
+| Entrance 
+| [[User:Firefishy]]
+| 21/10/06
+| Central 
+|-
+| Leytonstone
+| 51.56828
+| 0.00739
+| Entrance
+| [[User:Parsingphase]]
+| (2006)
+| Central 
+|-
+| Liverpool Street
+| 51.517675
+| -0.0824580
+| ??
+| [[User:Gagravarr]]
+| 05/08/06
+| Central
+|-
+| London Bridge
+| 51.505353
+| -0.084826
+| Mainline Through Platforms
+| [[User:Gagravarr]]
+| 18/11/06
+| Jubilee, Northern
+|-
+| Loughton
+| 51.64170
+| +0.05583
+| platforms
+| [[User:Morwen]]
+| 21/4/07
+| Central 
+|-
+| Maida Vale
+| 51.52989409
+| -0.185888819
+| Entrance
+| [[User:Firefishy]]
+| 05/05/2007
+| Bakerloo
+|-
+| Manor House
+| 51.57038
+| -0.09601
+| on top of ticket hall
+| [[User:Morwen]]
+| 29/4/07
+| Piccadilly 
+|-
+| Mansion House
+| 51.51256
+| -0.09397
+| Queen Victoria Street entrance
+| [[User:Mattwestcott]]
+| 18/05/2007
+| Circle, District
+|-
+| Marble Arch
+| 51.5135970 
+| -0.15869195
+| Entrance
+| [[User:Gagravarr]]
+| 12/08/06
+| Central
+|-
+| Marylebone
+| 51.522660
+| -0.162996
+| Entrance
+| [[User:Gagravarr]]
+| 24/11/06
+| Bakerloo
+| No (Escalators to platform level)
+|-
+| Mile End
+| 51.525306
+| -0.033471
+| Entrance
+| [[User:Gagravarr]]
+| 18/11/06
+| Central, District, Hammersmith & City
+| Unusure 
+|-
+| Mill Hill East
+| 51.60892
+| -0.20965
+| Entrance
+| [[User:Morwen]]
+| 2/6/07
+| Northern
+|-
+| Monument
+| 51.510165
+| -0.085991
+| Entrance on Monument Street
+| [[User:Ksbrown]]
+| 13/04/07
+| Circle, District
+|-
+| Moor Park
+| 51.62970512
+| -0.432070848
+| Platform
+| [[User:Firefishy]]
+| 05/05/2007
+| Metropolitan
+| No ( Steps to/from Platform level)
+|-
+| Moorgate
+| 51.51817
+| -0.08859
+| By Moorfields entrance
+| [[User:Morwen]]
+| 2007-05-13
+| Northern, Circle, Hammersmith & City, Metropolitan, Northern City, Thameslink
+| No (Steps to 'surface' lines and escaltors to Deep)
+|-
+| Morden
+| 51.40222413
+| -0.194599126
+| Entrance
+| [[User:Firefishy]]
+| 07/05/2007
+| Northern
+|-
+| Mornington Crescent
+| 51.53427
+| -0.13901
+| ??
+| [[User:Steve]]
+| 11/2/06
+| Northern
+|-
+| Neasden
+| 51.55427
+| -0.25042
+| Platform
+| [[User:Mattwestcott]]
+| 06/05/2007
+| Jubilee 
+| No (Steps to/from platform level)
+|-
+| New Cross
+| 51.477363
+| -0.0338817
+| Mainline platform
+| [[User:Mattwestcott]]
+| 04/11/06
+| East London
+|-
+| New Cross Gate
+| 51.47585
+| -0.04049
+| ELL platform
+| [[User:Morwen]]
+| 7/5/2007
+| East London
+|-
+| Newbury Park
+| 51.57565
+| +0.08927
+| platforms
+| [[User:Morwen]]
+| 21/4/07
+| Central
+|-
+| North Acton
+| 51.52370
+| -0.26019
+| Platform
+| [[User:Mattwestcott]]
+| 27/01/2007
+| Central
+|-
+| North Ealing
+| 51.51807
+| -0.28838
+| Platform
+| [[User:Mattwestcott]]
+| 28/01/2007
+| Piccadilly
+|-
+| North Greenwich
+| 51.50056
+| +0.00360
+| Dome entrance
+| [[User:Mattwestcott]]
+| 31/07/2007
+| Jubilee
+| Unsure ( JLE was built as step free?)
+|-
+| North Harrow
+| 51.58503612
+| -0.362595264
+| Platform
+| [[User:Firefishy]]
+| 05/05/2007
+| Metropolitan 
+|-
+| North Wembley
+| 51.56258091
+| -0.304072648
+| Platform
+| [[User:Firefishy]]
+| 05/05/2007
+| Bakerloo 
+|-
+| Northfields
+| 51.499856
+| -0.313188
+| Platform
+| [[User:Gagravarr]]
+| 24/11/06
+| Piccadilly
+|-
+| Northolt
+| 51.548054
+| -0.368257
+| Entrance
+| [[User:Firefishy]]
+| 21/10/06
+| Central 
+|-
+| Northolt
+| 51.548467
+| -0.36968
+| Platform 
+| [[User:Firefishy]]
+| 21/10/06
+| Central 
+|-
+| Northwick Park
+| 51.57850117
+| -0.317857023
+| Platform
+| [[User:Firefishy]]
+| 05/05/2007
+| Metropolitan
+|-
+| Northwood
+| 51.61098984
+| -0.423584422
+| Platform 
+| [[User:Firefishy]]
+| 05/05/2007
+| Metropolitan
+| No ( Steps to/from platform level)
+|-
+| Northwood Hills
+| 51.60043795
+| -0.408812575
+| Platform
+| [[User:Firefishy]]
+| 05/05/2007
+| Metropolitan
+|-
+| Notting Hill Gate
+| 51.509028
+| -0.1962847
+| Entrance
+| [[User:Gagravarr]]
+| 14/05/2007
+| Central, Circle, District
+| No ( Steps to 'surface' platforms)
+|-
+| Oakwood
+| 51.64739
+| -0.13192
+| platforms
+| [[User:Morwen]]
+| 2/5/2007
+| Piccadilly 
+|-
+| Old Street
+| 51.52618 
+| -0.08751
+| ??
+| [[User:Steve]]
+| 20/2/06
+| Northern, Northern City
+| Unsure 
+|-
+| Osterley
+| 51.481569
+| -0.351960
+| Platform
+| [[User:Gagravarr]]
+| 24/11/06
+| Piccadilly 
+|-
+| Oval
+| 51.48214
+| -0.11284
+| Entrance
+| [[User:Parsingphase]]
+| (2006)
+| Northern
+|-
+| Oxford Circus
+| 51.51517
+| -0.14119
+| Argyle Street entrance
+| [[User:Mattwestcott]]
+| 27/01/2007
+| Bakerloo, Central, Victoria
+| No (Escalators)
+|-
+| Paddington
+| 51.5151846554
+| -0.17553880792
+| C/D Platform
+| [[User:Gagravarr]]
+| 30/07/06
+| Circle, District
+| No (Steps to platform level)
+|-
+| Paddington (H&C Line)
+| 51.519096707
+| -0.176968859
+| H+C Platform
+| [[User:Gagravarr]]
+| 02/04/06
+| Hammersmith and City
+| Unsure ( Access via bridge from mainline concourse)
+|-
+| Park Royal
+| 51.52671
+| -0.28417
+| Platform
+| [[User:Mattwestcott]]
+| 28/01/2007
+| Piccadilly 
+|-
+| Parsons Green
+| 51.47488
+| -0.20205
+| Platform
+| [[User:Mattwestcott]]
+| 18/05/2007
+| District
+|-
+| Perivale
+| 51.536673
+| -0.32391
+| Platform
+| [[User:Firefishy]]
+| 18/02/2007
+| Central 
+|-
+| Piccadilly Circus
+| 51.51022
+| -0.13392
+| Trocadero / Shaftesbury Avenue entrance
+| [[User:Kake]]
+| 2007-04-13
+| Piccadilly, Bakerloo
+| No (Escalator to Platform level)
+|-
+| Pimlico
+| 51.489081
+| -0.133037
+| Entrance
+| [[User:Gagravarr]]
+| 24/11/06
+| Victoria 
+|-
+| Pinner
+| 51.59270271
+| -0.380539158
+| Platform
+| [[User:Firefishy]]
+| 05/05/2007
+| Metropolitan
+|-
+| Plaistow
+| 51.53122
+| 0.01659
+| platforms
+| [[User:Morwen]]
+| 21/4/07
+| District, Hammersmith & City
+|-
+| Preston Road
+| 51.57229051
+| -0.295813875
+| Platform
+| [[User:Firefishy]]
+| 05/05/2007
+| Metropolitan
+|-
+| Putney Bridge
+| 51.46868
+| -0.2088141
+| East bound platform
+| [[User:Randomjunk]]
+| 30/11/2006
+| District
+|-
+| Queen's Park
+| 51.534179
+| -0.205257721
+| Platform
+| [[User:Firefishy]]
+| 05/05/2007
+| Bakerloo
+|-
+| Queensbury
+| 51.59437
+| -0.28655
+| Platform
+| [[User:Mattwestcott]]
+| 06/05/2007
+| Jubilee 
+|-
+| Queensway
+| 51.510484
+| -0.187050
+| Entrance
+| [[User:Gagravarr]]
+| 14/05/2007
+| Central
+|-
+| Ravenscourt Park
+| 51.494190
+| -0.235600
+| Platform
+| [[User:Gagravarr]]
+| 24/11/06
+| District
+|-
+| Rayners Lane
+| 51.57534
+| -0.37240
+| Platform
+| [[User:Mattwestcott]]
+| 28/01/2007
+| Metropolitan, Piccadilly
+| No (Steps to/from Platform level)
+|-
+| Redbridge
+| 51.57618
+| 0.04542
+| Entrance
+| [[User:Firefishy]]
+| 15/08/2007
+| Central
+|-
+| Regent's Park
+| 51.52344
+| -0.14713
+| ??
+| [[User:Steve]]
+| 11/2/06
+| Bakerloo
+|-
+| Richmond
+| 51.46343247
+| -0.302033247
+| Entrance
+| [[User:Firefishy]]
+| 08/05/2007
+| District
+|-
+| Richmond
+| 51.4632474
+| -0.300618047
+| Platform
+| [[User:Firefishy]]
+| 08/05/2007
+| District
+|-
+| Rickmansworth
+| 51.64027898
+| -0.473521454
+| Platform
+| [[User:Firefishy]]
+| 05/05/2007
+| Metropolitan
+| Unsure ( Station has flat access to S/B  but also has a subway)
+|-
+| Roding Valley
+| 51.61691
+| +0.04264
+| platforms
+| [[User:Morwen]]
+| 21/4/07
+| Central 
+|-
+| Rotherhithe
+| 51.50089
+| -0.05211
+| Entrance
+| [[User:Mattwestcott]]
+| 31/07/2007
+| East London
+|-
+| Royal Oak
+| 51.519383
+| -0.187785
+| Platform
+| [[User:Gagravarr]]
+| 07/04/2007
+| Hammersmith & City
+|-
+| Ruislip
+| 51.57146
+| -0.42157
+| Platform
+| [[User:Mattwestcott]]
+| 28/01/2007
+| Metropolitan, Piccadilly
+|-
+| Ruislip Gardens
+| 51.560711
+| -0.410587
+| Platform
+| [[User:Firefishy]]
+| 18/02/2007
+| Central
+|-
+| Ruislip Manor
+| 51.57349
+| -0.41185
+| Platform
+| [[User:Mattwestcott]]
+| 28/01/2007
+| Metropolitan, Piccadilly
+|-
+| Russell Square
+| 51.523243
+| -0.124336
+| Entrance
+| [[User:Gagravarr]]
+| 06/04/2007
+| Piccadilly
+|-
+| St.James's Park 
+| 51.49971
+| -0.13394
+| Broadway exit
+| [[User:Morwen]]
+| 22/5/2007
+| Circle, District
+|-
+| Seven Sisters
+| 51.58318
+| -0.07495
+| mainline platforms
+| [[User:Morwen|Morwen]]
+| 07/03/07
+| Victoria
+|-
+| Shadwell
+| 51.51115
+| -0.05693
+| Tube Entrance
+| [[User:Firefishy]]
+| 22/10/2007
+| East London
+|-
+| Shepherd's Bush
+| 51.50474
+| -0.21881
+| ''Old ticket hall''
+| [[User:Mattwestcott]]
+| 27/01/2007
+| Central
+|-
+| Shepherd's Bush Market
+| 51.506063
+| -0.226231
+| Platform
+| [[User:Gagravarr]]
+| 07/04/2007
+| Hammersmith & City
+|-
+| Sloane Square
+| 51.49258474
+| -0.156090904
+| C/D Platform
+| [[User:Gagravarr]]
+| 08/09/06
+| Central, District
+|-
+| Snaresbrook
+| 51.58002
+| +0.02133
+| platforms
+| [[User:Morwen]]
+| 21/4/07
+| Central 
+|-
+| South Acton
+| 51.49960784
+| -0.270187631
+| Platform
+| [[User:Firefishy]]
+| 08/05/2007
+| London Overground
+|-
+| South Ealing
+| 51.500801
+| -0.307856
+| Platform
+| [[User:Gagravarr]]
+| 24/11/06
+| Piccadilly 
+|-
+| South Harrow
+| 51.56461
+| -0.35210
+| Platform
+| [[User:Mattwestcott]]
+| 28/01/2007
+| Piccadilly
+|-
+| South Kensington
+| 51.494066
+| -0.172791
+| C/D Platform
+| [[User:Gagravarr]]
+| 24/11/06
+| Circle, District, Piccadilly
+| Unsure (Steps from/to 'surface' platforms?).
+|-
+| South Kenton
+| 51.57044666
+| -0.308566354
+| Platform
+| [[User:Firefishy]]
+| 05/05/2007
+| Bakerloo
+|-
+| South Ruislip
+| 51.556795
+| -0.398708
+| Platform
+| [[User:Firefishy]]
+| 18/02/07
+| Central
+|-
+| South Wimbledon
+| 51.41543048
+| -0.192262754
+| Entrance
+| [[User:Firefishy]]
+| 07/05/2007
+| Northern
+|-
+| South Woodford
+| 51.59088
+| +0.02726
+| platforms
+| [[User:Morwen]]
+| 21/4/07
+| Central 
+|-
+| Southfields
+| 51.444941
+| -0.206466
+| Entrance
+| [[User:Randomjunk]]
+| 2/12/2006
+| District
+|-
+| Southgate
+| 51.63240
+| -0.12765
+| entrance
+| [[User:Morwen]]
+| 2/5/2007
+| Piccadilly 
+|-
+| Southwark
+| 51.50384
+| -0.10478
+| Entrance
+| [[User:Kake]]
+| 2007-04-19
+| Jubilee
+|-
+| St.John's Wood
+| 51.53472
+| -0.17428
+| Entrance
+| [[User:Mattwestcott]]
+| 31/07/2007
+| Jubilee
+| No (Escalators)
+|-
+| St.Paul's
+| 51.515285
+| -0.097598
+| Entrance
+| [[User:TomH]]
+| 27/02/07
+| Central
+|-
+| Stamford Brook
+| 51.494935
+| -0.246190
+| Platform
+| [[User:Gagravarr]]
+| 24/11/06
+| District
+|-
+| Stanmore
+| 51.61895
+| -0.30241
+| Platform
+| [[User:Mattwestcott]]
+| 06/05/2007
+| Jubilee 
+| Unsure ( I seem to recall a long flight of steps from street level to the cutting in which the platforms are.[[User:ShakespeareFan00|ShakespeareFan00]] 20:17, 3 July 2009 (UTC))
+|-
+| Stepney Green
+| 51.521884
+| -0.046546
+| Entrance
+| [[User:Gagravarr]]
+| 18/11/06
+| District, Hammersmith & City
+|-
+| Stockwell
+| 51.47224
+| -0.12270
+| Entrance
+| [[User:Parsingphase]]
+| (2006)
+| Northern, Victoria
+|-
+| Stonebridge Park
+| 51.54402388
+| -0.275978856
+| Platform
+| [[User:Firefishy]]
+| 05/05/2007
+| Bakerloo
+|-
+| Stratford
+| 51.541208
+| -0.003776
+| Central Line Platform
+| [[User:Gagravarr]]
+| 18/11/06
+| Central, Jubilee, London Overground
+| Unsure- (Steps at the very least)
+|-
+| Stratford
+| 51.541146
+| -0.002675
+| Entrance
+| [[User:Gagravarr]]
+| 18/11/06
+| Central, Jubilee, London Overground
+|-
+| Sudbury Hill
+| 51.556998
+| -0.335949
+| Entrance
+| [[User:Firefishy]]
+| 31/10/06
+| Piccadilly
+|-
+| Sudbury Town
+| 51.55093
+| -0.31598
+| Platform
+| [[User:Mattwestcott]]
+| 28/01/2007
+| Piccadilly 
+|-
+| Surrey Quays
+| 51.49365
+| -0.04816
+| Platforms
+| [[User:Morwen]]
+| 7/5/2007
+| East London, Jubilee
+|-
+| Swiss Cottage
+| 51.54333
+| -0.17436
+| Avenue Road entrance
+| [[User:Mattwestcott]]
+| 31/07/2007
+| Jubilee
+|-
+| Temple
+| 51.51114
+| -0.11341
+| Entrance
+| [[User:Mattwestcott]]
+| 18/05/2007
+| Circle, District
+|-
+| Theydon Bois
+| 51.67246
+| +0.10354
+| platforms
+| [[User:Morwen]]
+| 21/4/07
+| Central 
+|-
+| Tooting Bec
+| 51.43578971
+| -0.159635693
+| Entrance
+| [[User:Firefishy]]
+| 07/05/2007
+| Northern 
+|-
+| Tooting Broadway
+| 51.42780008
+| -0.167910811
+| Entrance
+| [[User:Firefishy]]
+| 07/05/2007
+| Northern 
+|-
+| Tottenham Court Road
+| 51.51640
+| -0.13027
+| ??
+| [[User:Steve]]
+| 10/2/06
+| Central, Northern
+| No (Escalators)
+|-
+| Tottenham Court Road
+| 51.51672074
+| -0.13093911
+| Entrance
+| [[User:Gagravarr]]
+| 12/08/06
+| Central, Northern
+| No (Steps from street level/Escaltors)
+|-
+| Tottenham Hale
+| 51.588878
+| -0.059808
+| Mainline Platform
+| [[User:TomH]]
+| 27/01/07
+| Victoria
+|-
+| Totteridge & Whetstone
+| 51.63022
+| -0.17917
+| Entrance
+| [[User:Kake]]
+| 2007-04-24
+| Northern
+|-
+| Tower Hill
+| 51.509910
+| -0.076813
+| Entrance
+| [[User:Gagravarr]]
+| 30/10/06
+| Circle, District
+| No (Steps from street level)
+|-
+| Tufnell Park
+| 51.55663
+| -0.13813
+| Entrance
+| [[User:Morwen]]
+| 2/6/07
+| Northern
+|-
+| Turnham Green
+| 51.495143
+| -0.254060
+| Platform
+| [[User:Gagravarr]]
+| 24/11/06
+| District
+|-
+| Turnpike Lane
+| 51.59031
+| -0.10308
+| entrance
+| [[User:Morwen]]
+| 16/5/2007
+| Piccadilly
+| No (Escalators)
+|-
+| Upminster
+| 51.55925
+| +0.25177
+| platforms
+| [[User:Morwen]]
+| 21/4/07
+| District
+|-
+| Upminster Bridge
+| 51.55847
+| +0.23509
+| platforms
+| [[User:Morwen]]
+| 21/4/07
+| District
+|-
+| Upney
+| 51.53824
+| +0.09998
+| platforms
+| [[User:Morwen]]
+| 21/4/07
+| District
+|-
+| Upton Park
+| 51.53514
+| 0.03373
+| platforms
+| [[User:Morwen]]
+| 21/4/07
+| District, Hammersmith & City
+|-
+| Uxbridge
+| 51.54687
+| -0.47725
+| Platform
+| [[User:Mattwestcott]]
+| 28/01/2007
+| Piccadilly, Metropolitan
+| Yes ( Flat access from street)
+|-
+| Vauxhall
+| 51.48603
+| -0.12369
+| Entrance
+| [[User:Mattwestcott]]
+| 27/01/2007
+| Victoria 
+| No ( Escalators)
+|-
+| Victoria
+| 51.49662869
+| -0.14400853
+| C/D Platform
+| [[User:Gagravarr]]
+| 08/09/06
+| Circle, District, Victoria
+| No ( Steps from street level/ Escalators)
+|-
+| Walthamstow Central
+| 51.58293
+| -0.01996
+| mainline platforms
+| [[User:Morwen|Morwen]]
+| 01/04/07
+| Victoria
+| No ( Steps to Booking hall)
+|-
+| Wanstead
+| 51.57565
+| 0.02864
+| Entrance Hall
+| [[User:Firefishy]]
+| 15/08/2007
+| Central
+|-
+| Wapping
+| 51.50451
+| -0.05607
+| Exit
+| [[User:Morwen]]
+| 7/5/2007
+| East London
+|-
+| Warren Street
+| 51.52450 
+| -0.13810
+| ??
+| [[User:Steve]]
+| 11/2/06
+| Northern, Victoria
+| No (Escalators)
+|-
+| Warwick Avenue
+| 51.52329728
+| -0.183777837
+| Platform
+| [[User:Firefishy]]
+| 05/05/2007
+| Bakerloo 
+|-
+| Waterloo
+| 51.50322
+| -0.11328
+| W+C / Bakerloo / Northern Line entrance, platform 18
+| [[User:Mattwestcott]]
+| 15/03/2007
+| Bakerloo, Northern, Waterloo & City
+| Unsure ( JLE-Eurostar was built as step-free?)
+|-
+| Watford
+| 51.65741058
+| -0.41745306
+| Platform
+| [[User:Firefishy]]
+| 05/05/2007
+| Metropolitan 
+| Yes ( Flat access from street IIRC)
+|-
+| Wembley Central
+| 51.55122817
+| -0.29577538
+| Platform
+| [[User:Firefishy]]
+| 05/05/2007
+| Bakerloo 
+|-
+| Wembley Park
+| 51.56355598
+| -0.279770242
+| Platform
+| [[User:Firefishy]]
+| 05/05/2007
+| Jubilee, Metropolitan
+| Unsure (Did have steps to/from platform?)
+|-
+| West Acton
+| 51.51818
+| -0.28064
+| Platform
+| [[User:Mattwestcott]]
+| 27/01/2007
+| Central
+|-
+| West Brompton
+| 51.48681
+| -0.19475
+| Platform
+| [[User:Mattwestcott]]
+| 18/05/2007
+| District
+|-
+| West Finchley
+| 51.60922281219
+| -0.188711152265457
+| Platform
+| [[User:Welshie]]
+| 27/09/2006
+| Northern
+|-
+| West Ham
+| 51.527917
+| +0.004141
+| Platform
+| [[User:Mattwestcott]]
+| 04/11/06
+| District, Hammersmith & City, Jubilee
+|-
+| West Hampstead
+| 51.54678865
+| -0.191016868
+| Jubilee Line Entrance
+| [[User:Firefishy]]
+| 08/05/2007
+| Jubilee
+|-
+| West Hampstead
+| 51.54657
+| -0.19055
+| Jubilee Line platform
+| [[User:Mattwestcott]]
+| 06/05/2007
+| Jubilee
+|-
+| West Hampstead
+| 51.54755518
+| -0.190999685
+| NLL Entrance
+| [[User:Firefishy]]
+| 08/05/2007
+| London Overground
+|-
+| West Hampstead
+| 51.54716
+| -0.19275
+| London Overground platform
+| [[User:Morwen]]
+| 5/5/2007
+| London Overground
+|-
+| West Harrow
+| 51.5795432
+| -0.353144584
+| Platform
+| [[User:Firefishy]]
+| 05/05/2007
+| Metropolitan 
+|-
+| West Kensington
+| 51.490850
+| -0.205320
+| Platform
+| [[User:Gagravarr]]
+| 24/11/06
+| District
+|-
+| West Ruislip
+| 51.569324
+| -0.436740
+| Platform
+| [[User:Firefishy]]
+| 18/02/2007
+| Central
+|-
+| Westbourne Park
+| 51.520995
+| -0.201778
+| Platform
+| [[User:Gagravarr]]
+| 07/04/2007
+| Hammersmith & City
+|-
+| Westminster
+| 51.50121
+| -0.12489
+| Portcullis House exit
+| [[User:Morwen]]
+| 08/05/2007
+| Circle, District, Jubilee
+| Unsure (Escalators)
+|-
+| White City
+| 51.512206
+| -0.224226
+| Platform
+| [[User:Firefishy]]
+| 21/10/2006
+| Central
+|-
+| Whitechapel
+| 51.51946
+| -0.05951
+| Exit
+| [[User:Morwen]]
+| 7/5/2007
+| District, East London, Hammersmith & City
+|-
+| Willesden Green
+| 51.54919
+| -0.22106
+| Between entrances
+| [[User:AcousticNewt]]
+| 25/11/2006
+| Jubilee
+|-
+| Willesden Junction
+| 51.53181
+| -0.242350
+| London Overground platforms
+| [[User:Morwen]]
+| 5/5/2007
+| London Overground
+|-
+| Willesden Junction
+| 51.53032031
+| -0.229378995
+| Platform (Bakerloo)
+| [[User:Firefishy]]
+| 05/05/2007
+| Bakerloo
+|-
+| Wimbledon
+| 51.42200
+| -0.20544
+| Platform
+| [[User:Mattwestcott]]
+| 18/05/2007
+| District
+| Unsure 
+|-
+| Wimbledon Park
+| 51.43391
+| -0.19864
+| Platform
+| [[User:Mattwestcott]]
+| 18/05/2007
+| District 
+|-
+| Wood Green
+| 51.59709
+| -0.10939
+| Entrance
+| [[User:Morwen]]
+| 26/05/2007
+| Piccadilly
+| No (Escalators)
+|-
+| Woodford
+| 51.60582
+| +0.03328
+| platforms
+| [[User:Morwen]]
+| 21/4/07
+| Central
+|-
+| Woodside Park
+| 51.6181717295887
+| -0.185578887883903
+| Platform
+| [[User:Welshie]]
+| 27/09/2006
+| Northern
+|}
+
+
+=== DLR Stations List ===
+
+{| class=wikitable width=100%
+|+'''Public Domain DLR Stations List, located using a GPS'''
+!Name !! Latitude !! Longitude !! Platform / Entrance !! Collected By !! Collected On
+|-
+| All Saints
+| 51.510301
+| -0.012832
+| Platform
+| [[User:Mattwestcott]]
+| 04/11/2006
+|-
+| Bank
+| (See Tube List)
+| (See Tube List)
+| (See Tube List)
+| [[User:Gagravarr]]
+| 10/10/2006
+|-
+| Beckton
+| 51.514411
+| +0.061640
+| Platform
+| [[User:Gagravarr]]
+| 10/10/2006
+|-
+| Beckton Park
+| 51.508758
+| +0.054778
+| Platform
+| [[User:Gagravarr]]
+| 10/10/2006
+|-
+| Blackwall
+| 51.507903
+| -0.007438
+| Platform
+| [[User:Gagravarr]]
+| 10/10/2006
+|-
+| Bow Church
+| 51.5289
+| -0.0210
+| Platform
+| [[User:Gagravarr]]
+| 11/05/2007
+|-
+| Canary Wharf
+| 51.505946
+| -0.020493
+| Platform
+| [[User:Gagravarr]]
+| 10/10/2006
+|-
+| Canning Town
+| 51.513880
+| +0.008876
+| Platform
+| [[User:Gagravarr]]
+| 10/10/2006
+|-
+| Crossharbour
+| 51.495086
+| -0.014543
+| Platform
+| [[User:Gagravarr]]
+| 10/10/2006
+|-
+| Custom House
+| 51.509731
+| +0.026013
+| Platform
+| [[User:Gagravarr]]
+| 10/10/2006
+|-
+| Cutty Sark
+| 51.481713
+| -0.010811
+| Platform
+| [[User:Gagravarr]]
+| 18/11/2006
+|-
+| Cyprus
+| 51.508360
+| +0.063990
+| Platform
+| [[User:Gagravarr]]
+| 10/10/2006
+|-
+| Deptford Bridge
+| 51.478016
+| -0.022496
+| Platform
+| [[User:Gagravarr]]
+| 18/11/2006
+|-
+| Devons Road
+| 51.522274
+| -0.017080
+| Platform
+| [[User:Mattwestcott]]
+| 04/11/2006
+|-
+| East India
+| 51.509516
+| -0.002128
+| Platform
+| [[User:Gagravarr]]
+| 10/10/2006
+|-
+| Elverson Road
+| 51.468768
+| -0.016265
+| Platform
+| [[User:Gagravarr]]
+| 18/11/2006
+|-
+| Gallions Reach
+| 51.509111
+| +0.071911
+| Platform
+| [[User:Gagravarr]]
+| 10/10/2006
+|-
+| Greenwich
+| 51.478016
+| -0.015391
+| Platform
+| [[User:Gagravarr]]
+| 18/11/2006
+|-
+| Heron Quays
+| 51.5046489
+| -0.0207681
+| Platform
+| [[User:Gagravarr]]
+| 10/10/2006
+|-
+| Island Gardens
+| 51.488001
+| -0.011039
+| Platform
+| [[User:Gagravarr]]
+| 10/10/2006
+|-
+| King George V
+| 51.50202
+| +0.06299
+| Platform
+| [[User:Mattwestcott]]
+| 04/11/2006
+|-
+| Lewisham
+| 51.465540
+| -0.013196
+| Platform 3 (National Rail / by Entrance)
+| [[User:Mattwestcott]]
+| 04/11/2006
+|-
+| Lewisham
+| 51.465216
+| -0.013166
+| DLR Platford
+| [[User:Gagravarr]]
+| 18/11/2006
+|-
+| Limehouse
+| 51.5124366
+| -0.0395511
+| Platform
+| [[User:Gagravarr]]
+| 10/10/2006
+|-
+| London City Airport
+| 51.50319
+| +0.04864
+| Drew Road entrance
+| [[User:Mattwestcott]]
+| 04/11/2006
+|-
+| Mudchute
+| 51.491185
+| -0.014595
+| Platform
+| [[User:Gagravarr]]
+| 10/10/2006
+|-
+| Pontoon Dock
+| 51.50205
+| +0.03308
+| Car park
+| [[User:Mattwestcott]]
+| 04/11/2006
+|-
+| Poplar
+| 51.507725
+| -0.016503
+| Platform
+| [[User:Gagravarr]]
+| 10/10/2006
+|-
+| Prince Regent
+| 51.509471
+| +0.033473
+| Platform
+| [[User:Gagravarr]]
+| 10/10/2006
+|-
+| Pudding Mill Lane
+| 51.5339
+| -0.0142
+| Platform
+| [[User:Gagravarr]]
+| 11/05/2007
+|-
+| Royal Albert
+| 51.508456
+| +0.046148
+| Platform
+| [[User:Gagravarr]]
+| 10/10/2006
+|-
+| Royal Victoria
+| 51.509156
+| +0.018083
+| Platform
+| [[User:Gagravarr]]
+| 10/10/2006
+|-
+| Shadwell
+| 51.51163
+| -0.05625
+| Entrance
+| [[User:Firefishy]]
+| 22/10/2007
+|-
+| Shadwell
+| 51.511853
+| -0.055480
+| Platform
+| [[User:Gagravarr]]
+| 10/10/2006
+|-
+| South Quay
+| 51.500413
+| -0.018636
+| Platform
+| [[User:Gagravarr]]
+| 10/10/2006
+|-
+| Stratford
+| 51.540470
+| -0.005085
+| DLR Platform
+| [[User:Mattwestcott]]
+| 04/11/2006
+|-
+| Tower Gateway
+| 51.510911
+| -0.073466
+| Platform
+| [[User:Gagravarr]]
+| 10/10/2006
+|-
+| Westferry
+| 51.509576
+| -0.026990
+| Platform
+| [[User:Gagravarr]]
+| 10/10/2006
+|-
+| West India Quay
+| 51.506723
+| -0.019880
+| Platform
+| [[User:Gagravarr]]
+| 10/10/2006
+|-
+| West Silvertown
+| 51.50335
+| +0.02208
+| Entrance (bus stop)
+| [[User:Mattwestcott]]
+| 04/11/2006
+|}
+
+===List===
+A list of underground lines and details of stations that still need to be collection.
+
+'''This section appears to be out of date'''
+
+{| class=wikitable width=100%
+!Line !! Missing stations
+|-
+|Bakerloo || ''all done''
+|-
+|Bedpan || Kentish Town (NR), West Hampstead Thameslink, Cricklewood, Mill Hill Broadway, Hendon, Elstree & Borehamwood
+|-
+|Central || Shepherd's Bush (confirm new ticket hall location)
+|-
+|Circle || ''all done''
+|-
+|District || ''all done''
+|-
+|Dockland Light Railway (DLR) || Langdon Park
+|-
+|East London Line || ''all done''
+|-
+|Great Northern Electrics || Essex Road, Drayton Park, Harringay, Horsney, Alexandra Palace, ...
+|-
+|Hammersmith & City || Wood Lane
+|-
+|Jubilee || ''all done''
+|-
+|Lea Valley Lines || Bethnal Green (NR), Cambridge Heath, London Fields, Hackney Downs, Rectory Road, Stoke Newington, Stamford Hill, Bruce Grove, White Hart Lane, Silver Street, Bush Hill Park, Enfield Town, Southbury, Turkey Street; Clapton, Northumberland Park, Angel Road, Ponders End, Brimsdown, Enfield Lock; St James Street; Wood Street; Highams Park; Chingford
+|-
+|London Overground || Bushey, Carpenders Park, Clapham Junction, Crouch Hill, Harringay Green Lanes, Hatch End, Headstone Lane, Kilburn High Road, Leyton Midland Road, Leytonstone High Road, Shepherd's Bush, South Hampstead, South Tottenham, Upper Holloway, Walthamstow Queens Road, Wanstead Park, Watford High Street, Watford Junction, Woodgrange Park
+|-
+|Metropolitan || ''all done''
+|-
+|Northern || ''all done''
+|-
+|Piccadilly || Heathrow Terminal 5
+|-
+|Shenfield Metro || Maryland, Forest Gate, Manor Park, Ilford, Seven Kings, Goodmayes, Chadwell Heath, Romford, Gidea Park, Harold Wood; Emerson Park
+|-
+|Victoria || ''all done''
+|-
+|Waterloo & City || ''all done''
+
+
+[[CLOSED STATIONS 2011]]
+Blackfiars (closed till autumn '11)
+Latimer Road (Unsure when open?)
+|}
+
+==See also==
+*[[Tube Network Map]]
+
+[[Category:London Underground]]
+[[Category:WikiProject Railways]]
