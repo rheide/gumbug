@@ -11,7 +11,6 @@ from django.db import models, migrations
 def load_stations(apps, schema_editor):
     Station = apps.get_model('gumbug', 'Station')
     path = os.path.abspath('data/stations.csv')
-    print "Path: %s" % path
     with open(path, 'rb') as csvfile:
         reader = csv.reader(csvfile)
         reader.next()

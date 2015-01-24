@@ -7,7 +7,7 @@
 
 <h1>Gumbug</h1>
 
-<p>This service allows you to automatically group the results of several Gumtree searches together in a single page
+<p>This service allows you to automatically group the results of several real estate searches together in a single page
 for easy viewing, and allows you to do additional filtering so you don't keep seeing the ads that you don't want to see
 for repeated searches.</p>
 
@@ -16,9 +16,9 @@ for repeated searches.</p>
 
 	{% csrf_token %}
 	
-	<p>Paste your rental apartment search listing URLs here. Valid sources are:</p>
+	<p>Paste your house or apartment search listing URLs here. Valid sources are:</p>
 
-	<li>Rightmove (<a href="http://www.rightmove.co.uk/property-to-rent/find.html?locationIdentifier=POSTCODE%5E936383&minPrice=700&maxPrice=1100&radius=3.0&index=10" target="_blank">Example</a>)</li>
+	<li>Rightmove (To Buy - <a href="http://www.rightmove.co.uk/property-for-sale/find.html?locationIdentifier=REGION%5E1408&insId=2&maxPrice=400000&minBedrooms=2&retirement=false&radius=1.0&sortType=6&numberOfPropertiesPerPage=10" target="_blank">Example</a>)</li>
 
 	{% include '_search_form.html' %}
 

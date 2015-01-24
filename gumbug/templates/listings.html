@@ -63,14 +63,10 @@
 					travelMode: google.maps.TravelMode.WALKING
 				};
 				directionsService.route(request, function(result, status) {
-					console.log("RESUTL THING");
-					console.log("Result: " + result);
 					if (status == google.maps.DirectionsStatus.OK) {
-						console.log("setting directions");
 						directionsDisplay.setDirections(result);
 					}
 				});
-				console.log("DSAF");
 			}
 			else {
 				console.log("No distance..");
@@ -81,7 +77,6 @@
 			e.preventDefault();
 			var dataId = $(this).attr("data-id");
 			var div = $(this).closest("div.search-listing");
-			console.log("Div: " + div);
 			div.addClass("ignored");
 			$(this).hide();
 
@@ -95,7 +90,6 @@
 			e.preventDefault();
 			var dataId = $(this).attr("data-id");
 			var div = $(this).closest("div.search-listing");
-			console.log("Div: " + div);
 			div.removeClass("ignored");
 			$(this).hide();
 
@@ -109,7 +103,6 @@
 			e.preventDefault();
 			var dataId = $(this).attr("data-id");
 			var div = $(this).closest("div.search-listing");
-			console.log("Div: " + div);
 			div.addClass("favorite");
 			$(this).hide();
 
@@ -123,7 +116,6 @@
 			e.preventDefault();
 			var dataId = $(this).attr("data-id");
 			var div = $(this).closest("div.search-listing");
-			console.log("Div: " + div);
 			div.removeClass("favorite");
 			$(this).hide();
 
