@@ -240,7 +240,10 @@
 </div>
 
 <div class="row">
-	<h4>{{ valid_count }} valid listings, {{ ignored_count }} ignored</h4>
+	<a class="btn {% if listing_type == 'all' %}btn-primary active{% else %}btn-default{% endif %}" href="?">All ({{ total_listing_count }})</a>
+	<a class="btn {% if listing_type == 'new' %}btn-primary active{% else %}btn-default{% endif %}" href="?filter=new">New ({{ new_listing_count }})</a>
+	<a class="btn {% if listing_type == 'favorite' %}btn-primary active{% else %}btn-default{% endif %}" href="?filter=favorite">Favorite ({{ favorite_listing_count }})</a>
+	<a class="btn {% if listing_type == 'ignored' %}btn-primary active{% else %}btn-default{% endif %}" href="?filter=ignored">Ignored ({{ ignored_listing_count }})</a>
 </div>
 
 <div class="row">

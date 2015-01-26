@@ -118,6 +118,25 @@ def listings(request, search_slug, page_number=1):
                                                                     "ignored",
                                                                     "-listing__date_posted")
 
+    total_count = listings.count()
+    ignored_count = listings.filter(ignored=True).count()
+    favorite_count = listings.filter(favorite=True).count()
+
+    context['total_listing_count'] = total_count
+    context['ignored_listing_count'] = ignored_count
+    context['favorite_listing_count'] = favorite_count
+    context['new_listing_count'] = total_count - (favorite_count + ignored_count)
+
+    listing_type = request.GET.get('filter', 'all')
+    context['listing_type'] = listing_type
+
+    if listing_type == 'ignored':
+        listings = listings.filter(ignored=True)
+    elif listing_type == 'favorite':
+        listings = listings.filter(favorite=True)
+    elif listing_type == 'new':
+        listings = listings.filter(favorite=False, ignored=False)
+
     p = Paginator(listings, 10)
     page = p.page(page_number)
 
