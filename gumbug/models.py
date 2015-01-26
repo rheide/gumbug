@@ -1,12 +1,17 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
-
+import logging
 import pytz
+import string
+import random
 from datetime import datetime
 from django.db import models
 from django.utils.text import slugify
 from uuid import uuid4
 from mptt.models import MPTTModel
+
+vowels = ['a','e','i','o','u']
+consonants = [a for a in string.ascii_lowercase if a not in vowels]
 
 
 class BaseModel(models.Model):
@@ -87,25 +92,12 @@ class Search(MPTTModel, BaseModel):
     def require_keywords_list(self):
         return [s for s in map(lambda s: s.strip(), self.require_keywords.split(",")) if s]
 
-    def __init__(self, *args, **kwargs):
-        super(Search, self).__init__(*args, **kwargs)
-        if not self.id and not self.slug:
-            search_id = slugify(unicode(uuid4().bytes.encode('base64').rstrip('=\n')[:10]))
+    def save(self, *args, **kwargs):
+        if not self.slug or not self.name:
+            search_id = Search.generate_id()
             self.name = search_id
             self.slug = search_id
-
-    @classmethod
-    def create(cls, urls=[]):
-        search_id = slugify(unicode(uuid4().bytes.encode('base64').rstrip('=\n')[:10]))
-        search = cls()
-        search.name = search_id
-        search.slug = search_id
-        search.save()
-
-        for url in urls:
-            SearchUrl.objects.create(search=search, url=url)
-
-        return search
+        super(Search, self).save(*args, **kwargs)
 
     def clone(self):
         new_search = Search()
@@ -118,6 +110,23 @@ class Search(MPTTModel, BaseModel):
             search_url.clone(new_search)
 
         return new_search
+
+    @classmethod
+    def generate_id(cls, length=5):
+        def alphabit(length):
+            s = ''
+            for i in range(length):
+                if i % 2 == 0:
+                    s += random.choice(consonants)
+                else:
+                    s += random.choice(vowels)
+            return s
+        generator = lambda length: alphabit(length) + "-" + alphabit(length)
+        s = generator(length)
+        while Search.objects.filter(name=s):
+            logging.info("Duplicate ID, regenerating..")
+            s = generator(length)
+        return s
 
 
 class StationFilter(BaseModel):
