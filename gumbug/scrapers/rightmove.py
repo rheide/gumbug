@@ -77,7 +77,7 @@ class RightmoveScraper(Scraper):
 
         listing.area = html.find("span", {'class': 'displayaddress'}).text.strip()
 
-        listing.short_description = html.find("p", {'class': "description"}).span.text.strip()
+        listing.short_description = html.find("a", {'class': "description"}).span.text.strip()
 
         date_listed = html.find("p", {'class': 'branchblurb'}).text.strip().lower()
         if 'added today' in date_listed:
