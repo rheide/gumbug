@@ -21,9 +21,6 @@ class SearchForm(forms.ModelForm):
             'require_keywords': forms.Textarea(attrs={'rows': 3, 'cols': 80}),
         }
 
-    def save(self, *args, **kwargs):
-        return super(SearchForm, self).save(*args, **kwargs)
-
 
 class SearchUrlForm(forms.ModelForm):
 

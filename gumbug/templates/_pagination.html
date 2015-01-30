@@ -1,6 +1,12 @@
 
 <ul class="pagination">
 {% for num in paginator.page_range %}
-	<li {% if num == page.number %}class="active"{% endif %}><a href="{% url 'listings' search.slug num %}">{{ num }}</a></li>
+	<li {% if num == page.number %}class="active"{% endif %}>
+		{% if search_type == 'slug' %}
+			<a href="{% url 'listings' search.slug num %}">{{ num }}</a>
+		{% else %}
+			<a href="{% url 'tag_listings' search.tag num %}">{{ num }}</a>
+		{% endif %}
+	</li>
 {% endfor %}
 </ul>

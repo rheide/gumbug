@@ -1,6 +1,6 @@
 {% extends '_base.html' %}
 
-{% block title %}{{ search.title }} | Gumbug Search{% endblock %}
+{% block title %}{% if search_type == 'slug' %}{{ search.title }}{% else %}{{ search.tag }}{% endif %} | Gumbug Search{% endblock %}
 
 {% block headerjs %}
 
@@ -222,7 +222,11 @@
 {% include "_previous_searches.html" %}
 
 <div class="row">
-	<h1>{{ search.title }} - Gumbug search</h1>
+	{% if search.tag %}
+		<h1>{{ search.tag }} - Gumbug search [{{ search.title }}]</h1>
+	{% else %}
+		<h1>{{ search.title }} - Gumbug search</h1>
+	{% endif %}
 </div>
 
 {% if search.parent %}
@@ -232,7 +236,11 @@
 {% endif %}
 
 <div class="row">
+	{% if search_type == 'slug' %}
 	<form class="search-form" action="{% url 'listings' search.slug %}" method="POST">
+	{% else %}
+	<form class="search-form" action="{% url 'tag_listings' search.tag %}" method="POST">
+	{% endif %}
 		{% csrf_token %}
 		{% include '_search_form.html' %}
 	</form>

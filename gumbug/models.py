@@ -49,6 +49,8 @@ class Search(MPTTModel, BaseModel):
     name = models.CharField(max_length=80)
     slug = models.SlugField(max_length=80, unique=True)
 
+    tag = models.CharField(max_length=80, null=True, blank=True, db_index=True)
+
     parent = models.ForeignKey("self", null=True, blank=True, related_name="children")
 
     preserve_ignored = models.BooleanField(default=True,
@@ -102,6 +104,7 @@ class Search(MPTTModel, BaseModel):
     def clone(self):
         new_search = Search()
         new_search.parent = self
+        new_search.tag = self.tag
         new_search.ignore_keywords = self.ignore_keywords
         new_search.require_keywords = self.require_keywords
         new_search.save()

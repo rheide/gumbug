@@ -11,8 +11,7 @@ from django.core.paginator import Paginator
 from gumbug import tasks
 from gumbug.models import Search, Listing, SearchListing, SearchUrl,\
     StationFilter
-from gumbug.forms import SearchForm, SearchUrlFormSet, StationForm,\
-    StationFormSet
+from gumbug.forms import SearchForm, SearchUrlFormSet, StationFormSet
 from django.forms.models import model_to_dict
 
 validate_url= URLValidator()
@@ -59,13 +58,21 @@ def favorite_listing(request, search_slug, listing_id):
     return HttpResponse(json.dumps({'result': 'OK'}), content_type="application/json")
 
 
-def listings(request, search_slug, page_number=1):
+def listings(request, search_slug=None, search_tag=None, page_number=1):
     context = {}
 
-    try:
-        search = Search.objects.get(slug=search_slug)
-    except Search.DoesNotExist:
-        raise Http404
+    if search_slug:
+        context['search_type'] = 'slug'
+        try:
+            search = Search.objects.get(slug=search_slug)
+        except Search.DoesNotExist:
+            raise Http404
+    else:
+        context['search_type'] = 'tag'
+        searches = Search.objects.filter(tag=search_tag).order_by("-created")[:1]
+        if not searches:
+            raise Http404
+        search = searches[0]
 
     previous_searches = request.session.get('previous_searches', [])
     context['search'] = search
@@ -90,18 +97,24 @@ def listings(request, search_slug, page_number=1):
         station_formset = StationFormSet(request.POST, queryset=StationFilter.objects.none())
 
         if form.is_valid() and url_formset.is_valid() and station_formset.is_valid():
-            search = form.save()
+            new_search = form.save(commit=False)
+            new_search.tag = search.tag
+            new_search.save()
+
             urls = url_formset.save(commit=False)
             for search_url in urls:
-                search_url.search = search
+                search_url.search = new_search
                 search_url.save()
             station_filters = station_formset.save(commit=False)
             for sf in station_filters:
-                sf.search = search
+                sf.search = new_search
                 sf.save()
             refetch_listings = form.cleaned_data['refetch_listings']
-            tasks.start_search(search.id, refetch_listings)
-            return redirect('listings', search.slug)
+            tasks.start_search(new_search.id, refetch_listings)
+            if new_search.tag:
+                return redirect('tag_listings', new_search.tag)
+            else:
+                return redirect('listings', new_search.slug)
     else:
         initial_data = model_to_dict(search)
         initial_data['parent'] = search
