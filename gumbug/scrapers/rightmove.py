@@ -132,14 +132,42 @@ class RightmoveScraper(Scraper):
 
         listing.save()
 
+        # Load floorplans
+        image_count = 0
+        floorplan_divs = html.findAll("div", {'class': "floorplancontent"})
+        for div in floorplan_divs:
+            img = div.find("img", {'class': "site-plan"})
+            if not img:
+                continue
+            image = ListingImage(listing=listing)
+            image.url = img['src']
+            image.image_type = ListingImage.TYPE_FLOORPLAN
+            image.thumbnail_url = img['src']
+            image.position = image_count
+            image.save()
+            image_count += 1
+
+        matches = re.findall(r'zoomUrls: +\[([^\]]*)\]', r.text, re.IGNORECASE | re.UNICODE | re.MULTILINE)
+        for urls in matches:
+            res = [u.strip().strip('"') for u in urls.split(",")]
+            image = ListingImage(listing=listing)
+            image.image_type = ListingImage.TYPE_IMAGE
+            image.url = res[-1]  # the largest one
+            image.thumbnail_url = res[0]  # the first one
+            image.position = image_count
+            image.save()
+            image_count += 1
+
         # Load images
         matches = re.findall(r'thumbnailUrl":"([^"]*)","masterUrl":"([^"]*)"', r.text, re.IGNORECASE | re.UNICODE | re.MULTILINE)
-        for i, (thumbnail_url, image_url) in enumerate(matches):
+        for thumbnail_url, image_url in matches:
             image = ListingImage(listing=listing)
+            image.image_type = ListingImage.TYPE_IMAGE
             image.url = image_url
             image.thumbnail_url = thumbnail_url
-            image.position = i
+            image.position = image_count
             image.save()
+            image_count += 1
 
         # Load distance from stations
         stations_list = html.find("ul", {'class': 'stations-list'})

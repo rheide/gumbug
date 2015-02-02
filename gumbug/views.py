@@ -7,6 +7,7 @@ from django.shortcuts import render, redirect
 from django.core.validators import URLValidator
 from django.core.exceptions import ValidationError
 from django.core.paginator import Paginator
+from django.db.models import Q
 
 from gumbug import tasks
 from gumbug.models import Search, Listing, SearchListing, SearchUrl,\
@@ -149,6 +150,15 @@ def listings(request, search_slug=None, search_tag=None, page_number=1):
         listings = listings.filter(favorite=True)
     elif listing_type == 'new':
         listings = listings.filter(favorite=False, ignored=False)
+
+    search_query = request.GET.get('q', '')
+    context['search_query'] = search_query
+    if search_query:
+        listings = listings.filter(
+            Q(listing__title__icontains=search_query) | \
+            Q(listing__long_description__icontains=search_query) | \
+            Q(listing__area__icontains=search_query)
+        )
 
     p = Paginator(listings, 10)
     page = p.page(page_number)

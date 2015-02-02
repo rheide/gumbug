@@ -9,12 +9,13 @@ from django.db import models
 from django.utils.text import slugify
 from uuid import uuid4
 from mptt.models import MPTTModel
+from caching.base import CachingManager, CachingMixin
 
 vowels = ['a','e','i','o','u']
 consonants = [a for a in string.ascii_lowercase if a not in vowels]
 
 
-class BaseModel(models.Model):
+class BaseModel(CachingMixin, models.Model):
 
     class Meta:
         abstract = True
@@ -31,6 +32,8 @@ class BaseModel(models.Model):
 
 class Station(BaseModel):
 
+    objects = CachingManager()
+
     name = models.CharField(max_length=200)
     lat = models.FloatField(null=True, blank=True)
     lon = models.FloatField(null=True, blank=True)
@@ -41,6 +44,8 @@ class Station(BaseModel):
 
 
 class Search(MPTTModel, BaseModel):
+
+    objects = CachingManager()
 
     STATUS_NEW = 'new'
     STATUS_DONE = 'done'
@@ -134,6 +139,8 @@ class Search(MPTTModel, BaseModel):
 
 class StationFilter(BaseModel):
 
+    objects = CachingManager()
+
     search = models.ForeignKey(Search)
     station = models.ForeignKey(Station)
     min_dist = models.FloatField(default=0.0)
@@ -157,6 +164,8 @@ class StationFilter(BaseModel):
 
 class SearchUrl(BaseModel):
 
+    objects = CachingManager()
+
     search = models.ForeignKey(Search)
     url = models.URLField(max_length=511)
 
@@ -170,6 +179,8 @@ class SearchUrl(BaseModel):
 
 
 class Listing(BaseModel):
+
+    objects = CachingManager()
 
     source = models.CharField(max_length=50, db_index=True, choices=[('rightmove', 'rightmove')],
                               default='rightmove')
@@ -224,6 +235,8 @@ class Listing(BaseModel):
 
 class SearchListing(BaseModel):
 
+    objects = CachingManager()
+
     search = models.ForeignKey(Search)
     listing = models.ForeignKey(Listing)
 
@@ -234,13 +247,30 @@ class SearchListing(BaseModel):
 
 class ListingImage(BaseModel):
 
+    objects = CachingManager()
+
+    TYPE_IMAGE = 'image'
+    TYPE_FLOORPLAN = 'floorplan'
+
+    IMAGE_TYPES = [
+        (TYPE_IMAGE, 'Image'),
+        (TYPE_FLOORPLAN, 'Floorplan')
+    ]
+
     listing = models.ForeignKey(Listing)
     url = models.URLField()
     thumbnail_url = models.URLField(blank=True, null=True)
-    position = models.PositiveSmallIntegerField(default=0)
+    position = models.PositiveSmallIntegerField(default=0, db_index=True)
+
+    image_type = models.CharField(max_length=32, choices=IMAGE_TYPES, default=TYPE_IMAGE, db_index=True)
+
+    def __unicode__(self):
+        return self.url
 
 
 class StationDistance(BaseModel):
+
+    objects = CachingManager()
 
     listing = models.ForeignKey(Listing)
     station = models.ForeignKey(Station)

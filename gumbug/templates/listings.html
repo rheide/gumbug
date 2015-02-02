@@ -252,6 +252,10 @@
 	<a class="btn {% if listing_type == 'new' %}btn-primary active{% else %}btn-default{% endif %}" href="?filter=new">New ({{ new_listing_count }})</a>
 	<a class="btn {% if listing_type == 'favorite' %}btn-primary active{% else %}btn-default{% endif %}" href="?filter=favorite">Favorite ({{ favorite_listing_count }})</a>
 	<a class="btn {% if listing_type == 'ignored' %}btn-primary active{% else %}btn-default{% endif %}" href="?filter=ignored">Ignored ({{ ignored_listing_count }})</a>
+	<form action="" method="GET" style="display:inline;">
+		<input type="text" name="q" value="{{ search_query }}" style="width: 240px; height:28px; display:inline;"/>
+		<input type="submit" class="btn {% if search_query %}btn-primary active{% else %}btn-warning{% endif %}" value="Find" style="display:inline;"/>
+	</form>
 </div>
 
 <div class="row">

@@ -3,9 +3,9 @@
 {% for num in paginator.page_range %}
 	<li {% if num == page.number %}class="active"{% endif %}>
 		{% if search_type == 'slug' %}
-			<a href="{% url 'listings' search.slug num %}">{{ num }}</a>
+			<a href="{% url 'listings' search.slug num %}{% if search_query %}?q={{ search_query }}{% endif %}">{{ num }}</a>
 		{% else %}
-			<a href="{% url 'tag_listings' search.tag num %}">{{ num }}</a>
+			<a href="{% url 'tag_listings' search.tag num %}{% if search_query %}?q={{ search_query }}{% endif %}">{{ num }}</a>
 		{% endif %}
 	</li>
 {% endfor %}
