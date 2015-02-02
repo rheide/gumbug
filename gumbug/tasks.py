@@ -7,6 +7,7 @@ from gumbug.models import Search, SearchListing, Listing
 from gumbug.scrapers.gumtree import GumtreeScraper
 from gumbug.utils import do_with_retry
 from gumbug.scrapers.rightmove import RightmoveScraper
+from django.core.cache import cache
 
 
 logger = logging.getLogger(__name__)
@@ -47,6 +48,9 @@ def search(search_id, refetch_listings=False):
         search.status = Search.STATUS_ERROR
         search.search_result = u"Error: %s" % unicode(e)
         search.save()
+    finally:
+        logging.info("Clearing cache")
+        cache.clear()
 
 
 def do_search(search, refetch_listings):
