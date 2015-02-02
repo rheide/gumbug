@@ -12,8 +12,7 @@ TEMPLATE_DEBUG = DEBUG
 
 
 ALLOWED_HOSTS = [
-    ".floating-forest-4090-766.herokuapp.com",
-    ".floating-forest-4090.herokuapp.com",
+    ".gumbug.herokuapp.com",
 ]
 
 
