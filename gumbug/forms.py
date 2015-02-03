@@ -36,7 +36,7 @@ SearchUrlFormSet = modelformset_factory(SearchUrl,
                                         form=SearchUrlForm,
                                         min_num=1,
                                         validate_min=True,
-                                        extra=8,
+                                        extra=12,
                                         exclude=['search'])
 
 
@@ -59,5 +59,5 @@ class StationForm(forms.ModelForm):
 
 StationFormSet = modelformset_factory(StationFilter,
                                       form=StationForm,
-                                      extra=8,
+                                      extra=12,
                                       exclude=['search'])
