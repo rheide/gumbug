@@ -65,15 +65,19 @@ class RightmoveScraper(Scraper):
         relative_url = relative_url['href']
         relative_url = relative_url.split(".html")[0] + u".html"
         listing.url = url_prefix + relative_url
-        logging.info("URL: %s" % listing.url)
+        logger.info("URL: %s" % listing.url)
 
-        price = html.find("div", {'class': 'price-new'})
-        price = price.find("a")
-        price = price.text.strip()
-        price = price.replace(u'£', '')
-        price = price.replace(',', '')
-        price = price.replace('\n', '').replace('\r', '')
-        listing.price = int(price)
+        try:
+            price = html.find("div", {'class': 'price-new'})
+            price = price.find("a")
+            price = price.text.strip()
+            price = price.replace(u'£', '')
+            price = price.replace(',', '')
+            price = price.replace('\n', '').replace('\r', '')
+            listing.price = int(price)
+        except ValueError:
+            logger.exception("Bad value: %s" % price)
+            listing.price = 0
 
         listing.area = html.find("span", {'class': 'displayaddress'}).text.strip()
 
@@ -128,7 +132,7 @@ class RightmoveScraper(Scraper):
             latlon_match = latlon_regex.match(latlon_html.img['src'])
             listing.lat = float(latlon_match.group(1))
             listing.lon = float(latlon_match.group(2))
-            logging.info("Loc: %s %s", listing.lat, listing.lon)
+            logger.info("Loc: %s %s", listing.lat, listing.lon)
 
         listing.save()
 
