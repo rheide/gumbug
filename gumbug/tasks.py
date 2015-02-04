@@ -37,7 +37,7 @@ def get_scraper(url):
 
 @shared_task
 def search(search_id, refetch_listings=False):
-    logging.info("Celery searching stuff %s" % search_id)
+    logger.info("Celery searching stuff %s" % search_id)
     search = Search.objects.get(id=search_id)
     try:
         do_search(search, refetch_listings)
@@ -45,6 +45,7 @@ def search(search_id, refetch_listings=False):
         search.save()
     except Exception as e:
         traceback.print_exc()
+        logger.exception(unicode(e))
         search.status = Search.STATUS_ERROR
         search.search_result = u"Error: %s" % unicode(e)
         search.save()

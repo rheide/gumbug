@@ -247,29 +247,32 @@
 	<hr>
 </div>
 
-<div class="row">
-	<a class="btn {% if listing_type == 'all' %}btn-primary active{% else %}btn-default{% endif %}" href="?">All ({{ total_listing_count }})</a>
-	<a class="btn {% if listing_type == 'new' %}btn-primary active{% else %}btn-default{% endif %}" href="?filter=new">New ({{ new_listing_count }})</a>
-	<a class="btn {% if listing_type == 'favorite' %}btn-primary active{% else %}btn-default{% endif %}" href="?filter=favorite">Favorite ({{ favorite_listing_count }})</a>
-	<a class="btn {% if listing_type == 'ignored' %}btn-primary active{% else %}btn-default{% endif %}" href="?filter=ignored">Ignored ({{ ignored_listing_count }})</a>
-	<form action="" method="GET" style="display:inline;">
-		<input type="text" name="q" value="{{ search_query }}" style="width: 240px; height:28px; display:inline;"/>
-		<input type="submit" class="btn {% if search_query %}btn-primary active{% else %}btn-warning{% endif %}" value="Find" style="display:inline;"/>
-	</form>
-</div>
+{% if search.status == 'error' %}
+	<p class="error">Search failed. {{ search.search_result }}</p>
+{% else %}
 
-<div class="row">
-	{% include "_pagination.html" %}
-</div>
+	<div class="row">
+		<a class="btn {% if listing_type == 'all' %}btn-primary active{% else %}btn-default{% endif %}" href="?">All ({{ total_listing_count }})</a>
+		<a class="btn {% if listing_type == 'new' %}btn-primary active{% else %}btn-default{% endif %}" href="?filter=new">New ({{ new_listing_count }})</a>
+		<a class="btn {% if listing_type == 'favorite' %}btn-primary active{% else %}btn-default{% endif %}" href="?filter=favorite">Favorite ({{ favorite_listing_count }})</a>
+		<a class="btn {% if listing_type == 'ignored' %}btn-primary active{% else %}btn-default{% endif %}" href="?filter=ignored">Ignored ({{ ignored_listing_count }})</a>
+		<form action="" method="GET" style="display:inline;">
+			<input type="text" name="q" value="{{ search_query }}" style="width: 240px; height:28px; display:inline;"/>
+			<input type="submit" class="btn {% if search_query %}btn-primary active{% else %}btn-warning{% endif %}" value="Find" style="display:inline;"/>
+		</form>
+	</div>
 
-<div class="listings">
-	{% for search_listing in listings %}
-		{% with search_listing.listing as listing %}
-			{% include "_listing.html" %}
-		{% endwith %}
-	{% endfor %}
-</div>
-
-{% include "_pagination.html" %}
+	{% if listings %}
+		<div class="row">{% include "_pagination.html" %}</div>
+		<div class="listings">
+			{% for search_listing in listings %}
+				{% with search_listing.listing as listing %}
+					{% include "_listing.html" %}
+				{% endwith %}
+			{% endfor %}
+		</div>
+		<div class="row">{% include "_pagination.html" %}</div>
+	{% endif %}
+{% endif %}
 
 {% endblock %}

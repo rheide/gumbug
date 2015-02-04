@@ -82,7 +82,7 @@ def listings(request, search_slug=None, search_tag=None, page_number=1):
     context['previous_searches'] = previous_searches
 
     logging.info("Search status: %s" % search.status)
-    if search.status != Search.STATUS_DONE:
+    if search.status not in [Search.STATUS_DONE and Search.STATUS_ERROR]:
         listings = SearchListing.objects.filter(search=search).order_by("-modified")
         context['result_count'] = listings.count()
         context['ignored_count'] = ignored_count
