@@ -2,6 +2,7 @@ import logging
 import json
 import traceback
 
+from django.core.cache import cache
 from django.http.response import Http404, HttpResponse, HttpResponseForbidden
 from django.shortcuts import render, redirect
 from django.core.validators import URLValidator
@@ -61,6 +62,10 @@ def favorite_listing(request, search_slug, listing_id):
 
 def listings(request, search_slug=None, search_tag=None, page_number=1):
     context = {}
+
+    if request.GET.get('nocache', False):
+        logging.info("Clearing cache")
+        cache.clear()
 
     if search_slug:
         context['search_type'] = 'slug'

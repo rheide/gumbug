@@ -17,10 +17,7 @@ def do_with_retry(func, *args, **kwargs):
         try:
             return func(*args, **kwargs)
         except Exception, e:
-            if settings.DEBUG:
-                traceback.print_exc()
-            else:
-                logging.warning("Error: %s" % e)
+            logging.exception(e)
             last_exc = e
             # back off by factor of two plus a random number of milliseconds
             # to prevent deadlocks (according to API docs..)
