@@ -74,7 +74,13 @@ def do_search(search, refetch_listings):
         if previous_versions:
             listing = previous_versions[0]
         if not listing.id or refetch_listings:
-            do_with_retry(load_result_details, search_url, listing, retry_count=3)
+            try:
+                do_with_retry(load_result_details, search_url, listing, retry_count=3)
+            except Exception as e:
+                traceback.print_exc()
+                log(search, u"Could not fetch details: %s" % e)
+                listing.long_description= u"Could not fetch details: %s" % e
+                listing.save()
 
         search_listing = SearchListing(search=search, listing=listing)
         search_listing.save()
