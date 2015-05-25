@@ -4,6 +4,8 @@ import time
 import random
 from django.conf import settings
 
+logger = logging.getLogger(__name__)
+
 
 def do_with_retry(func, *args, **kwargs):
     """ Tries a function settings.RETRY_COUNT times using exponential backoff
@@ -17,7 +19,8 @@ def do_with_retry(func, *args, **kwargs):
         try:
             return func(*args, **kwargs)
         except Exception, e:
-            logging.exception(e)
+            traceback.print_exc()
+            logger.exception(e)
             last_exc = e
             # back off by factor of two plus a random number of milliseconds
             # to prevent deadlocks (according to API docs..)
