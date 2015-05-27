@@ -142,7 +142,7 @@ def listings(request, search_slug=None, search_tag=None, status=None, page_numbe
             Q(listing__area__icontains=search_query)
         )
 
-    p = Paginator(listings, 3)
+    p = Paginator(listings, 10)
     page = p.page(page_number)
 
     if not search.slug in previous_searches:
