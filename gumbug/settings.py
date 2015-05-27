@@ -1,3 +1,5 @@
+from datetime import timedelta
+
 import sys
 import os
 import dj_database_url
@@ -149,15 +151,10 @@ BROKER_URL = 'django://'
 
 CELERYBEAT_SCHEDULER = "djcelery.schedulers.DatabaseScheduler"
 
-
-from __future__ import absolute_import
-from celery.schedules import crontab
-from datetime import timedelta
-
 CELERYBEAT_SCHEDULE = {
     'http keepalive': {
         'task': 'gumbug.utils.keepalive',
-        'schedule': timedelta(seconds=60),
+        'schedule': timedelta(seconds=180),
     },
 }
 
