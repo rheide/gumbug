@@ -1,3 +1,3 @@
 #!/bin/bash
-celery -A gumbug worker -l info >celerylog.out 2>celerylog.err &
+celery -A gumbug worker -B -l info >celerylog.out 2>celerylog.err &
 echo "Celery processes started"
