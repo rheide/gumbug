@@ -2,6 +2,7 @@ import traceback
 import logging
 import time
 import random
+import requests
 from django.conf import settings
 
 logger = logging.getLogger(__name__)
@@ -29,3 +30,20 @@ def do_with_retry(func, *args, **kwargs):
         raise Exception("%s" % last_exc)
     else:
         raise last_exc
+
+
+def keepalive():
+    logger.info("Keepalive: %s" % settings.KEEPALIVE_URL)
+    if not settings.KEEPALIVE_URL:
+        logger.warning("No KEEPALIVE_URL set!")
+        return
+    try:
+        r = requests.get(settings.KEEPALIVE_URL)
+        if r.status_code != 200:
+            logger.info("Bad status code: %s" % r.status_code)
+            logger.info(r.content)
+        else:
+            r.content
+            logger.info("Keepalive complete: %s" % r.status_code)
+    except:
+        logger.exception("Something broke")
