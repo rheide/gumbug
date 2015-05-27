@@ -15,11 +15,14 @@
 	<p class="error">Search failed. {{ search.search_result }}</p>
 {% else %}
 	<p>Search is currently in progress. Please wait for it to finish. This page will automatically refresh.<p>
-	
+
 	<p>Last updated: {{ last_updated }}</p>
 	<p><strong>{{ result_count }} listings found</strong></p>
-	<p><strong>{{ ignored_count }} listings ignored</strong></p>
-	
+	<p><strong>{{ status_counts.ignored }} ignored</strong></p>
+	<p><strong>{{ status_counts.favorite }} favorited</strong></p>
+	<p><strong>{{ status_counts.maybe }} maybe</strong></p>
+	<p><strong>{{ status_counts.offer }} under offer</strong></p>
+
 	<script type="text/javascript">
 		setTimeout(function(){
 			location = '';

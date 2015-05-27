@@ -73,10 +73,17 @@ def listings(request, search_slug=None, search_tag=None, status=None, page_numbe
     if search.status not in [Search.STATUS_DONE, Search.STATUS_ERROR]:
         listings = SearchListing.objects.filter(search=search).order_by("-modified")
         context['result_count'] = listings.count()
+
+        status_counts = {}
+        for s, _ in SearchListing.STATUSES:
+            status_counts[s] = listings.filter(status=s).count()
+        context['status_counts'] = status_counts
+
         if context['result_count']:
             context['last_updated'] = listings[:1][0].modified
         else:
             context['last_updated'] = search.modified
+        
         return render(request, 'listings_in_progress.html', context)
 
     if request.method == "POST":
