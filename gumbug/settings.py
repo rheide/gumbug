@@ -154,7 +154,7 @@ CELERYBEAT_SCHEDULER = "djcelery.schedulers.DatabaseScheduler"
 CELERYBEAT_SCHEDULE = {
     'http keepalive': {
         'task': 'gumbug.utils.keepalive',
-        'schedule': timedelta(seconds=180),
+        'schedule': timedelta(seconds=120),
     },
 }
 

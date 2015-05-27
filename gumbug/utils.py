@@ -1,9 +1,11 @@
+from __future__ import absolute_import
 import traceback
 import logging
 import time
 import random
 import requests
 from django.conf import settings
+from celery import shared_task
 
 logger = logging.getLogger(__name__)
 
@@ -32,6 +34,7 @@ def do_with_retry(func, *args, **kwargs):
         raise last_exc
 
 
+@shared_task
 def keepalive():
     logger.info("Keepalive: %s" % settings.KEEPALIVE_URL)
     if not settings.KEEPALIVE_URL:
