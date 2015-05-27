@@ -48,13 +48,20 @@ div.images img {
 	margin: 4px;
 }
 
-div.search-listing.ignored {
-	background-color: #DDD;
-}
+.search-listing .btn.selected { color: #fff; font-style: italic; font-weight: bold; }
+.search-listing .btn { color: #eee; font-style: normal; }
 
-div.search-listing.favorite {
-	background-color: #e3ffe2;
-}
+.search-listing .btn-new { background-color: #337ab7; }
+.search-listing .btn-favorite { background-color: #5cb85c; }
+.search-listing .btn-ignore { background-color: #d9534f;}
+.search-listing .btn-maybe { background-color: #88B6FF; }
+.search-listing .btn-offer { background-color: #FFCE88; }
+
+div.search-listing.status-new { background-color: #FFF; }
+div.search-listing.status-ignored { background-color: #DDD; }
+div.search-listing.status-favorite { background-color: #e3ffe2; }
+div.search-listing.status-maybe { background-color: #B6D8F5; }
+div.search-listing.status-offer { background-color: #FFDAA6; }
 
 .ignore-reason {
 	padding-top: 8px;

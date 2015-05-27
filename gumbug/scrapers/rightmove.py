@@ -115,7 +115,8 @@ class RightmoveScraper(Scraper):
                 long_desc += u"* %s\n" % li.text
 
         description_header = None
-        for h3 in desc_div.findAll("h3"):
+        descriptions = desc_div.findAll("h3") or []
+        for h3 in descriptions:
             if h3.text.lower() == "full description":
                 description_header = h3
                 break

@@ -1,6 +1,6 @@
 from django.contrib import admin
 from gumbug.models import Search, SearchUrl, Listing, ListingImage, Station,\
-    StationDistance, StationFilter
+    StationDistance, StationFilter, SearchListing
 
 class BaseAdmin(admin.ModelAdmin):
     list_display = ('id', 'created', '__unicode__')
@@ -13,6 +13,7 @@ class ListingAdmin(BaseAdmin):
 
 
 admin.site.register(Search, BaseAdmin)
+admin.site.register(SearchListing, BaseAdmin)
 admin.site.register(SearchUrl, BaseAdmin)
 admin.site.register(Listing, ListingAdmin)
 admin.site.register(ListingImage, BaseAdmin)

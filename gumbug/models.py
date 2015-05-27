@@ -58,11 +58,6 @@ class Search(MPTTModel, BaseModel):
 
     parent = models.ForeignKey("self", null=True, blank=True, related_name="children")
 
-    preserve_ignored = models.BooleanField(default=True,
-                                           help_text="Ignore already ignored items in future searches.")
-    preserve_favorites = models.BooleanField(default=True,
-                                             help_text="Favorite already favorited items in future searches.")
-
     ignore_keywords = models.TextField(null=True, blank=True,
                                        help_text="Ads with any of these keywords will be automatically ignored.")
     require_keywords = models.TextField(null=True, blank=True,
@@ -235,14 +230,29 @@ class Listing(BaseModel):
 
 class SearchListing(BaseModel):
 
+    STATUSES = [
+        ('new', 'New'),
+        ('favorite', 'Favorite'),
+        ('ignored', 'Ignored'),
+        ('maybe', 'Maybe'),
+        ('offer', 'Under Offer'),  # check on later
+    ]
+
     objects = CachingManager()
 
     search = models.ForeignKey(Search)
     listing = models.ForeignKey(Listing)
 
+    ignored_reason = models.CharField(max_length=255, null=True, blank=True, db_index=True)
+
+    status = models.CharField(max_length=50, choices=STATUSES, default='new', db_index=True)
+
+    # Deprecated --> status
     favorite = models.BooleanField(default=False, db_index=True)
     ignored = models.BooleanField(default=False, db_index=True)
-    ignored_reason = models.CharField(max_length=255, null=True, blank=True)
+
+    def __unicode__(self):
+        return u"%s %s" % (self.listing, self.status)
 
 
 class ListingImage(BaseModel):

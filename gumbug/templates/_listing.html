@@ -1,5 +1,5 @@
 {% load humanize %}
-<div id="listing-{{ listing.id }}" class="col-md-12 search-listing {% if search_listing.ignored %}ignored{% endif %} {% if search_listing.favorite %}favorite{% endif %}">
+<div id="listing-{{ listing.id }}" class="col-md-12 search-listing status-{{ search_listing.status }}">
 
 	{% if search_listing.ignored and search_listing.ignored_reason %}
 		<p class="ignore-reason">{{ search_listing.ignored_reason }}</p>
@@ -24,21 +24,11 @@
 	<div class="description row">
 		<div class="col-md-6">
 
-		{% if not search_listing.favorite and not search_listing.ignored %}
-			<a class="btn btn-success btn-favorite" href="#" data-id="{{ search_listing.id }}" title="Move this ad to the top and keep it on top in future searches">Favorite</a>
-		{% endif %}
-
-		{% if search_listing.favorite %}
-			<a class="btn btn-info btn-unfavorite" href="#" data-id="{{ search_listing.id }}" title="Move this ad back to normal">Unfavorite</a>
-		{% endif %}
-
-		{% if not search_listing.ignored %}
-			<a class="btn btn-danger btn-ignore" href="#" data-id="{{ search_listing.id }}" title="Move this ad to the bottom and ignore it in future searches">Ignore</a>
-		{% endif %}
-
-		{% if search_listing.ignored %}
-			<a class="btn btn-success btn-unignore" href="#" data-id="{{ search_listing.id }}" title="Move this ad back and stop ignoring it in future searches">Unignore</a>
-		{% endif %}
+		<a class="btn btn-status btn-new{% if search_listing.status == 'new' %} selected{% endif %}" href="#" status='new' data-id="{{ search_listing.id }}">New</a>
+		<a class="btn btn-status btn-favorite{% if search_listing.status == 'favorite' %} selected{% endif %}" status='favorite' href="#" data-id="{{ search_listing.id }}" title="Move this ad to the top and keep it on top in future searches">Favorite</a>
+		<a class="btn btn-status btn-ignore{% if search_listing.status == 'ignore' %} selected{% endif %}" status='ignored' href="#" data-id="{{ search_listing.id }}" title="Move this ad to the bottom and ignore it in future searches">Ignore</a>
+		<a class="btn btn-status btn-maybe{% if search_listing.status == 'maybe' %} selected{% endif %}" status='maybe' href="#" data-id="{{ search_listing.id }}">Maybe</a>
+		<a class="btn btn-status btn-offer{% if search_listing.status == 'offer' %} selected{% endif %}" status='offer' href="#" data-id="{{ search_listing.id }}">Under Offer</a>
 
 		<pre>{{ listing.description|safe }}</pre>
 

@@ -29,6 +29,27 @@
 	var directionsService = new google.maps.DirectionsService();
 	var distances = {};
 
+	var statuses = {{ json_statuses|safe }};
+
+	function setStatus(e, btn, status) {
+		e.preventDefault();
+		var dataId = btn.attr("data-id");
+		var status = btn.attr("status");
+		var div = btn.closest("div.search-listing");
+
+		for (var i=0;i<statuses.length;i++) {
+			div.removeClass("status-" + statuses[i]);
+		}
+		div.addClass("status-" + status);
+
+		div.find(".btn-status").removeClass("selected");
+		btn.addClass("selected");
+
+		$.post("/u/{{ search.slug }}/status/" + dataId, {'status': status}, function(data) {
+			console.log("Ad " + dataId+ " status updated: " + status);
+		});
+	}
+	
 	function initialize() {
 
 		function csrfSafeMethod(method) {
@@ -73,55 +94,8 @@
 			}
 		});
 
-		$(".btn-ignore").click(function(e) {
-			e.preventDefault();
-			var dataId = $(this).attr("data-id");
-			var div = $(this).closest("div.search-listing");
-			div.addClass("ignored");
-			$(this).hide();
-
-			$.post("/s/{{ search.slug }}/ignore/" + dataId, {ignore: "true"}, function(data) {
-				console.log("Ad " + dataId+ " ignored.");
-			});
-			
-		});
-
-		$(".btn-unignore").click(function(e) {
-			e.preventDefault();
-			var dataId = $(this).attr("data-id");
-			var div = $(this).closest("div.search-listing");
-			div.removeClass("ignored");
-			$(this).hide();
-
-			$.post("/s/{{ search.slug }}/ignore/" + dataId, {ignore: "false"}, function(data) {
-				console.log("Ad " + dataId+ " unignored.");
-			});
-			
-		});
-
-		$(".btn-favorite").click(function(e) {
-			e.preventDefault();
-			var dataId = $(this).attr("data-id");
-			var div = $(this).closest("div.search-listing");
-			div.addClass("favorite");
-			$(this).hide();
-
-			$.post("/s/{{ search.slug }}/favorite/" + dataId, {favorite: "true"}, function(data) {
-				console.log("Ad " + dataId+ " favorited.");
-			});
-			
-		});
-
-		$(".btn-unfavorite").click(function(e) {
-			e.preventDefault();
-			var dataId = $(this).attr("data-id");
-			var div = $(this).closest("div.search-listing");
-			div.removeClass("favorite");
-			$(this).hide();
-
-			$.post("/s/{{ search.slug }}/favorite/" + dataId, {favorite: "false"}, function(data) {
-				console.log("Ad " + dataId+ " unfavorited.");
-			});
+		$(".btn-status").click(function(e) {
+			setStatus(e, $(this));
 		});
 
 		function toggleMap(button, e, mapTypeId) {
@@ -252,10 +226,12 @@
 {% else %}
 
 	<div class="row">
-		<a class="btn {% if listing_type == 'all' %}btn-primary active{% else %}btn-default{% endif %}" href="?">All ({{ total_listing_count }})</a>
-		<a class="btn {% if listing_type == 'new' %}btn-primary active{% else %}btn-default{% endif %}" href="?filter=new">New ({{ new_listing_count }})</a>
-		<a class="btn {% if listing_type == 'favorite' %}btn-primary active{% else %}btn-default{% endif %}" href="?filter=favorite">Favorite ({{ favorite_listing_count }})</a>
-		<a class="btn {% if listing_type == 'ignored' %}btn-primary active{% else %}btn-default{% endif %}" href="?filter=ignored">Ignored ({{ ignored_listing_count }})</a>
+		<a class="btn {% if status == 'all' %}btn-primary active{% else %}btn-default{% endif %}" href="{% url listings_url listing_name %}">All ({{ total_listing_count }})</a>
+		<a class="btn {% if status == 'new' %}btn-primary active{% else %}btn-default{% endif %}" href="{% url listings_url listing_name 'new' %}">New ({{ status_counts.new }})</a>
+		<a class="btn {% if status == 'favorite' %}btn-primary active{% else %}btn-default{% endif %}" href="{% url listings_url listing_name 'favorite' %}">Favorite ({{ status_counts.favorite }})</a>
+		<a class="btn {% if status == 'ignored' %}btn-primary active{% else %}btn-default{% endif %}" href="{% url listings_url listing_name 'ignored' %}">Ignored ({{ status_counts.ignored }})</a>
+		<a class="btn {% if status == 'maybe' %}btn-primary active{% else %}btn-default{% endif %}" href="{% url listings_url listing_name 'maybe' %}">Maybe ({{ status_counts.maybe }})</a>
+		<a class="btn {% if status == 'offer' %}btn-primary active{% else %}btn-default{% endif %}" href="{% url listings_url listing_name 'offer' %}">Under Offer ({{ status_counts.offer }})</a>
 		<form action="" method="GET" style="display:inline;">
 			<input type="text" name="q" value="{{ search_query }}" style="width: 240px; height:28px; display:inline;"/>
 			<input type="submit" class="btn {% if search_query %}btn-primary active{% else %}btn-warning{% endif %}" value="Find" style="display:inline;"/>

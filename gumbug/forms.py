@@ -14,7 +14,7 @@ class SearchForm(forms.ModelForm):
     class Meta:
         model = Search
         fields = ['parent', 'ignore_keywords', 'require_keywords',
-                  'preserve_ignored', 'preserve_favorites', 'refetch_listings']
+                  'refetch_listings']
         widgets = {
             'parent': HiddenInput(),
             'ignore_keywords': forms.Textarea(attrs={'rows': 3, 'cols': 80}),

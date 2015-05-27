@@ -6,12 +6,15 @@ urlpatterns = patterns('',
 
     url(r'^s/(?P<search_slug>[-\d\w_]+)$', 'gumbug.views.listings', name='listings'),
     url(r'^s/(?P<search_slug>[-\d\w_]+)/(?P<page_number>\d+)$', 'gumbug.views.listings', name='listings'),
+    url(r'^s/(?P<search_slug>[-\d\w_]+)/(?P<status>[-\d\w_]+)$', 'gumbug.views.listings', name='listings'),
+    url(r'^s/(?P<search_slug>[-\d\w_]+)/(?P<status>[-\d\w_]+)/(?P<page_number>\d+)$', 'gumbug.views.listings', name='listings'),
 
     url(r'^t/(?P<search_tag>[-\d\w_]+)$', 'gumbug.views.listings', name='tag_listings'),
     url(r'^t/(?P<search_tag>[-\d\w_]+)/(?P<page_number>\d+)$', 'gumbug.views.listings', name='tag_listings'),
+    url(r'^t/(?P<search_tag>[-\d\w_]+)/(?P<status>[-\d\w_]+)$', 'gumbug.views.listings', name='tag_listings'),
+    url(r'^t/(?P<search_tag>[-\d\w_]+)/(?P<status>[-\d\w_]+)/(?P<page_number>\d+)$', 'gumbug.views.listings', name='tag_listings'),
 
-    url(r'^s/(?P<search_slug>[-\d\w_]+)/ignore/(?P<listing_id>\d+)$', 'gumbug.views.ignore_listing', name='ignore_listing'),
-    url(r'^s/(?P<search_slug>[-\d\w_]+)/favorite/(?P<listing_id>\d+)$', 'gumbug.views.favorite_listing', name='favorite_listing'),
+    url(r'^u/(?P<search_slug>[-\d\w_]+)/status/(?P<listing_id>\d+)$', 'gumbug.views.update_status', name='update_status'),
 
     url(r'^admin/', include(admin.site.urls)),
 

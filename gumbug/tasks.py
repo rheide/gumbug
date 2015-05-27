@@ -152,9 +152,7 @@ def process_past_search_listings(search, result_list):
         if not previous_results:
             continue
 
-        if previous_results[0].ignored != result.ignored and search.preserve_ignored:
-            result.ignored = previous_results[0].ignored
-            result.ignored_reason = previous_results[0].ignored_reason
+        previous = previous_results[0]
 
-        if previous_results[0].favorite != result.favorite  and search.preserve_favorites:
-            result.favorite = previous_results[0].favorite
+        if previous.status != 'new' and previous.status != result.status:
+            result.status = previous.status
