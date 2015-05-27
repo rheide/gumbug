@@ -105,11 +105,11 @@ def process_ignore_keywords(search, search_listings):
     if not ignore_keywords:
         return
     for search_listing in search_listings:
-        if search_listing.ignored:
+        if search_listing.status == 'ignored':
             continue  # Skip already ignored results
         text = search_listing.listing.filter_text
         if any(word in text for word in ignore_keywords):
-            search_listing.ignored = True
+            search_listing.status = 'ignored'
             search_listing.ignored_reason = "Contains ignored keywords"
 
 
@@ -118,11 +118,11 @@ def process_station_filters(search, search_listings):
     if not station_filters:
         return
     for search_listing in search_listings:
-        if search_listing.ignored:
+        if search_listing.status == 'ignored':
             continue  # Skip already ignored results
 
         if not any([sf.matches(search_listing.listing) for sf in station_filters]):
-            search_listing.ignored = True
+            search_listing.status = 'ignored'
             search_listing.ignored_reason = "Does not match transport filters"
 
 
@@ -131,11 +131,11 @@ def process_require_keywords(search, search_listings):
     if not require_keywords:
         return
     for search_listing in search_listings:
-        if search_listing.ignored:
+        if search_listing.status == 'ignored':
             continue  # Skip already ignored results
         text = search_listing.listing.filter_text
         if not any(word in text for word in require_keywords):
-            search_listing.ignored = True
+            search_listing.status = 'ignored'
             search_listing.ignored_reason = "Did not contain a required keyword"
 
 

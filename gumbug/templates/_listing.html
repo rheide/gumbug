@@ -1,11 +1,11 @@
 {% load humanize %}
 <div id="listing-{{ listing.id }}" class="col-md-12 search-listing status-{{ search_listing.status }}">
 
-	{% if search_listing.ignored and search_listing.ignored_reason %}
+	{% if search_listing.status == 'ignored' and search_listing.ignored_reason %}
 		<p class="ignore-reason">{{ search_listing.ignored_reason }}</p>
 	{% endif %}
 
-	{% if search_listing.favorite %}
+	{% if search_listing.status == 'favorite' %}
 		<p class"favorite">Favorite</p>
 	{% endif %}
 
